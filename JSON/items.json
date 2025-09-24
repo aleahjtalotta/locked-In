@@ -1,0 +1,12 @@
+[
+    {
+        "itemID": 101,
+        "itemName": "Magic Key",
+        "isReusable": false
+    },
+    {
+        "itemID": 102,
+        "itemName": "Torch",
+        "isReusable": true
+    }
+]

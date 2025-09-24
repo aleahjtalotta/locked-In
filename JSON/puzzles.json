@@ -1,0 +1,42 @@
+[
+    {
+        "puzzleName": 201,
+        "type": "MultipleChoicePuzzle",
+        "description": "What is 2+2?",
+        "solution": "4",
+        "solved": false,
+        "reward": "Gold Coin",
+        "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "correctOption": "4"
+    },
+    {
+        "puzzleName": 202,
+        "type": "WriteInPuzzle",
+        "description": "Why is jasmine smelly?",
+        "solution": "no idea",
+        "solved": false,
+        "reward": "Silver Coin",
+        "correctOption": "4"
+    },
+    {
+        "puzzleName": 203,
+        "type": "DragDropPuzzle",
+        "description": "Match capitals to countries",
+        "solution": "Correct Pairs",
+        "solved": false,
+        "reward": "Diamond",
+        "targetAreas": [
+            "France",
+            "Germany"
+        ],
+        "draggableItems": [
+            "Paris",
+            "Berlin"
+        ]
+    }
+]
