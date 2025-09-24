@@ -1,0 +1,31 @@
+[
+    {
+        "playerID": 1,
+        "name": "Bob",
+        "email": "Bob@example.com",
+        "avatar": "avatar1.png",
+        "items": [
+            101,
+            102
+        ],
+        "statistics": {
+            "gamePlayed": 5,
+            "gamesWon": 2
+        },
+        "currentScore": 1200
+    },
+    {
+        "playerID": 2,
+        "name": "Jasmine",
+        "email": "loveleejasmine@example.com",
+        "avatar": "avatar2.png",
+        "items": [
+            103
+        ],
+        "statistics": {
+            "gamePlayed": 5,
+            "gamesWon": 2
+        },
+        "currentScore": 1200
+    }
+]
