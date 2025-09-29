@@ -1,0 +1,14 @@
+[
+    {
+        "scoreEntryID": 501,
+        "playerName": "Alice",
+        "score": 1500,
+        "completionTime": "01:20:00"
+    },
+    {
+        "scoreEntryID": 502,
+        "playerName": "Bob",
+        "score": 900,
+        "completionTime": "01:45:00"
+    }
+]

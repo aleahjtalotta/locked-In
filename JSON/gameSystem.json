@@ -1,0 +1,28 @@
+[
+    {
+        "gameSystemID": 1,
+        "rooms": [
+            401,
+            402
+        ],
+        "puzzles": [
+            301,
+            302
+        ],
+        "players": [
+            1,
+            2
+        ],
+        "items": [
+            101,
+            102
+        ],
+        "leaderboard": 1,
+        "hints": [
+            601,
+            602
+        ],
+        "timer": 701,
+        "currentDifficulty": "Medium"
+    }
+]
