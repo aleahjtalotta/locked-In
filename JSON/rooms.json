@@ -1,20 +1,84 @@
-[
-    {
-        "roomID": 401,
-        "puzzles": [
-            301
-        ],
-        "items": [
-            101
+{
+    "gameSystemID": 1,
+    "currentDifficulty": "Medium",
+    "timer": {
+        "timerID": 701,
+        "totalTime": "02:00:00",
+        "timeRemaining": "01:15:00"
+    },
+    "hints": [
+        {
+            "hintID": 601,
+            "hintText": "Look closely at the symbols on the wall — they are numbers in disguise."
+        },
+        {
+            "hintID": 602,
+            "hintText": "The key you found earlier can only be used once, so choose carefully."
+        }
+    ],
+    "leaderboard": {
+        "scores": [
+            {
+                "scoreEntryID": 501,
+                "playerName": "Alice",
+                "score": 1500,
+                "completionTime": "01:20:00"
+            },
+            {
+                "scoreEntryID": 502,
+                "playerName": "Bob",
+                "score": 900,
+                "completionTime": "01:45:00"
+            }
         ]
     },
-    {
-        "roomID": 402,
-        "puzzles": [
-            302
-        ],
-        "items": [
-            102
-        ]
-    }
-]
+    "rooms": [
+        {
+            "roomID": 401,
+            "items": [
+                {
+                    "itemID": 101,
+                    "itemName": "Magic Key",
+                    "isReusable": false
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 301,
+                    "description": "Solve the riddle of the Sphinx",
+                    "solution": "man",
+                    "solved": false,
+                    "reward": "Golden Key",
+                    "type": "WrittenPuzzle",
+                    "correctAnswer": "man"
+                }
+            ]
+        },
+        {
+            "roomID": 402,
+            "items": [
+                {
+                    "itemID": 102,
+                    "itemName": "Torch",
+                    "isReusable": true
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 302,
+                    "description": "Choose the correct door",
+                    "solution": "Door B",
+                    "solved": false,
+                    "reward": "Map",
+                    "type": "MultipleChoicePuzzle",
+                    "options": [
+                        "Door A",
+                        "Door B",
+                        "Door C"
+                    ],
+                    "correctOption": "Door B"
+                }
+            ]
+        }
+    ]
+}

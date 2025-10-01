@@ -1,0 +1,47 @@
+[
+    {
+        "playerID": 1,
+        "name": "Bob",
+        "email": "Bob@example.com",
+        "avatar": "avatar1.png",
+        "currentScore": 1200,
+        "items": [
+            {
+                "itemID": 101,
+                "itemName": "Magic Key",
+                "isReusable": false
+            },
+            {
+                "itemID": 102,
+                "itemName": "Torch",
+                "isReusable": true
+            }
+        ],
+        "statistics": {
+            "gamesPlayed": 5,
+            "puzzlesSolved": 12,
+            "avgTime": "00:30:00",
+            "gamesWon": 2
+        }
+    },
+    {
+        "playerID": 2,
+        "name": "Jasmine",
+        "email": "loveleejasmine@example.com",
+        "avatar": "avatar2.png",
+        "currentScore": 1200,
+        "items": [
+            {
+                "itemID": 103,
+                "itemName": "Map",
+                "isReusable": true
+            }
+        ],
+        "statistics": {
+            "gamesPlayed": 3,
+            "puzzlesSolved": 7,
+            "avgTime": "00:25:00",
+            "gamesWon": 2
+        }
+    }
+]
