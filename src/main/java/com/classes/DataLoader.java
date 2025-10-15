@@ -40,10 +40,6 @@ import org.json.simple.ItemList;
                 catch (NumberFormatException ignored) {
 
                     }
-
-                    Player p = new Player(name, score);
-                    players.add(p);
-
                 }
         } catch (exception e) {
             System.out.println(" ")
