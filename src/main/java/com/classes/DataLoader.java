@@ -8,6 +8,13 @@ public class DataLoader {
     }
 
     public GameSystem loadGame(){
+        GameSystem gs = new gameSystem();
+        
+        PlayerList players = loadPlayers();
+        PuzzleList puzzles = loadPuzzles();
+        RoomList roomks = loadRooms();
+        ItemList items = loadItems();
+
         return null;
     }
 
@@ -27,5 +34,15 @@ public class DataLoader {
         return null;
     }
 
-    
-}
+
+
+
+
+
+
+
+    } catch (Exception e) {
+
+}    
+
+
