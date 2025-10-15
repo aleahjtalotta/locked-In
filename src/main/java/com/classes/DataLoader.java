@@ -27,7 +27,7 @@ import org.json.simple.ItemList;
     }
     public PlayerList loadPlayers(){
         PlayerList players = new PlayerList();
-        File f = new File(source + "/players.txt");
+        File f = new File(source + "");
         try (Scanner scanner = new Scanner(f)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine(). trim();
@@ -46,7 +46,7 @@ import org.json.simple.ItemList;
 
                 }
         } catch (exception e) {
-            System.out.println("Could not load players.txt ")
+            System.out.println(" ")
         }
 
             }
