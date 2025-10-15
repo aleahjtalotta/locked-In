@@ -37,7 +37,7 @@ import org.json.simple.ItemList;
                 int score = 0;
                 if (parts.length > 1) {
                     try { score = Integer.parseInt(parts[1].trim()); }
-                catch (NumberFormatException ignored) { /* leave score as 0 */ }
+                catch (NumberFormatException ignored) {
 
                     }
 
