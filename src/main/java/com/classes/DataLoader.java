@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.ItemList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -51,7 +52,8 @@ import org.json.simple.parser.JSONParser;
         e.printStackTrace();
     }
             
-return players;
+     return players;
+
     }
 
     public PuzzleList loadPuzzles() {
@@ -65,9 +67,31 @@ return players;
     public ItemList loadItems(){
         return null;
     }
+public Leaderboard loadLeaderboard() { 
+ Leaderboard lb = new Leaderboard();
 
+ JSONParser parser = new JSONParser() {
+    String path = source + ""; // JSON?
+    try (FileReader reader = new FileReader(path)) {
+        JSONArray arr = (JSONArray) parser.parse(reader);
+        for (Object o : arr) {
+            JSONObject jo = (JSONObject) o;
+            String playerName = (String)
+            jo.getOrDefault("playerName","");
+            int score = (int) (((Number)
 
-
+            jo.getOrDefault("score", 0)).longValue());
+            Duration dur = Duration.ofSeconds(seconds);
+            ScoreEntry entry = new ScoreEntry(playerName, score, dur);
+            lb.addScoreEntry(entry);
+        }
+    }catch(Exception e) {
+        e.printStackTrace();
+    
+    }
+    return lb;
+ }
+}
 
 
 
