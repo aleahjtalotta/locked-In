@@ -83,7 +83,40 @@ import org.json.simple.parser.JSONParser;
     }
     
     public RoomList loadRooms(){
-        return null;
+       RoomList roomList = new RoomList();
+       Map<Integer, Puzzle> puzzleId = new HashMap<>();
+       for (Puzzle p : puzzleList.getAllPuzzles()) {
+        puzzleId.put(p.getId(), p);
+       }
+
+       JSONParser parser = new JSONParser();
+       String path = source + "/rooms.json"; 
+       
+       try (FileReader reader = new FileReader(path)) {
+        JSONArray arr = (JSONArray) parser.parse(reader);
+        for (Object obj : arr) {
+            JSONObject jo = (JSONObject) obj;
+            int id = (int) ((Number) jo.getOrDefault("id", 0)).longValue();
+            String name = (String) jo.getOrDefault("name", "");
+            
+            Room room = new Room(id, name);
+            JSONArray pidArray = (JSONArray) jo.get("puzzleIds");
+            if (pidArray != null) {
+                for (Object pidObj : pidArray) {
+                    int pid = (int) ((Number) pidObj).longValue();
+                    Puzzle p = puzzleId.get(pid);
+                    if (p != null) {
+                        room.addPuzzle(p);
+                    }
+         }
+       }
+       roomList.addRoom(room);
+        }
+       } catch (Exception e) {
+        e.printStackTrace();
+       }
+       return roomList;
+
     }
 
     public ItemList loadItems(){
