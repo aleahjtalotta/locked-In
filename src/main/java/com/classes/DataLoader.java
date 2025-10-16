@@ -57,7 +57,29 @@ import org.json.simple.parser.JSONParser;
     }
 
     public PuzzleList loadPuzzles() {
-        return null;
+        PuzzleList puzzleList = new PuzzleList();
+        JSONParser parser = new JSONParser();
+        String path = source + "/puzzles.json"; 
+
+        try(FileReader reader = new FileReader(path)){
+            JSONArray arr = (JSONArray) parser.parse(reader);
+            for(Object obj : arr){
+                JSONObject jo = (JSONObject) obj;
+                int id = (int) ((Number) jo.getOrDefault("id", 0)).longValue();
+                String name =(String) jo.getOrDefault("name", "");
+                String desc = (String) jo.getOrDefault("description", "");
+                String solution = (String) jo.getOrDefault("solution", "");
+                String reward = (String) jo.getOrDefault("reward", "");
+
+                Puzzle p = new Puzzle(id, name, desc, solution, reward);
+                puzzleList.addPuzzle(p);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+            return puzzleList;
+        }
+        
     }
     
     public RoomList loadRooms(){
@@ -68,29 +90,25 @@ import org.json.simple.parser.JSONParser;
         return null;
     }
 public Leaderboard loadLeaderboard() { 
- Leaderboard lb = new Leaderboard();
+    Leaderboard lb = new Leaderboard();
 
- JSONParser parser = new JSONParser() {
-    String path = source + ""; // JSON?
+    JSONParser parser = new JSONParser();
+    String path = source + "/leaderboard.json"; // Update with correct file name
     try (FileReader reader = new FileReader(path)) {
         JSONArray arr = (JSONArray) parser.parse(reader);
         for (Object o : arr) {
             JSONObject jo = (JSONObject) o;
-            String playerName = (String)
-            jo.getOrDefault("playerName","");
-            int score = (int) (((Number)
-
-            jo.getOrDefault("score", 0)).longValue());
+            String playerName = (String) jo.getOrDefault("playerName", "");
+            int score = ((Number) jo.getOrDefault("score", 0)).intValue();
+            long seconds = ((Number) jo.getOrDefault("seconds", 0)).longValue();
             Duration dur = Duration.ofSeconds(seconds);
             ScoreEntry entry = new ScoreEntry(playerName, score, dur);
             lb.addScoreEntry(entry);
         }
-    }catch(Exception e) {
+    } catch (Exception e) {
         e.printStackTrace();
-    
     }
     return lb;
- }
 }
 
 
