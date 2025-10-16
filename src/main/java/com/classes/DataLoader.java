@@ -1,51 +1,58 @@
 package com.classes;
 
-import java.io.File;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.json.simple.ItemList;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
     public class DataLoader {
-        private String source;
+        private final String source;
 
         public DataLoader(String source) {
             this.source = source;
         }
 
-    }
-
     public GameSystem loadGame(){
         GameSystem game = new GameSystem();
-        game.setPlayer(loadPlayers());
-        game.setPuzzles(loadPuzzles());
-        game.setRooms(loadRooms());
-        game.setLeaderboard(new Leaderboard());
+        PuzzleList puzzles = loadPuzzles();
+        PlayerList players = loadPlayers();
+        RoomList rooms = loadRooms(puzzles);
+        Leaderboard leaderboard = loadLeaderboard();
+        game.setPuzzles(puzzles);
+        game.setPlayers(players);
+        game.setRooms(rooms);
+        game.setLeaderboard(leaderboard);
         game.setHints(new Hints());
         game.setTimer(new Timer());
         return game;
     }
-    public PlayerList loadPlayers(){
+    public PlayerList loadPlayers() {
         PlayerList players = new PlayerList();
-        File f = new File(source + "");
-        try (Scanner scanner = new Scanner(f)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine(). trim();
-                if(line.siEmpty() || line.startsWith("#")) continue;
-                String[] parts = line.split("",2); // name score 
-                String name = parts[0].trim();
-                int score = 0;
-                if (parts.length > 1) {
-                    try { score = Integer.parseInt(parts[1].trim()); }
-                catch (NumberFormatException ignored) {
 
-                    }
-                }
-        } catch (exception e) {
-            System.out.println(" ")
+        JSONParser parser = new JSONParser();
+        String path = source + "/players.json";
+        try (FileReader reader = new FileReader(path)) {
+            JSONArray arr = (JSONArray) parser.parse(reader);
+            for (Object o : arr) {
+                JSONObject jo = (JSONObject) o;
+                String name = (String) jo.getOrDefault("name", "");
+                String email = (String) jo.getOrDefault("email", "");
+
+                player p = new Player(name, email);
+                player.addPlayer(p);
+                    
         }
-
-            }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+            
+return players;
+    }
 
     public PuzzleList loadPuzzles() {
         return null;
