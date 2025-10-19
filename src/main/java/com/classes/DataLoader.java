@@ -118,7 +118,7 @@ import org.json.simple.parser.JSONParser;
     }
 
     public ItemList loadItems(){
-        return null;
+        return new ItemList();
     }
 public Leaderboard loadLeaderboard() { 
     Leaderboard lb = new Leaderboard();
