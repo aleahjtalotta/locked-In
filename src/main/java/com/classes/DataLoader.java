@@ -44,8 +44,8 @@ import org.json.simple.parser.JSONParser;
                 String name = (String) jo.getOrDefault("name", "");
                 String email = (String) jo.getOrDefault("email", "");
 
-                player p = new Player(name, email);
-                player.addPlayer(p);
+                Player p = new Player(name, email);
+                players.addPlayer(p);
                     
         }
     } catch (Exception e) {
@@ -61,7 +61,7 @@ import org.json.simple.parser.JSONParser;
         JSONParser parser = new JSONParser();
         String path = source + "/puzzles.json"; 
 
-        try(FileReader reader = new FileReader(path)){
+        try(FileReader reader = new FileReader(path)) {
             JSONArray arr = (JSONArray) parser.parse(reader);
             for(Object obj : arr){
                 JSONObject jo = (JSONObject) obj;
@@ -74,15 +74,13 @@ import org.json.simple.parser.JSONParser;
                 Puzzle p = new Puzzle(id, name, desc, solution, reward);
                 puzzleList.addPuzzle(p);
             }
-            catch(Exception e){
+            } catch(Exception e){
                 e.printStackTrace();
             }
             return puzzleList;
         }
-        
-    }
     
-    public RoomList loadRooms(){
+    public RoomList loadRooms(PuzzleList puzzleList){
        RoomList roomList = new RoomList();
        Map<Integer, Puzzle> puzzleId = new HashMap<>();
        for (Puzzle p : puzzleList.getAllPuzzles()) {
@@ -143,13 +141,6 @@ public Leaderboard loadLeaderboard() {
     }
     return lb;
 }
-
-
-
-
-
-    } catch (Exception e) {
-
-}    
+    }
 
 
