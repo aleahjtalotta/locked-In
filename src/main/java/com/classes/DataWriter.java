@@ -38,6 +38,6 @@ public class DataWriter {
             writer.write("Number of Puzzles: " + gs.getPuzzleList().getSize() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
-     }
+        }
 }
      }
