@@ -1,37 +1,37 @@
 package com.classes;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Objects;
+import java.util.UUID;
 
-public class Item extends ItemList{
-    private int RoomID;
-    protected List<Puzzle> puzzles;
-    protected List<Item> items;
+/**
+ * Item that can be discovered and used within a room.
+ */
+public class Item {
+    private final UUID id;
+    private final Long legacyId;
+    private final String name;
+    private final boolean reusable;
 
-    public Item(int RoomID) {
-        this.RoomID = RoomID;
-        this.puzzles = new ArrayList<>();
-        this.items = new ArrayList<>();
+    public Item(UUID id, Long legacyId, String name, boolean reusable) {
+        this.id = Objects.requireNonNull(id, "id");
+        this.legacyId = legacyId;
+        this.name = Objects.requireNonNullElse(name, "Unknown Item");
+        this.reusable = reusable;
     }
 
-    public int getRoomID() {
-        return RoomID;
+    public UUID getId() {
+        return id;
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    public Long getLegacyId() {
+        return legacyId;
     }
 
-    public void enterRoom() {
-        //
+    public String getName() {
+        return name;
     }
 
-    public void completeRoom() {
-        //
+    public boolean isReusable() {
+        return reusable;
     }
-
-    public void unlockNextPuzzle() {
-        //
-    }
-
 }

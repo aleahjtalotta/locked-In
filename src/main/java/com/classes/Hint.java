@@ -8,10 +8,12 @@ import java.util.UUID;
  */
 public class Hint {
     private final UUID id;
+    private final Long legacyId;
     private final String text;
 
-    public Hint(UUID id, String text) {
+    public Hint(UUID id, Long legacyId, String text) {
         this.id = Objects.requireNonNull(id, "id");
+        this.legacyId = legacyId;
         this.text = Objects.requireNonNullElse(text, "");
     }
 
@@ -21,5 +23,9 @@ public class Hint {
 
     public String getText() {
         return text;
+    }
+
+    public Long getLegacyId() {
+        return legacyId;
     }
 }
