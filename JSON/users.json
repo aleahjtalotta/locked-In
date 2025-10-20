@@ -2,9 +2,9 @@
     {
         "playerID": 1,
         "name": "Bob",
-        "email": "Bob@example.com",
+        "email": "bob@example.com",
         "avatar": "avatar1.png",
-        "currentScore": 1200,
+        "currentScore": 900,
         "items": [
             {
                 "itemID": 101,
@@ -29,11 +29,11 @@
         "name": "Jasmine",
         "email": "loveleejasmine@example.com",
         "avatar": "avatar2.png",
-        "currentScore": 1200,
+        "currentScore": 1100,
         "items": [
             {
                 "itemID": 103,
-                "itemName": "Map",
+                "itemName": "Ancient Dial",
                 "isReusable": true
             }
         ],
@@ -42,6 +42,31 @@
             "puzzlesSolved": 7,
             "avgTime": "00:25:00",
             "gamesWon": 2
+        }
+    },
+    {
+        "playerID": 3,
+        "name": "Mei",
+        "email": "mei.chen@example.com",
+        "avatar": "avatar3.png",
+        "currentScore": 1500,
+        "items": [
+            {
+                "itemID": 104,
+                "itemName": "Cipher Wheel",
+                "isReusable": true
+            },
+            {
+                "itemID": 105,
+                "itemName": "Vault Keycard",
+                "isReusable": false
+            }
+        ],
+        "statistics": {
+            "gamesPlayed": 6,
+            "puzzlesSolved": 15,
+            "avgTime": "00:28:00",
+            "gamesWon": 4
         }
     }
 ]

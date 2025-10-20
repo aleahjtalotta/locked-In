@@ -9,11 +9,15 @@
     "hints": [
         {
             "hintID": 601,
-            "hintText": "Look closely at the symbols on the wall — they are numbers in disguise."
+            "hintText": "Look closely at the wall symbols; they hide a simple number pattern."
         },
         {
             "hintID": 602,
-            "hintText": "The key you found earlier can only be used once, so choose carefully."
+            "hintText": "Tools you collect may only work once, so plan their use carefully."
+        },
+        {
+            "hintID": 603,
+            "hintText": "Every lock has a tell; listen for the click when the tumblers align."
         }
     ],
     "leaderboard": {
@@ -29,6 +33,12 @@
                 "playerName": "Bob",
                 "score": 900,
                 "completionTime": "01:45:00"
+            },
+            {
+                "scoreEntryID": 503,
+                "playerName": "Jasmine",
+                "score": 1100,
+                "completionTime": "01:30:00"
             }
         ]
     },
@@ -45,12 +55,12 @@
             "puzzles": [
                 {
                     "puzzleName": 301,
-                    "description": "Solve the riddle of the Sphinx",
-                    "solution": "man",
-                    "solved": false,
+                    "name": "Sphinx Riddle",
+                    "description": "Solve the riddle of the Sphinx to reveal the path forward.",
                     "reward": "Golden Key",
-                    "type": "WrittenPuzzle",
-                    "correctAnswer": "man"
+                    "type": "WRITE_IN",
+                    "correctAnswer": "man",
+                    "solved": false
                 }
             ]
         },
@@ -66,17 +76,86 @@
             "puzzles": [
                 {
                     "puzzleName": 302,
-                    "description": "Choose the correct door",
-                    "solution": "Door B",
-                    "solved": false,
-                    "reward": "Map",
-                    "type": "MultipleChoicePuzzle",
+                    "name": "Hall of Doors",
+                    "description": "Three doors stand before you; only one is safe.",
+                    "reward": "Ancient Map",
+                    "type": "MULTIPLE_CHOICE",
                     "options": [
-                        "Door A",
-                        "Door B",
-                        "Door C"
+                        "Door A - The door with scorch marks",
+                        "Door B - The door with cold air",
+                        "Door C - The door with scratch marks"
                     ],
-                    "correctOption": "Door B"
+                    "correctOption": "Door B - The door with cold air",
+                    "solved": false
+                }
+            ]
+        },
+        {
+            "roomID": 403,
+            "items": [
+                {
+                    "itemID": 103,
+                    "itemName": "Ancient Dial",
+                    "isReusable": true
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 303,
+                    "name": "Statue Alignment",
+                    "description": "Rotate the statues into the correct order to open the secret passage.",
+                    "reward": "Silver Sigil",
+                    "type": "SEQUENCE",
+                    "sequence": [
+                        "North",
+                        "East",
+                        "South",
+                        "West"
+                    ],
+                    "solved": false
+                }
+            ]
+        },
+        {
+            "roomID": 404,
+            "items": [
+                {
+                    "itemID": 104,
+                    "itemName": "Cipher Wheel",
+                    "isReusable": true
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 304,
+                    "name": "Keeper's Whisper",
+                    "description": "Answer the guardian's riddle to earn its blessing.",
+                    "reward": "Emerald Token",
+                    "type": "RIDDLE",
+                    "riddle": "I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?",
+                    "answer": "echo",
+                    "solved": false
+                }
+            ]
+        },
+        {
+            "roomID": 405,
+            "items": [
+                {
+                    "itemID": 105,
+                    "itemName": "Vault Keycard",
+                    "isReusable": false
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 305,
+                    "name": "Sealed Vault",
+                    "description": "Decode the flickering lights to unlock the vault door.",
+                    "reward": "Vault Treasure",
+                    "type": "CODE_LOCK",
+                    "code": "7391",
+                    "solved": false
                 }
             ]
         }
