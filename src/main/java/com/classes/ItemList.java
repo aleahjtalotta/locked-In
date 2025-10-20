@@ -1,24 +1,37 @@
 package com.classes;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class ItemList {
-    
-    private List<Item> items;
+    private final List<Item> items;
 
     public ItemList() {
-        items = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
-    public void addItem(Item item) {
-        items.add(item);
+    public void add(Item item) {
+        if (item != null) {
+            items.add(item);
+        }
     }
 
-    public void removeItem(Item item) {
-        items.remove(item);
+    public boolean remove(Item item) {
+        return items.remove(item);
     }
 
-    public Item getItem(int index) {
-        return items.get(index);
+    public Optional<Item> findById(UUID id) {
+        return items.stream().filter(it -> it.getId().equals(id)).findFirst();
+    }
+
+    public List<Item> asList() {
+        return Collections.unmodifiableList(items);
+    }
+
+    public int size() {
+        return items.size();
     }
 }
