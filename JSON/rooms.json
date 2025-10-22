@@ -9,15 +9,15 @@
     "hints": [
         {
             "hintID": 601,
-            "hintText": "Look closely at the wall symbols; they hide a simple number pattern."
+            "hintText": "Shadows spell secrets when every candle sits in its proper place."
         },
         {
             "hintID": 602,
-            "hintText": "Tools you collect may only work once, so plan their use carefully."
+            "hintText": "Count the flashes before you touch the numbered buttons."
         },
         {
             "hintID": 603,
-            "hintText": "Every lock has a tell; listen for the click when the tumblers align."
+            "hintText": "Birth years march forward—make the portraits follow."
         }
     ],
     "leaderboard": {
@@ -48,18 +48,18 @@
             "items": [
                 {
                     "itemID": 101,
-                    "itemName": "Magic Key",
-                    "isReusable": false
+                    "itemName": "Shadow Candle",
+                    "isReusable": true
                 }
             ],
             "puzzles": [
                 {
                     "puzzleName": 301,
-                    "name": "Sphinx Riddle",
-                    "description": "Solve the riddle of the Sphinx to reveal the path forward.",
-                    "reward": "Golden Key",
+                    "name": "Shadow Word",
+                    "description": "Angle the three candles so their shadows spell the hidden word.",
+                    "reward": "Lectern Key",
                     "type": "WRITE_IN",
-                    "correctAnswer": "man",
+                    "correctAnswer": "glow",
                     "solved": false
                 }
             ]
@@ -69,23 +69,18 @@
             "items": [
                 {
                     "itemID": 102,
-                    "itemName": "Torch",
+                    "itemName": "Lantern Dial",
                     "isReusable": true
                 }
             ],
             "puzzles": [
                 {
                     "puzzleName": 302,
-                    "name": "Hall of Doors",
-                    "description": "Three doors stand before you; only one is safe.",
-                    "reward": "Ancient Map",
-                    "type": "MULTIPLE_CHOICE",
-                    "options": [
-                        "Door A - The door with scorch marks",
-                        "Door B - The door with cold air",
-                        "Door C - The door with scratch marks"
-                    ],
-                    "correctOption": "Door B - The door with cold air",
+                    "name": "Blink Code",
+                    "description": "Match the lantern flashes and press the numbered buttons in the same order.",
+                    "reward": "Steel Sigil",
+                    "type": "CODE_LOCK",
+                    "code": "2413",
                     "solved": false
                 }
             ]
@@ -95,66 +90,22 @@
             "items": [
                 {
                     "itemID": 103,
-                    "itemName": "Ancient Dial",
-                    "isReusable": true
-                }
-            ],
-            "puzzles": [
-                {
-                    "puzzleName": 303,
-                    "name": "Statue Alignment",
-                    "description": "Rotate the statues into the correct order to open the secret passage.",
-                    "reward": "Silver Sigil",
-                    "type": "SEQUENCE",
-                    "sequence": [
-                        "North",
-                        "East",
-                        "South",
-                        "West"
-                    ],
-                    "solved": false
-                }
-            ]
-        },
-        {
-            "roomID": 404,
-            "items": [
-                {
-                    "itemID": 104,
-                    "itemName": "Cipher Wheel",
-                    "isReusable": true
-                }
-            ],
-            "puzzles": [
-                {
-                    "puzzleName": 304,
-                    "name": "Keeper's Whisper",
-                    "description": "Answer the guardian's riddle to earn its blessing.",
-                    "reward": "Emerald Token",
-                    "type": "RIDDLE",
-                    "riddle": "I speak without a mouth and hear without ears. I have nobody, but I come alive with wind. What am I?",
-                    "answer": "echo",
-                    "solved": false
-                }
-            ]
-        },
-        {
-            "roomID": 405,
-            "items": [
-                {
-                    "itemID": 105,
-                    "itemName": "Vault Keycard",
+                    "itemName": "Frame Hook",
                     "isReusable": false
                 }
             ],
             "puzzles": [
                 {
-                    "puzzleName": 305,
-                    "name": "Sealed Vault",
-                    "description": "Decode the flickering lights to unlock the vault door.",
-                    "reward": "Vault Treasure",
-                    "type": "CODE_LOCK",
-                    "code": "7391",
+                    "puzzleName": 303,
+                    "name": "Portrait Swap",
+                    "description": "Swap the two portraits until the plaques sit in birth-year order.",
+                    "reward": "Gallery Key",
+                    "type": "SEQUENCE",
+                    "sequence": [
+                        "Portrait of Victor (1844)",
+                        "Portrait of Liza (1861)",
+                        "Portrait of Emory (1902)"
+                    ],
                     "solved": false
                 }
             ]
