@@ -58,6 +58,18 @@ public class GameFacade {
         return player;
     }
 
+    public boolean isDuplicateUser(String email) {
+        return gameSystem.getPlayers().emailExists(email);
+    }
+
+    public boolean hasDuplicateUsers() {
+        return gameSystem.getPlayers().hasDuplicateUsers();
+    }
+
+    public List<Player> getDuplicateUsers() {
+        return gameSystem.getPlayers().findDuplicateUsers();
+    }
+
     public void logoutPlayer() {
         activePlayer = null;
         gameSystem.getProgress().setActivePlayerId(null);

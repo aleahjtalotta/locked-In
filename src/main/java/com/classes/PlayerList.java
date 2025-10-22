@@ -3,9 +3,13 @@ package com.classes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.HashSet;
 
 public class PlayerList {
     private final List<Player> players;
@@ -29,16 +33,13 @@ public class PlayerList {
     }
 
     public Optional<Player> findByEmail(String email) {
-        if (email == null) {
-            return Optional.empty();
-        }
-        String normalized = email.trim().toLowerCase();
-        if (normalized.isEmpty()) {
+        String normalized = normalizeEmail(email);
+        if (normalized == null) {
             return Optional.empty();
         }
         return players.stream()
                 .filter(p -> {
-                    String candidate = p.getEmail() == null ? "" : p.getEmail().trim().toLowerCase();
+                    String candidate = normalizeEmail(p.getEmail());
                     return normalized.equals(candidate);
                 })
                 .findFirst();
@@ -66,11 +67,51 @@ public class PlayerList {
         return player;
     }
 
+    public boolean hasDuplicateUsers() {
+        Set<String> emails = new HashSet<>();
+        for (Player player : players) {
+            String normalized = normalizeEmail(player.getEmail());
+            if (normalized == null) {
+                continue;
+            }
+            if (!emails.add(normalized)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Player> findDuplicateUsers() {
+        Map<String, List<Player>> groupedByEmail = new LinkedHashMap<>();
+        for (Player player : players) {
+            String normalized = normalizeEmail(player.getEmail());
+            if (normalized == null) {
+                continue;
+            }
+            groupedByEmail.computeIfAbsent(normalized, key -> new ArrayList<>()).add(player);
+        }
+        List<Player> duplicates = new ArrayList<>();
+        for (List<Player> group : groupedByEmail.values()) {
+            if (group.size() > 1) {
+                duplicates.addAll(group);
+            }
+        }
+        return duplicates;
+    }
+
     public List<Player> asList() {
         return Collections.unmodifiableList(players);
     }
 
     public int size() {
         return players.size();
+    }
+
+    private String normalizeEmail(String email) {
+        if (email == null) {
+            return null;
+        }
+        String normalized = email.trim().toLowerCase();
+        return normalized.isEmpty() ? null : normalized;
     }
 }
