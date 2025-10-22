@@ -18,6 +18,18 @@
         {
             "hintID": 603,
             "hintText": "Birth years march forward—make the portraits follow."
+        },
+        {
+            "hintID": 604,
+            "hintText": "Only one mirror shows anything that moves."
+        },
+        {
+            "hintID": 605,
+            "hintText": "Count the ash marks from left to right to hear the lock click."
+        },
+        {
+            "hintID": 606,
+            "hintText": "The whisper keeps repeating the final word of the chant."
         }
     ],
     "leaderboard": {
@@ -106,6 +118,74 @@
                         "Portrait of Liza (1861)",
                         "Portrait of Emory (1902)"
                     ],
+                    "solved": false
+                }
+            ]
+        },
+        {
+            "roomID": 404,
+            "items": [
+                {
+                    "itemID": 104,
+                    "itemName": "Mirror Brush",
+                    "isReusable": true
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 304,
+                    "name": "Haunted Reflection",
+                    "description": "Three mirrors show different scenes; pick the one that still moves in the dark.",
+                    "reward": "Polished Crest",
+                    "type": "MULTIPLE_CHOICE",
+                    "options": [
+                        "Mirror A - Silent ballroom",
+                        "Mirror B - Empty hallway",
+                        "Mirror C - Swaying trees"
+                    ],
+                    "correctOption": "Mirror C - Swaying trees",
+                    "solved": false
+                }
+            ]
+        },
+        {
+            "roomID": 405,
+            "items": [
+                {
+                    "itemID": 105,
+                    "itemName": "Ash Brush",
+                    "isReusable": false
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 305,
+                    "name": "Ashen Count",
+                    "description": "Brush away the soot to reveal the numbers that unlock the cellar latch.",
+                    "reward": "Cellar Key",
+                    "type": "CODE_LOCK",
+                    "code": "1342",
+                    "solved": false
+                }
+            ]
+        },
+        {
+            "roomID": 406,
+            "items": [
+                {
+                    "itemID": 106,
+                    "itemName": "Chant Scroll",
+                    "isReusable": true
+                }
+            ],
+            "puzzles": [
+                {
+                    "puzzleName": 306,
+                    "name": "Echoed Name",
+                    "description": "Listen to the chapel chant and write the final word the spirits repeat.",
+                    "reward": "Sanctum Seal",
+                    "type": "WRITE_IN",
+                    "correctAnswer": "ember",
                     "solved": false
                 }
             ]
