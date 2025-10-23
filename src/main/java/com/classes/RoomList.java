@@ -30,4 +30,13 @@ public class RoomList {
     public int size() {
         return rooms.size();
     }
+
+    public Optional<Room> findByPuzzleId(UUID puzzleId) {
+        if (puzzleId == null) {
+            return Optional.empty();
+        }
+        return rooms.stream()
+                .filter(room -> room.findPuzzle(puzzleId).isPresent())
+                .findFirst();
+    }
 }

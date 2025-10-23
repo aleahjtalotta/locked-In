@@ -1,6 +1,8 @@
 package com.classes;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -14,6 +16,7 @@ public class GameFacade {
     private final DataLoader dataLoader;
     private final DataWriter dataWriter;
     private Player activePlayer;
+    private static final int SEQUENTIAL_ROOM_LIMIT = 3;
 
     public GameFacade(String dataDirectory) {
         Objects.requireNonNull(dataDirectory, "dataDirectory");
@@ -26,12 +29,14 @@ public class GameFacade {
     public void startNewGame() {
         this.gameSystem = new GameSystem();
         this.activePlayer = null;
+        ensureCurrentRoom();
     }
 
     public boolean loadGame() {
         return dataLoader.loadGame().map(loaded -> {
             this.gameSystem = loaded;
             this.activePlayer = null;
+            ensureCurrentRoom();
             return true;
         }).orElse(false);
     }
@@ -87,6 +92,7 @@ public class GameFacade {
             if (activePlayer != null) {
                 activePlayer.addScore(100);
             }
+            advanceToNextRoom(puzzleId);
             saveGame();
             return true;
         }
@@ -118,20 +124,37 @@ public class GameFacade {
     }
 
     public List<Room> getRooms() {
-        return gameSystem.getRooms().asList();
+        return Collections.unmodifiableList(getSequentialRooms());
     }
 
     public Optional<Room> getRoom(UUID roomId) {
-        return gameSystem.getRooms().findById(roomId);
+        return getSequentialRooms().stream()
+                .filter(room -> room.getId().equals(roomId))
+                .findFirst();
     }
 
     public Optional<Room> enterRoom(UUID roomId) {
-        Optional<Room> room = getRoom(roomId);
-        room.ifPresent(value -> gameSystem.getProgress().setCurrentRoomId(value.getId()));
-        return room;
+        ensureCurrentRoom();
+        Optional<Room> requested = getRoom(roomId);
+        if (requested.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Optional<Room> current = getCurrentRoom();
+        if (current.isPresent() && current.get().getId().equals(roomId)) {
+            return current;
+        }
+
+        Optional<Room> firstAvailable = findFirstAvailableRoom();
+        if (firstAvailable.isPresent() && firstAvailable.get().getId().equals(roomId)) {
+            gameSystem.getProgress().setCurrentRoomId(roomId);
+            return firstAvailable;
+        }
+        return Optional.empty();
     }
 
     public Optional<Room> getCurrentRoom() {
+        ensureCurrentRoom();
         UUID roomId = gameSystem.getProgress().getCurrentRoomId();
         if (roomId == null) {
             return Optional.empty();
@@ -155,5 +178,78 @@ public class GameFacade {
     private void setActivePlayer(Player player) {
         this.activePlayer = player;
         gameSystem.getProgress().reset(player.getId());
+        ensureCurrentRoom();
+    }
+
+    private List<Room> getSequentialRooms() {
+        List<Room> allRooms = gameSystem.getRooms().asList();
+        List<Room> rooms = new ArrayList<>(Math.min(SEQUENTIAL_ROOM_LIMIT, allRooms.size()));
+        for (int i = 0; i < allRooms.size() && i < SEQUENTIAL_ROOM_LIMIT; i++) {
+            rooms.add(allRooms.get(i));
+        }
+        return rooms;
+    }
+
+    private Optional<Room> findFirstAvailableRoom() {
+        return getSequentialRooms().stream()
+                .filter(room -> room.getFirstUnsolvedPuzzle().isPresent())
+                .findFirst();
+    }
+
+    private Optional<Room> findNextAvailableRoomAfter(Room currentRoom) {
+        List<Room> rooms = getSequentialRooms();
+        int index = rooms.indexOf(currentRoom);
+        if (index < 0) {
+            return Optional.empty();
+        }
+        for (int i = index + 1; i < rooms.size(); i++) {
+            Room candidate = rooms.get(i);
+            if (candidate.getFirstUnsolvedPuzzle().isPresent()) {
+                return Optional.of(candidate);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Room> findRoomByPuzzle(UUID puzzleId) {
+        if (puzzleId == null) {
+            return Optional.empty();
+        }
+        List<Room> rooms = getSequentialRooms();
+        return gameSystem.getRooms().findByPuzzleId(puzzleId)
+                .filter(rooms::contains);
+    }
+
+    private void ensureCurrentRoom() {
+        List<Room> rooms = getSequentialRooms();
+        if (rooms.isEmpty()) {
+            gameSystem.getProgress().setCurrentRoomId(null);
+            return;
+        }
+
+        UUID currentId = gameSystem.getProgress().getCurrentRoomId();
+        Optional<Room> currentRoom = rooms.stream()
+                .filter(room -> room.getId().equals(currentId))
+                .findFirst();
+
+        if (currentRoom.isPresent()) {
+            if (currentRoom.get().getFirstUnsolvedPuzzle().isEmpty()) {
+                Optional<Room> nextRoom = findNextAvailableRoomAfter(currentRoom.get());
+                gameSystem.getProgress().setCurrentRoomId(nextRoom.map(Room::getId).orElse(null));
+            }
+            return;
+        }
+
+        Optional<Room> firstAvailable = findFirstAvailableRoom();
+        gameSystem.getProgress().setCurrentRoomId(firstAvailable.map(Room::getId).orElse(null));
+    }
+
+    private void advanceToNextRoom(UUID puzzleId) {
+        Optional<Room> currentRoom = findRoomByPuzzle(puzzleId);
+        if (currentRoom.isEmpty()) {
+            return;
+        }
+        Optional<Room> nextRoom = findNextAvailableRoomAfter(currentRoom.get());
+        gameSystem.getProgress().setCurrentRoomId(nextRoom.map(Room::getId).orElse(null));
     }
 }
