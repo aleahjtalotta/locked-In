@@ -100,6 +100,7 @@ public class LockedInApp extends Application {
         stage.show();
 
         refreshGameState();
+        game.startTimerCountdown();
         startTimerUpdates();
     }
 
@@ -108,6 +109,7 @@ public class LockedInApp extends Application {
         if (timerTimeline != null) {
             timerTimeline.stop();
         }
+        game.pauseTimerCountdown();
     }
 
     private VBox buildTopBar() {
@@ -442,6 +444,7 @@ public class LockedInApp extends Application {
         refreshHintsLabel();
         updateActivePlayerLabel();
         updateTimerLabel();
+        game.startTimerCountdown();
 
         if (!rooms.isEmpty()) {
             Room current = game.getCurrentRoom().orElse(rooms.get(0));
@@ -485,9 +488,14 @@ public class LockedInApp extends Application {
             timerLabel.setText("Timer: --:--:-- remaining");
             return;
         }
+        String elapsed = formatDuration(timer.getElapsed());
+        if (timer.getTotalTime().isZero()) {
+            timerLabel.setText("Timer: " + elapsed + " elapsed");
+            return;
+        }
         String remaining = formatDuration(timer.getRemaining());
         String total = formatDuration(timer.getTotalTime());
-        timerLabel.setText("Timer: " + remaining + " remaining of " + total);
+        timerLabel.setText("Timer: " + elapsed + " elapsed — " + remaining + " remaining of " + total);
     }
 
     private void startTimerUpdates() {
@@ -504,7 +512,7 @@ public class LockedInApp extends Application {
     }
 
     private String formatScoreEntry(ScoreEntry entry) {
-        return entry.getPlayerName() + " — " + entry.getScore() + " pts (time: " + formatDuration(entry.getCompletionTime()) + ")";
+        return entry.getPlayerName() + " — " + entry.getScore() + " pts";
     }
 
     private String formatDuration(java.time.Duration duration) {

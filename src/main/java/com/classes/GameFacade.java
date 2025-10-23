@@ -1,6 +1,7 @@
 package com.classes;
 
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,11 +16,13 @@ import java.util.UUID;
 public class GameFacade {
     private static final int POINTS_PER_PUZZLE = 5;
     private static final int HINT_PENALTY = 1;
+    private static final int SEQUENTIAL_ROOM_LIMIT = 3;
+    private static final Duration DEFAULT_TIMER_DURATION = Duration.ofMinutes(15);
     private GameSystem gameSystem;
     private final DataLoader dataLoader;
     private final DataWriter dataWriter;
     private Player activePlayer;
-    private static final int SEQUENTIAL_ROOM_LIMIT = 3;
+    private boolean timerStarted;
 
     public GameFacade(String dataDirectory) {
         Objects.requireNonNull(dataDirectory, "dataDirectory");
@@ -27,6 +30,7 @@ public class GameFacade {
         this.dataLoader = new DataLoader(basePath);
         this.dataWriter = new DataWriter(basePath);
         this.gameSystem = new GameSystem();
+        this.timerStarted = false;
     }
 
     public void startNewGame() {
@@ -35,6 +39,8 @@ public class GameFacade {
         this.gameSystem.getProgress().clearSolved();
         clearAllPuzzleSolvedFlags();
         ensureCurrentRoom();
+        timerStarted = false;
+        configureSessionTimer();
     }
 
     public boolean loadGame() {
@@ -44,6 +50,8 @@ public class GameFacade {
             this.gameSystem.getProgress().clearSolved();
             clearAllPuzzleSolvedFlags();
             ensureCurrentRoom();
+            timerStarted = false;
+            configureSessionTimer();
             return true;
         }).orElse(false);
     }
@@ -90,6 +98,8 @@ public class GameFacade {
         gameSystem.getProgress().setCurrentRoomId(null);
         gameSystem.getProgress().clearSolved();
         clearAllPuzzleSolvedFlags();
+        timerStarted = false;
+        pauseTimerCountdown();
     }
 
     public boolean submitAnswer(UUID puzzleId, String answer) {
@@ -207,6 +217,8 @@ public class GameFacade {
         gameSystem.getProgress().loadSolvedPuzzles(player.getSolvedPuzzleIds());
         applyProgressToPuzzles();
         ensureCurrentRoom();
+        timerStarted = false;
+        configureSessionTimer();
     }
 
     private List<Room> getSequentialRooms() {
@@ -296,6 +308,49 @@ public class GameFacade {
             } else {
                 puzzle.reset();
             }
+        }
+    }
+
+    public void startTimerCountdown() {
+        configureSessionTimer();
+        Timer timer = gameSystem.getTimer();
+        if (timer == null) {
+            return;
+        }
+        if (!timerStarted) {
+            timer.setTotalTime(DEFAULT_TIMER_DURATION);
+            timer.reset();
+            timerStarted = true;
+        }
+        if (!timer.isRunning() && !timer.getRemaining().isZero()) {
+            timer.start();
+        }
+    }
+
+    public void pauseTimerCountdown() {
+        Timer timer = gameSystem.getTimer();
+        if (timer == null) {
+            return;
+        }
+        if (timer.isRunning()) {
+            timer.pause();
+        }
+        if (timer.getRemaining().isZero()) {
+            timerStarted = false;
+        }
+    }
+
+    private void configureSessionTimer() {
+        Timer timer = gameSystem.getTimer();
+        if (timer == null) {
+            timer = new Timer();
+            gameSystem.setTimer(timer);
+        }
+        if (!timerStarted && !DEFAULT_TIMER_DURATION.equals(timer.getTotalTime())) {
+            timer.setTotalTime(DEFAULT_TIMER_DURATION);
+        }
+        if (!timerStarted && timer.getRemaining().isZero()) {
+            timer.reset();
         }
     }
 

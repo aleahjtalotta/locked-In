@@ -89,42 +89,47 @@ public class LockedInDriver {
     }
 
     private static void runEscapeExperience(GameFacade game, Scanner scanner) {
-        UUID lastRoomId = null;
-        boolean continuePlaying = true;
+        game.startTimerCountdown();
+        try {
+            UUID lastRoomId = null;
+            boolean continuePlaying = true;
 
-        while (continuePlaying) {
-            Optional<Room> activeRoomOpt = game.getCurrentRoom();
-            if (activeRoomOpt.isEmpty()) {
-                System.out.println("There are no more puzzles left to solve.");
-                break;
+            while (continuePlaying) {
+                Optional<Room> activeRoomOpt = game.getCurrentRoom();
+                if (activeRoomOpt.isEmpty()) {
+                    System.out.println("There are no more puzzles left to solve.");
+                    break;
+                }
+
+                Room activeRoom = activeRoomOpt.get();
+                if (!activeRoom.getId().equals(lastRoomId)) {
+                    System.out.println();
+                    System.out.println("You enter room " + formatRoomId(activeRoom) + ".");
+                    lastRoomId = activeRoom.getId();
+                }
+
+                printRoomSummary(activeRoom);
+
+                Optional<Puzzle> selection = promptPuzzleSelection(activeRoom, scanner);
+                if (selection.isEmpty()) {
+                    break;
+                }
+
+                boolean solved = attemptPuzzle(game, scanner, selection.get());
+                if (!solved) {
+                    continuePlaying = askYesNo(scanner, "Would you like to choose a different puzzle? (y/n): ");
+                    continue;
+                }
+
+                if (game.getCurrentRoom().isEmpty()) {
+                    System.out.println("You've completed every available puzzle!");
+                    break;
+                }
+
+                continuePlaying = askYesNo(scanner, "Attempt another puzzle? (y/n): ");
             }
-
-            Room activeRoom = activeRoomOpt.get();
-            if (!activeRoom.getId().equals(lastRoomId)) {
-                System.out.println();
-                System.out.println("You enter room " + formatRoomId(activeRoom) + ".");
-                lastRoomId = activeRoom.getId();
-            }
-
-            printRoomSummary(activeRoom);
-
-            Optional<Puzzle> selection = promptPuzzleSelection(activeRoom, scanner);
-            if (selection.isEmpty()) {
-                break;
-            }
-
-            boolean solved = attemptPuzzle(game, scanner, selection.get());
-            if (!solved) {
-                continuePlaying = askYesNo(scanner, "Would you like to choose a different puzzle? (y/n): ");
-                continue;
-            }
-
-            if (game.getCurrentRoom().isEmpty()) {
-                System.out.println("You've completed every available puzzle!");
-                break;
-            }
-
-            continuePlaying = askYesNo(scanner, "Attempt another puzzle? (y/n): ");
+        } finally {
+            game.pauseTimerCountdown();
         }
     }
 
@@ -329,6 +334,9 @@ public class LockedInDriver {
             System.out.println("Timer total: " + formatDuration(timer.getTotalTime()));
             System.out.println("Time remaining: " + formatDuration(timer.getRemaining()));
         }
+        if (timer != null) {
+            System.out.println("Time elapsed: " + formatDuration(timer.getElapsed()));
+        }
 
         if (!game.getLeaderboard().getScores().isEmpty()) {
             System.out.println();
@@ -348,11 +356,10 @@ public class LockedInDriver {
         System.out.println("Leaderboard:");
         for (int i = 0; i < scores.size(); i++) {
             ScoreEntry entry = scores.get(i);
-            System.out.printf("%2d) %s - %d points (time: %s)%n",
+            System.out.printf("%2d) %s - %d points%n",
                     i + 1,
                     entry.getPlayerName(),
-                    entry.getScore(),
-                    formatDuration(entry.getCompletionTime()));
+                    entry.getScore());
         }
     }
 
@@ -372,4 +379,3 @@ public class LockedInDriver {
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
     }
 }
-

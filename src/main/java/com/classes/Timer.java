@@ -11,6 +11,7 @@ public class Timer {
     private Duration totalTime = Duration.ZERO;
     private Duration remaining = Duration.ZERO;
     private Instant runningSince;
+    private Duration elapsedAccumulated = Duration.ZERO;
 
     public Duration getTotalTime() {
         return totalTime;
@@ -20,6 +21,7 @@ public class Timer {
         this.totalTime = totalTime == null ? Duration.ZERO : totalTime;
         if (!isRunning()) {
             remaining = this.totalTime;
+            elapsedAccumulated = Duration.ZERO;
         }
     }
 
@@ -39,6 +41,8 @@ public class Timer {
 
     public void pause() {
         if (isRunning()) {
+            Duration elapsedSinceStart = Duration.between(runningSince, Instant.now());
+            elapsedAccumulated = elapsedAccumulated.plus(elapsedSinceStart);
             remaining = getRemaining();
             runningSince = null;
         }
@@ -47,6 +51,7 @@ public class Timer {
     public void reset() {
         runningSince = null;
         remaining = totalTime;
+        elapsedAccumulated = Duration.ZERO;
     }
 
     public boolean isRunning() {
@@ -59,5 +64,25 @@ public class Timer {
 
     public void setRemaining(Duration remaining) {
         this.remaining = remaining == null ? Duration.ZERO : remaining;
+        if (!totalTime.isZero()) {
+            Duration derivedElapsed = totalTime.minus(this.remaining);
+            if (!derivedElapsed.isNegative()) {
+                elapsedAccumulated = derivedElapsed;
+            }
+        }
+    }
+
+    public Duration getElapsed() {
+        Duration elapsed = elapsedAccumulated;
+        if (isRunning()) {
+            elapsed = elapsed.plus(Duration.between(runningSince, Instant.now()));
+        }
+        if (!totalTime.isZero()) {
+            Duration derived = totalTime.minus(getRemaining());
+            if (!derived.isNegative()) {
+                return derived;
+            }
+        }
+        return elapsed.isNegative() ? Duration.ZERO : elapsed;
     }
 }
