@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -29,6 +30,8 @@ public class GameFacade {
     public void startNewGame() {
         this.gameSystem = new GameSystem();
         this.activePlayer = null;
+        this.gameSystem.getProgress().clearSolved();
+        clearAllPuzzleSolvedFlags();
         ensureCurrentRoom();
     }
 
@@ -36,12 +39,15 @@ public class GameFacade {
         return dataLoader.loadGame().map(loaded -> {
             this.gameSystem = loaded;
             this.activePlayer = null;
+            this.gameSystem.getProgress().clearSolved();
+            clearAllPuzzleSolvedFlags();
             ensureCurrentRoom();
             return true;
         }).orElse(false);
     }
 
     public boolean saveGame() {
+        persistActiveProgress();
         return dataWriter.saveGame(gameSystem);
     }
 
@@ -76,9 +82,12 @@ public class GameFacade {
     }
 
     public void logoutPlayer() {
+        persistActiveProgress();
         activePlayer = null;
         gameSystem.getProgress().setActivePlayerId(null);
         gameSystem.getProgress().setCurrentRoomId(null);
+        gameSystem.getProgress().clearSolved();
+        clearAllPuzzleSolvedFlags();
     }
 
     public boolean submitAnswer(UUID puzzleId, String answer) {
@@ -87,11 +96,12 @@ public class GameFacade {
         }
         Optional<Puzzle> puzzle = gameSystem.getPuzzles().findById(puzzleId);
         if (puzzle.isPresent() && puzzle.get().isCorrectAnswer(answer)) {
-            puzzle.get().markSolved();
             gameSystem.getProgress().markPuzzleSolved(puzzleId);
             if (activePlayer != null) {
                 activePlayer.addScore(100);
+                activePlayer.markPuzzleSolved(puzzleId);
             }
+            applyProgressToPuzzles();
             advanceToNextRoom(puzzleId);
             saveGame();
             return true;
@@ -176,8 +186,11 @@ public class GameFacade {
     }
 
     private void setActivePlayer(Player player) {
+        persistActiveProgress();
         this.activePlayer = player;
         gameSystem.getProgress().reset(player.getId());
+        gameSystem.getProgress().loadSolvedPuzzles(player.getSolvedPuzzleIds());
+        applyProgressToPuzzles();
         ensureCurrentRoom();
     }
 
@@ -251,5 +264,29 @@ public class GameFacade {
         }
         Optional<Room> nextRoom = findNextAvailableRoomAfter(currentRoom.get());
         gameSystem.getProgress().setCurrentRoomId(nextRoom.map(Room::getId).orElse(null));
+    }
+
+    private void persistActiveProgress() {
+        if (activePlayer == null) {
+            return;
+        }
+        activePlayer.setSolvedPuzzleIds(gameSystem.getProgress().getSolvedPuzzleIds());
+    }
+
+    private void applyProgressToPuzzles() {
+        Set<UUID> solved = gameSystem.getProgress().getSolvedPuzzleIds();
+        for (Puzzle puzzle : gameSystem.getPuzzles().asList()) {
+            if (solved.contains(puzzle.getId())) {
+                puzzle.markSolved();
+            } else {
+                puzzle.reset();
+            }
+        }
+    }
+
+    private void clearAllPuzzleSolvedFlags() {
+        for (Puzzle puzzle : gameSystem.getPuzzles().asList()) {
+            puzzle.reset();
+        }
     }
 }

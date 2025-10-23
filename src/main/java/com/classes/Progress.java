@@ -1,5 +1,6 @@
 package com.classes;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -51,6 +52,17 @@ public class Progress {
     public void reset(UUID playerId) {
         this.activePlayerId = Objects.requireNonNull(playerId, "playerId");
         this.currentRoomId = null;
+        this.solvedPuzzleIds.clear();
+    }
+
+    public void loadSolvedPuzzles(Collection<UUID> puzzleIds) {
+        this.solvedPuzzleIds.clear();
+        if (puzzleIds != null) {
+            this.solvedPuzzleIds.addAll(puzzleIds);
+        }
+    }
+
+    public void clearSolved() {
         this.solvedPuzzleIds.clear();
     }
 }

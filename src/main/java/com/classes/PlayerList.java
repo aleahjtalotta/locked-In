@@ -62,7 +62,8 @@ public class PlayerList {
                 .filter(java.util.Objects::nonNull)
                 .max(Comparator.naturalOrder())
                 .orElse(0) + 1;
-        Player player = new Player(UUID.randomUUID(), nextLegacy, safeName, email.trim(), avatar, new ItemList(), new Statistics(), 0);
+        Player player = new Player(UUID.randomUUID(), nextLegacy, safeName, email.trim(), avatar,
+                new ItemList(), new Statistics(), 0, Collections.emptySet());
         players.add(player);
         return player;
     }

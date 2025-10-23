@@ -7,8 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -222,6 +224,26 @@ public class DataLoader {
         return values;
     }
 
+    private Set<UUID> readUuidSet(JSONArray array) {
+        Set<UUID> values = new HashSet<>();
+        if (array == null) {
+            return values;
+        }
+        for (Object element : array) {
+            if (element instanceof String str && !str.isBlank()) {
+                try {
+                    values.add(UUID.fromString(str.trim()));
+                    continue;
+                } catch (IllegalArgumentException ignored) {
+                }
+            }
+            if (element instanceof Number number) {
+                values.add(deriveUuid("puzzle", number));
+            }
+        }
+        return values;
+    }
+
     private PlayerList parsePlayers(JSONArray playersArray) {
         PlayerList players = new PlayerList();
         if (playersArray != null) {
@@ -253,8 +275,10 @@ public class DataLoader {
         }
 
         Statistics stats = parseStatistics((JSONObject) playerObj.get("statistics"));
+        Set<UUID> solvedPuzzles = readUuidSet((JSONArray) playerObj.get("solvedPuzzles"));
 
-        return new Player(id, legacyId == null ? null : legacyId.intValue(), name, email, avatar, inventory, stats, currentScore);
+        return new Player(id, legacyId == null ? null : legacyId.intValue(), name, email, avatar,
+                inventory, stats, currentScore, solvedPuzzles);
     }
 
     private Statistics parseStatistics(JSONObject statsObj) {

@@ -59,6 +59,7 @@ public class DataWriter {
             obj.put("currentScore", player.getCurrentScore());
             obj.put("items", writeItems(player.getInventory().asList()));
             obj.put("statistics", writeStatistics(player.getStatistics()));
+            obj.put("solvedPuzzles", writeSolvedPuzzles(player));
             usersArray.add(obj);
         }
         writeJson(destinationDirectory.resolve(USERS_FILE), usersArray);
@@ -173,6 +174,16 @@ public class DataWriter {
             obj.put("gamesWon", statistics.getGamesWon());
         }
         return obj;
+    }
+
+    private JSONArray writeSolvedPuzzles(Player player) {
+        JSONArray array = new JSONArray();
+        if (player != null) {
+            for (UUID puzzleId : player.getSolvedPuzzleIds()) {
+                array.add(puzzleId.toString());
+            }
+        }
+        return array;
     }
 
     private void writeJson(Path path, JSONObject content) throws IOException {
