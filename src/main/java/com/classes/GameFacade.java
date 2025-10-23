@@ -13,6 +13,8 @@ import java.util.UUID;
  * High-level API for interacting with the game state.
  */
 public class GameFacade {
+    private static final int POINTS_PER_PUZZLE = 5;
+    private static final int HINT_PENALTY = 1;
     private GameSystem gameSystem;
     private final DataLoader dataLoader;
     private final DataWriter dataWriter;
@@ -98,8 +100,9 @@ public class GameFacade {
         if (puzzle.isPresent() && puzzle.get().isCorrectAnswer(answer)) {
             gameSystem.getProgress().markPuzzleSolved(puzzleId);
             if (activePlayer != null) {
-                activePlayer.addScore(100);
+                activePlayer.addScore(POINTS_PER_PUZZLE);
                 activePlayer.markPuzzleSolved(puzzleId);
+                gameSystem.getLeaderboard().updateLeaderboard(activePlayer, activePlayer.getCurrentScore());
             }
             applyProgressToPuzzles();
             advanceToNextRoom(puzzleId);
@@ -115,6 +118,18 @@ public class GameFacade {
             return nextPuzzle;
         }
         return Optional.empty();
+    }
+
+    public Optional<Hint> useHint() {
+        Hint hint = gameSystem.getHints().consumeNextHint();
+        if (hint == null) {
+            return Optional.empty();
+        }
+        if (activePlayer != null) {
+            activePlayer.addScore(-HINT_PENALTY);
+            gameSystem.getLeaderboard().updateLeaderboard(activePlayer, activePlayer.getCurrentScore());
+        }
+        return Optional.of(hint);
     }
 
     public Leaderboard getLeaderboard() {

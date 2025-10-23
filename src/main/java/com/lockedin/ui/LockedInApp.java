@@ -405,14 +405,17 @@ public class LockedInApp extends Application {
     }
 
     private void consumeHint() {
-        Hint hint = game.getGameSystem().getHints().consumeNextHint();
-        if (hint == null) {
+        Optional<Hint> hint = game.useHint();
+        if (hint.isEmpty()) {
             showInformation("No Hints Left", "You have used every available hint.");
             return;
         }
         game.saveGame();
-        showInformation("Hint", hint.getText());
+        showInformation("Hint", hint.get().getText());
         refreshHintsLabel();
+        refreshLeaderboard();
+        playersView.refresh();
+        updateActivePlayerLabel();
     }
 
     private void saveGame() {
