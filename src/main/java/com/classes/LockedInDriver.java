@@ -1,5 +1,6 @@
 package com.classes;
 
+import com.lockedin.audio.PuzzleNarration;
 
 import java.time.Duration;
 import java.util.List;
@@ -357,6 +358,7 @@ public class LockedInDriver {
            System.out.println("Provide the correct answer.");
        }
        System.out.println();
+       PuzzleNarration.narrateAsync(puzzle);
    }
 
 
@@ -425,6 +427,5 @@ public class LockedInDriver {
        return String.format("%02d:%02d:%02d", hours, minutes, secs);
    }
 }
-
 
 

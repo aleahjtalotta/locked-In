@@ -13,6 +13,7 @@ import com.classes.ScoreEntry;
 import com.classes.SequencePuzzle;
 import com.classes.Timer;
 import com.classes.WriteInPuzzle;
+import com.lockedin.audio.PuzzleNarration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -69,6 +70,7 @@ public class LockedInApp extends Application {
     private final TextArea puzzleDetailsArea = new TextArea();
 
     private Timeline timerTimeline;
+    private UUID lastNarratedPuzzleId;
 
     @Override
     public void init() {
@@ -235,12 +237,20 @@ public class LockedInApp extends Application {
         puzzleDetailsArea.setWrapText(true);
         puzzleDetailsArea.setPrefRowCount(12);
 
+        Button storyButton = new Button("Play Story");
+        storyButton.setMaxWidth(Double.MAX_VALUE);
+        storyButton.disableProperty().bind(puzzlesView.getSelectionModel().selectedItemProperty().isNull());
+        storyButton.setOnAction(e -> {
+            Puzzle puzzle = puzzlesView.getSelectionModel().getSelectedItem();
+            narratePuzzle(puzzle, true);
+        });
+
         Button attemptButton = new Button("Attempt Puzzle");
         attemptButton.setMaxWidth(Double.MAX_VALUE);
         attemptButton.disableProperty().bind(puzzlesView.getSelectionModel().selectedItemProperty().isNull());
         attemptButton.setOnAction(e -> attemptSelectedPuzzle());
 
-        VBox box = new VBox(8, header, puzzlesView, puzzleDetailsArea, attemptButton);
+        VBox box = new VBox(8, header, puzzlesView, puzzleDetailsArea, storyButton, attemptButton);
         box.setPadding(new Insets(0, 0, 0, 16));
         box.setPrefWidth(360);
         VBox.setVgrow(puzzlesView, Priority.ALWAYS);
@@ -360,6 +370,7 @@ public class LockedInApp extends Application {
     private void showPuzzleDetails(Puzzle puzzle) {
         if (puzzle == null) {
             puzzleDetailsArea.clear();
+            lastNarratedPuzzleId = null;
             return;
         }
 
@@ -390,6 +401,7 @@ public class LockedInApp extends Application {
         }
 
         puzzleDetailsArea.setText(details.toString());
+        narratePuzzle(puzzle, false);
     }
 
     private void consumeHint() {
@@ -523,6 +535,7 @@ public class LockedInApp extends Application {
                 roomsView.getSelectionModel().select(room);
                 roomsView.scrollTo(room);
                 refreshPuzzles(room);
+                lastNarratedPuzzleId = null;
                 break;
             }
         }
@@ -538,6 +551,17 @@ public class LockedInApp extends Application {
         Alert alert = new Alert(AlertType.ERROR, message, ButtonType.OK);
         alert.setHeaderText(title);
         alert.showAndWait();
+    }
+
+    private void narratePuzzle(Puzzle puzzle, boolean force) {
+        if (puzzle == null) {
+            return;
+        }
+        if (!force && puzzle.getId().equals(lastNarratedPuzzleId)) {
+            return;
+        }
+        PuzzleNarration.narrateAsync(puzzle);
+        lastNarratedPuzzleId = puzzle.getId();
     }
 
     public static void main(String[] args) {

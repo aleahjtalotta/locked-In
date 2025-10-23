@@ -40,3 +40,11 @@ mvn exec:java -Dexec.args="path/to/data"
 ```
 
 Game progress (players, puzzles, hints, etc.) is persisted to the chosen data directory via the built-in `DataWriter`.
+
+## Audio Narration
+Puzzle stories are narrated aloud using the host operating system:
+- macOS: relies on the `say` command
+- Linux: expects `espeak` on the `PATH`
+- Windows: uses PowerShell’s `System.Speech` synthesizer
+
+If the relevant tool is unavailable, narration quietly falls back to text-only.
