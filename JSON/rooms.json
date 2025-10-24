@@ -1,1 +1,202 @@
-{"timer":{"totalTime":"00:15:00","timeRemaining":"00:14:04","timerID":0},"leaderboard":{"scores":[{"score":1500,"completionTime":"01:20:00","playerName":"Alice","scoreEntryID":501},{"score":1100,"completionTime":"01:30:00","playerName":"Jasmine","scoreEntryID":503},{"score":900,"completionTime":"01:45:00","playerName":"Bob","scoreEntryID":502},{"score":5,"completionTime":"00:00:00","playerName":"Anchal","scoreEntryID":7463245013260355886},{"score":5,"completionTime":"00:00:00","playerName":"Aleah","scoreEntryID":7481823560993764360}]},"rooms":[{"puzzles":[{"reward":"Lectern Key","puzzleName":301,"name":"Shadow Word","description":"Angle the three candles so their shadows spell the hidden word.","solved":true,"type":"WRITE_IN","correctAnswer":"glow"}],"items":[{"itemID":101,"itemName":"Shadow Candle","isReusable":true}],"roomID":401},{"puzzles":[{"reward":"Steel Sigil","code":"2413","puzzleName":302,"name":"Blink Code","description":"Match the lantern flashes and press the numbered buttons in the same order.","solved":false,"type":"CODE_LOCK"}],"items":[{"itemID":102,"itemName":"Lantern Dial","isReusable":true}],"roomID":402},{"puzzles":[{"reward":"Gallery Key","sequence":["Portrait of Victor (1844)","Portrait of Liza (1861)","Portrait of Emory (1902)"],"puzzleName":303,"name":"Portrait Swap","description":"Swap the two portraits until the plaques sit in birth-year order.","solved":false,"type":"SEQUENCE"}],"items":[{"itemID":103,"itemName":"Frame Hook","isReusable":false}],"roomID":403},{"puzzles":[{"reward":"Polished Crest","puzzleName":304,"name":"Haunted Reflection","options":["Mirror A - Silent ballroom","Mirror B - Empty hallway","Mirror C - Swaying trees"],"description":"Three mirrors show different scenes; pick the one that still moves in the dark.","solved":false,"correctOption":"Mirror C - Swaying trees","type":"MULTIPLE_CHOICE"}],"items":[{"itemID":104,"itemName":"Mirror Brush","isReusable":true}],"roomID":404},{"puzzles":[{"reward":"Cellar Key","code":"1342","puzzleName":305,"name":"Ashen Count","description":"Brush away the soot to reveal the numbers that unlock the cellar latch.","solved":false,"type":"CODE_LOCK"}],"items":[{"itemID":105,"itemName":"Ash Brush","isReusable":false}],"roomID":405},{"puzzles":[{"reward":"Sanctum Seal","puzzleName":306,"name":"Echoed Name","description":"Listen to the chapel chant and write the final word the spirits repeat.","solved":false,"type":"WRITE_IN","correctAnswer":"ember"}],"items":[{"itemID":106,"itemName":"Chant Scroll","isReusable":true}],"roomID":406}],"gameSystemID":1,"hints":[{"hintID":602,"hintText":"Count the flashes before you touch the numbered buttons."},{"hintID":603,"hintText":"Birth years march forward\u2014make the portraits follow."},{"hintID":604,"hintText":"Only one mirror shows anything that moves."},{"hintID":605,"hintText":"Count the ash marks from left to right to hear the lock click."},{"hintID":606,"hintText":"The whisper keeps repeating the final word of the chant."}],"currentDifficulty":"MEDIUM"}
+{
+    "timer": {
+        "totalTime": "00:15:00",
+        "timeRemaining": "00:13:28",
+        "timerID": 0
+    },
+    "leaderboard": {
+        "scores": [
+            {
+                "score": 1500,
+                "completionTime": "01:20:00",
+                "playerName": "Alice",
+                "scoreEntryID": 501
+            },
+            {
+                "score": 1100,
+                "completionTime": "01:30:00",
+                "playerName": "Jasmine",
+                "scoreEntryID": 503
+            },
+            {
+                "score": 900,
+                "completionTime": "01:45:00",
+                "playerName": "Bob",
+                "scoreEntryID": 502
+            },
+            {
+                "score": 5,
+                "completionTime": "00:00:00",
+                "playerName": "Anchal",
+                "scoreEntryID": 7463245013260355886
+            },
+            {
+                "score": 5,
+                "completionTime": "00:00:00",
+                "playerName": "Aleah",
+                "scoreEntryID": 7481823560993764360
+            }
+        ]
+    },
+    "rooms": [
+        {
+            "puzzles": [
+                {
+                    "reward": "Lectern Key",
+                    "puzzleName": 301,
+                    "name": "Shadow Word",
+                    "description": "Angle the three candles so their shadows spell the hidden word.",
+                    "solved": true,
+                    "type": "WRITE_IN",
+                    "correctAnswer": "glow"
+                }
+            ],
+            "items": [
+                {
+                    "itemID": 101,
+                    "itemName": "Shadow Candle",
+                    "isReusable": true
+                }
+            ],
+            "roomID": 401
+        },
+        {
+            "puzzles": [
+                {
+                    "reward": "Steel Sigil",
+                    "code": "2413",
+                    "puzzleName": 302,
+                    "name": "Blink Code",
+                    "description": "Match the lantern flashes and press the numbered buttons in the same order.",
+                    "solved": true,
+                    "type": "CODE_LOCK"
+                }
+            ],
+            "items": [
+                {
+                    "itemID": 102,
+                    "itemName": "Lantern Dial",
+                    "isReusable": true
+                }
+            ],
+            "roomID": 402
+        },
+        {
+            "puzzles": [
+                {
+                    "reward": "Gallery Key",
+                    "sequence": [
+                        "Portrait of Victor (1844)",
+                        "Portrait of Liza (1861)",
+                        "Portrait of Emory (1902)"
+                    ],
+                    "puzzleName": 303,
+                    "name": "Portrait Swap",
+                    "description": "Swap the two portraits until the plaques sit in birth-year order.",
+                    "solved": false,
+                    "type": "SEQUENCE"
+                }
+            ],
+            "items": [
+                {
+                    "itemID": 103,
+                    "itemName": "Frame Hook",
+                    "isReusable": false
+                }
+            ],
+            "roomID": 403
+        },
+        {
+            "puzzles": [
+                {
+                    "reward": "Polished Crest",
+                    "puzzleName": 304,
+                    "name": "Haunted Reflection",
+                    "options": [
+                        "Mirror A - Silent ballroom",
+                        "Mirror B - Empty hallway",
+                        "Mirror C - Swaying trees"
+                    ],
+                    "description": "Three mirrors show different scenes; pick the one that still moves in the dark.",
+                    "solved": false,
+                    "correctOption": "Mirror C - Swaying trees",
+                    "type": "MULTIPLE_CHOICE"
+                }
+            ],
+            "items": [
+                {
+                    "itemID": 104,
+                    "itemName": "Mirror Brush",
+                    "isReusable": true
+                }
+            ],
+            "roomID": 404
+        },
+        {
+            "puzzles": [
+                {
+                    "reward": "Cellar Key",
+                    "code": "1342",
+                    "puzzleName": 305,
+                    "name": "Ashen Count",
+                    "description": "Brush away the soot to reveal the numbers that unlock the cellar latch.",
+                    "solved": false,
+                    "type": "CODE_LOCK"
+                }
+            ],
+            "items": [
+                {
+                    "itemID": 105,
+                    "itemName": "Ash Brush",
+                    "isReusable": false
+                }
+            ],
+            "roomID": 405
+        },
+        {
+            "puzzles": [
+                {
+                    "reward": "Sanctum Seal",
+                    "puzzleName": 306,
+                    "name": "Echoed Name",
+                    "description": "Listen to the chapel chant and write the final word the spirits repeat.",
+                    "solved": false,
+                    "type": "WRITE_IN",
+                    "correctAnswer": "ember"
+                }
+            ],
+            "items": [
+                {
+                    "itemID": 106,
+                    "itemName": "Chant Scroll",
+                    "isReusable": true
+                }
+            ],
+            "roomID": 406
+        }
+    ],
+    "gameSystemID": 1,
+    "hints": [
+        {
+            "hintID": 602,
+            "hintText": "Count the flashes before you touch the numbered buttons."
+        },
+        {
+            "hintID": 603,
+            "hintText": "Birth years march forward\u2014make the portraits follow."
+        },
+        {
+            "hintID": 604,
+            "hintText": "Only one mirror shows anything that moves."
+        },
+        {
+            "hintID": 605,
+            "hintText": "Count the ash marks from left to right to hear the lock click."
+        },
+        {
+            "hintID": 606,
+            "hintText": "The whisper keeps repeating the final word of the chant."
+        }
+    ],
+    "currentDifficulty": "MEDIUM"
+}
