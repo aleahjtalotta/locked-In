@@ -1,6 +1,7 @@
 package com.classes;
 
 import com.lockedin.audio.PuzzleNarration;
+import com.lockedin.audio.RoomNarration;
 
 import java.time.Duration;
 import java.util.List;
@@ -105,6 +106,11 @@ public class LockedInDriver {
                 if (!activeRoom.getId().equals(lastRoomId)) {
                     System.out.println();
                     System.out.println("You enter room " + formatRoomId(activeRoom) + ".");
+                    String narration = RoomNarration.createStory(activeRoom);
+                    if (!narration.isBlank()) {
+                        System.out.println(narration);
+                    }
+                    RoomNarration.narrateAsync(activeRoom);
                     lastRoomId = activeRoom.getId();
                 }
 

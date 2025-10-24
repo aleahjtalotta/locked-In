@@ -14,6 +14,7 @@ import com.classes.SequencePuzzle;
 import com.classes.Timer;
 import com.classes.WriteInPuzzle;
 import com.lockedin.audio.PuzzleNarration;
+import com.lockedin.audio.RoomNarration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -70,6 +71,7 @@ public class LockedInApp extends Application {
     private final TextArea puzzleDetailsArea = new TextArea();
 
     private Timeline timerTimeline;
+    private UUID lastNarratedRoomId;
     private UUID lastNarratedPuzzleId;
 
     @Override
@@ -204,13 +206,20 @@ public class LockedInApp extends Application {
             if (newRoom != null) {
                 game.enterRoom(newRoom.getId());
                 refreshPuzzles(newRoom);
+                narrateRoom(newRoom, false);
             } else {
                 puzzles.clear();
                 puzzlesView.getSelectionModel().clearSelection();
+                lastNarratedRoomId = null;
             }
         });
 
-        VBox box = new VBox(8, header, roomsView);
+        Button roomStoryButton = new Button("Play Room Story");
+        roomStoryButton.setMaxWidth(Double.MAX_VALUE);
+        roomStoryButton.disableProperty().bind(roomsView.getSelectionModel().selectedItemProperty().isNull());
+        roomStoryButton.setOnAction(e -> narrateRoom(roomsView.getSelectionModel().getSelectedItem(), true));
+
+        VBox box = new VBox(8, header, roomsView, roomStoryButton);
         VBox.setVgrow(roomsView, Priority.ALWAYS);
         return box;
     }
@@ -452,6 +461,7 @@ public class LockedInApp extends Application {
         } else {
             puzzles.clear();
             puzzleDetailsArea.clear();
+            lastNarratedRoomId = null;
         }
 
         game.getActivePlayer().ifPresent(player -> selectPlayerById(player.getId()));
@@ -573,6 +583,18 @@ public class LockedInApp extends Application {
         }
         PuzzleNarration.narrateAsync(puzzle);
         lastNarratedPuzzleId = puzzle.getId();
+    }
+
+    private void narrateRoom(Room room, boolean force) {
+        if (room == null) {
+            lastNarratedRoomId = null;
+            return;
+        }
+        if (!force && room.getId().equals(lastNarratedRoomId)) {
+            return;
+        }
+        RoomNarration.narrateAsync(room);
+        lastNarratedRoomId = room.getId();
     }
 
     public static void main(String[] args) {
