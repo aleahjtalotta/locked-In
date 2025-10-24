@@ -18,6 +18,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Loads the escape room data from the JSON files.
+ * I wrote these notes to remind future students what each piece does.
+ */
 public class DataLoader {
     private static final String ROOMS_FILE = "rooms.json";
     private static final String USERS_FILE = "users.json";
@@ -25,10 +29,21 @@ public class DataLoader {
     private final Path sourceDirectory;
     private final JSONParser parser = new JSONParser();
 
+    /**
+     * Builds a loader that looks inside the given folder for JSON files.
+     *
+     * @param sourceDirectory folder that should contain rooms.json and users.json
+     */
     public DataLoader(Path sourceDirectory) {
         this.sourceDirectory = sourceDirectory;
     }
 
+    /**
+     * Tries to read the JSON files and return a full game system.
+     * If anything goes wrong we just return an empty Optional.
+     *
+     * @return game system from disk when everything worked, otherwise empty
+     */
     public Optional<GameSystem> loadGame() {
         try {
             JSONObject roomsData = readObject(sourceDirectory.resolve(ROOMS_FILE));
@@ -44,6 +59,9 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads one JSON object file, or gives back an empty object if the file is missing.
+     */
     private JSONObject readObject(Path file) throws IOException, ParseException {
         if (!Files.exists(file)) {
             return new JSONObject();
@@ -54,6 +72,9 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Reads one JSON array file, or gives back an empty array when the file is missing.
+     */
     private JSONArray readArray(Path file) throws IOException, ParseException {
         if (!Files.exists(file)) {
             return new JSONArray();
@@ -67,6 +88,9 @@ public class DataLoader {
         }
     }
 
+    /**
+     * Turns the top-level rooms JSON into our GameSystem object.
+     */
     private GameSystem parseGameSystem(JSONObject root) {
         Long legacyId = asNullableLong(root.get("gameSystemID"));
         UUID gameId = deriveUuid("game", legacyId);
@@ -96,6 +120,9 @@ public class DataLoader {
         return system;
     }
 
+    /**
+     * Builds the timer using the saved information.
+     */
     private Timer parseTimer(JSONObject timerObj) {
         Timer timer = new Timer();
         if (timerObj != null) {
@@ -108,6 +135,9 @@ public class DataLoader {
         return timer;
     }
 
+    /**
+     * Loads every hint from the hints array.
+     */
     private Hints parseHints(JSONArray hintsArray) {
         Hints hints = new Hints();
         if (hintsArray != null) {
@@ -123,6 +153,9 @@ public class DataLoader {
         return hints;
     }
 
+    /**
+     * Puts the leaderboard JSON into our simple leaderboard class.
+     */
     private Leaderboard parseLeaderboard(JSONObject leaderboardObj) {
         Leaderboard leaderboard = new Leaderboard();
         if (leaderboardObj != null) {
@@ -143,6 +176,9 @@ public class DataLoader {
         return leaderboard;
     }
 
+    /**
+     * Reads one room and also adds its puzzles to the shared puzzle list.
+     */
     private Room parseRoom(JSONObject roomObj, PuzzleList puzzleList) {
         Long legacyId = asNullableLong(roomObj.get("roomID"));
         Room room = new Room(deriveUuid("room", legacyId), legacyId == null ? null : legacyId.intValue());
@@ -169,6 +205,9 @@ public class DataLoader {
         return room;
     }
 
+    /**
+     * Converts a JSON item object into the Item class.
+     */
     private Item parseItem(JSONObject itemObj) {
         Long legacyId = asNullableLong(itemObj.get("itemID"));
         UUID id = deriveUuid("item", legacyId);
@@ -177,6 +216,9 @@ public class DataLoader {
         return new Item(id, legacyId, name, reusable);
     }
 
+    /**
+     * Figures out which puzzle type we are dealing with and builds it.
+     */
     private Puzzle parsePuzzle(JSONObject puzzleObj) {
         Long legacyId = asNullableLong(puzzleObj.get("puzzleName"));
         UUID id = deriveUuid("puzzle", legacyId);
