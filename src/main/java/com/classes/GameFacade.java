@@ -11,7 +11,10 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * High-level API for interacting with the game state.
+ * Coordinates the escape-room gameplay loop. This facade hides the underlying
+ * persistence and domain objects by loading/saving state, managing player
+ * sessions, tracking progress, pacing rooms sequentially, and mediating score,
+ * hint, and timer updates exposed to the UI layer.
  */
 public class GameFacade {
     private static final int POINTS_PER_PUZZLE = 5;
