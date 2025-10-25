@@ -3,6 +3,12 @@ package com.classes;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Aggregate root that bundles all mutable escape-room state. A {@code GameSystem}
+ * instance owns the rooms, puzzles, players, leaderboard, hints, timer,
+ * difficulty, and progress objects so other layers can load, persist, and
+ * present a cohesive game session.
+ */
 public class GameSystem {
     private final UUID id;
     private Long legacyId;
