@@ -4,7 +4,10 @@ import java.time.Duration;
 import java.util.Objects;
 
 /**
- * Tracks aggregate player performance metrics.
+ * Mutable snapshot of a player's long-term performance. It records how many
+ * games they have attempted, victories earned, puzzles solved, and their
+ * rolling average completion time, normalizing negative inputs to zero so the
+ * values stay meaningful when persisted or displayed.
  */
 public class Statistics {
     private int gamesPlayed;
