@@ -8,7 +8,10 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Tracks the current state of a play-through.
+ * Captures the player's current run through the escape room. In addition to
+ * remembering which player is active and which room they occupy, the progress
+ * object holds the set of puzzles that have already been solved so the UI can
+ * restore state after a reload.
  */
 public class Progress {
     private UUID activePlayerId;
