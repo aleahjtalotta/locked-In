@@ -1,7 +1,9 @@
 package com.classes;
 
 /**
- * Represents the difficulty setting for the escape room.
+ * Enumerates the escape-room difficulty presets. The loader defaults to
+ * {@link #MEDIUM} when the persisted value is blank or unrecognized so gameplay
+ * always has a sane baseline even if the backing data is incomplete.
  */
 public enum DifficultyLevel {
     EASY,
