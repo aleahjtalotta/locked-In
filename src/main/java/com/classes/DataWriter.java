@@ -13,16 +13,42 @@ import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/**
+ * Persists the current escape-room state back into the JSON files used by the
+ * application. This writer produces a pair of documents ({@code rooms.json} and
+ * {@code users.json}) whose shape mirrors the structure that
+ * {@link DataLoader} expects when rebuilding a {@link GameSystem}.
+ * <p>
+ * Instances are mutable only in that they remember the destination directory;
+ * call {@link #saveGame(GameSystem)} whenever the in-memory state should be
+ * flushed to disk.
+ * </p>
+ */
 public class DataWriter {
     private static final String ROOMS_FILE = "rooms.json";
     private static final String USERS_FILE = "users.json";
 
     private final Path destinationDirectory;
 
+    /**
+     * Creates a writer that emits JSON files into the supplied directory. The
+     * directory is created on demand when {@link #saveGame(GameSystem)} runs.
+     *
+     * @param destinationDirectory folder that should contain the generated JSON
+     */
     public DataWriter(Path destinationDirectory) {
         this.destinationDirectory = destinationDirectory;
     }
 
+    /**
+     * Serializes the provided game system to disk. The existing game state is
+     * broken into its rooms, leaderboard, hints, players, and timer sections
+     * and written to {@code rooms.json} and {@code users.json}.
+     *
+     * @param gameSystem current in-memory game state; must not be {@code null}
+     * @return {@code true} when the save completed successfully, {@code false}
+     *         when an {@link IOException} occurred
+     */
     public boolean saveGame(GameSystem gameSystem) {
         Objects.requireNonNull(gameSystem, "gameSystem");
         try {
