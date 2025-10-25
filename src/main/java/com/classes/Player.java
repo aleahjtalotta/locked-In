@@ -7,9 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Represents a player of the escape room.
- */
+
 public class Player {
     private final UUID id;
     private final Integer legacyId;
