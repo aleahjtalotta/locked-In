@@ -5,7 +5,10 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Represents a single entry on the leaderboard.
+ * Immutable leaderboard record that ranks players by score (higher is better)
+ * and uses completion time as a tie breaker. Instances may originate either
+ * from legacy numeric identifiers or freshly generated UUIDs, but the
+ * comparison contract always orders the best-performing players first.
  */
 public class ScoreEntry implements Comparable<ScoreEntry> {
     private final UUID id;
