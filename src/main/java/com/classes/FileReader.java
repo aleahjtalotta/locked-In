@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Utility class for loading line-based text files.
+ */
 public class FileReader {
     public static ArrayList<String> getLines(String fileName) {
         ArrayList<String> lines = new ArrayList<>();
@@ -21,5 +24,5 @@ public class FileReader {
             e.printStackTrace();  
         }
         return lines;
-}
+    }
 }

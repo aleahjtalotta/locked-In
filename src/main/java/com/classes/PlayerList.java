@@ -11,6 +11,9 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.HashSet;
 
+/**
+ * Manages the collection of players available to the game.
+ */
 public class PlayerList {
     private final List<Player> players;
 

@@ -7,7 +7,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-
+/**
+ * Represents a player profile and their progress.
+ */
 public class Player {
     private final UUID id;
     private final Integer legacyId;

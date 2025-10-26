@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Item that can be discovered and used within a room.
+ * Represents an item players can discover and use.
  */
 public class Item {
     private final UUID id;

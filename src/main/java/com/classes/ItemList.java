@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Maintains the set of items owned by a player.
+ */
 public class ItemList {
     private final List<Item> items;
 

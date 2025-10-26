@@ -9,6 +9,9 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 
+/**
+ * Entry point for the Locked-In escape room application.
+ */
 public class LockedInDriver {
     private static final String DEFAULT_DATA_DIR = "JSON";
 
