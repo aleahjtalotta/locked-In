@@ -3,6 +3,10 @@ package com.classes;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Base abstraction for all puzzle implementations, encapsulating common metadata
+ * (identity, description, reward, type) and solved state handling.
+ */
 public abstract class Puzzle {
     private final UUID id;
     private final Long legacyId;
