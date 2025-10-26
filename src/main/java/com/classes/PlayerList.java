@@ -101,6 +101,9 @@ public class PlayerList {
             throw new IllegalArgumentException("A player with that email already exists.");
         }
         String safeName = (name == null || name.isBlank()) ? "New Player" : name.trim();
+        if (nameExists(safeName)) {
+            throw new IllegalArgumentException("A player with that name already exists.");
+        }
         int nextLegacy = players.stream()
                 .map(Player::getLegacyId)
                 .filter(java.util.Objects::nonNull)
@@ -173,6 +176,23 @@ public class PlayerList {
     }
 
     /**
+     * Checks whether a player already uses the provided name.
+     *
+     * @param name player name to check
+     * @return {@code true} if the name is already taken
+     */
+    public boolean nameExists(String name) {
+        String normalized = normalizeName(name);
+        if (normalized == null) {
+            return false;
+        }
+        return players.stream()
+                .map(Player::getName)
+                .map(this::normalizeName)
+                .anyMatch(normalized::equals);
+    }
+
+    /**
      * Normalizes email strings by trimming whitespace and converting to lower case.
      *
      * @param email raw email input
@@ -183,6 +203,20 @@ public class PlayerList {
             return null;
         }
         String normalized = email.trim().toLowerCase();
+        return normalized.isEmpty() ? null : normalized;
+    }
+
+    /**
+     * Normalizes names by trimming whitespace and converting to lower case.
+     *
+     * @param name raw name input
+     * @return normalized name or {@code null} when the input is blank
+     */
+    private String normalizeName(String name) {
+        if (name == null) {
+            return null;
+        }
+        String normalized = name.trim().toLowerCase();
         return normalized.isEmpty() ? null : normalized;
     }
 }
