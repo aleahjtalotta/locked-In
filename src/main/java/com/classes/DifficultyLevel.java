@@ -10,6 +10,14 @@ public enum DifficultyLevel {
     MEDIUM,
     HARD;
 
+    /**
+     * Converts a string representation to a {@link DifficultyLevel}, defaulting
+     * to {@link #MEDIUM} when the input is blank or does not match a known
+     * level.
+     *
+     * @param value difficulty name such as {@code "easy"}, {@code "medium"}, or {@code "hard"}
+     * @return matching difficulty level, or {@link #MEDIUM} when the input is null, empty, or invalid
+     */
     public static DifficultyLevel fromString(String value) {
         if (value == null || value.isBlank()) {
             return MEDIUM;
