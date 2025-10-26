@@ -408,6 +408,10 @@ public class GameFacade {
         if (currentRoom.isEmpty()) {
             return;
         }
+        if (currentRoom.get().getFirstUnsolvedPuzzle().isPresent()) {
+            gameSystem.getProgress().setCurrentRoomId(currentRoom.get().getId());
+            return;
+        }
         Optional<Room> nextRoom = findNextAvailableRoomAfter(currentRoom.get());
         gameSystem.getProgress().setCurrentRoomId(nextRoom.map(Room::getId).orElse(null));
     }

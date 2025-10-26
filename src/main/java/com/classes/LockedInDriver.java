@@ -4,9 +4,13 @@ import com.lockedin.audio.PuzzleNarration;
 import com.lockedin.audio.RoomNarration;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -38,15 +42,16 @@ public class LockedInDriver {
         preparePlayer(game, scanner);
 
         Optional<Room> startingRoom = game.getCurrentRoom();
+        SessionState sessionState = SessionState.from(game.getActivePlayer());
         if (startingRoom.isEmpty()) {
             System.out.println("No rooms with unsolved puzzles were found. Please add rooms to the game data.");
-            showEndScreen(game);
+            showEndScreen(game, sessionState);
             return;
         }
 
-        runEscapeExperience(game, scanner);
+        sessionState = runEscapeExperience(game, scanner, sessionState);
 
-        showEndScreen(game);
+        showEndScreen(game, sessionState);
         if (!game.saveGame()) {
             System.out.println("Warning: progress could not be saved.");
         }
@@ -109,7 +114,7 @@ public class LockedInDriver {
      * @param game    facade orchestrating the game and timer
      * @param scanner console input source for puzzle answers and decisions
      */
-    private static void runEscapeExperience(GameFacade game, Scanner scanner) {
+    private static SessionState runEscapeExperience(GameFacade game, Scanner scanner, SessionState sessionState) {
         game.startTimerCountdown();
         try {
             UUID lastRoomId = null;
@@ -135,13 +140,15 @@ public class LockedInDriver {
                 }
 
                 printRoomSummary(activeRoom);
+                collectRoomItems(activeRoom, sessionState, game.getActivePlayer(), scanner);
+                printInventory(sessionState);
 
                 Optional<Puzzle> selection = promptPuzzleSelection(activeRoom, scanner);
                 if (selection.isEmpty()) {
                     break;
                 }
 
-                boolean solved = attemptPuzzle(game, scanner, selection.get());
+                boolean solved = attemptPuzzle(game, scanner, selection.get(), sessionState);
                 if (!solved) {
                     continuePlaying = askYesNo(scanner, "Would you like to choose a different puzzle? (y/n): ");
                     continue;
@@ -157,6 +164,7 @@ public class LockedInDriver {
         } finally {
             game.pauseTimerCountdown();
         }
+        return sessionState;
     }
 
     /**
@@ -210,17 +218,40 @@ public class LockedInDriver {
      * @param puzzle  puzzle being attempted
      * @return {@code true} when the puzzle is solved; {@code false} if the player exits early
      */
-    private static boolean attemptPuzzle(GameFacade game, Scanner scanner, Puzzle puzzle) {
+    private static boolean attemptPuzzle(GameFacade game, Scanner scanner, Puzzle puzzle, SessionState sessionState) {
         System.out.println();
         presentPuzzleDetails(puzzle);
 
-        while (true) {
-            System.out.print("Enter your answer (press Enter to stop attempting this puzzle): ");
-            String answer = scanner.nextLine();
+        String suggestedItem = recommendItemFor(puzzle);
+        if (suggestedItem != null) {
+            if (sessionState.hasItemNamed(suggestedItem)) {
+                System.out.println("The " + suggestedItem + " vibrates softly. Type 'item' if you want to use it for extra insight.");
+            } else {
+                System.out.println("You sense this challenge reacts to the " + suggestedItem + ". Search the manor if you have not picked it up yet.");
+            }
+        }
 
-            if (answer.trim().isEmpty()) {
+        while (true) {
+            System.out.print("Enter your answer (type 'hint' or 'item', Enter to stop): ");
+            String answer = scanner.nextLine().trim();
+
+            if (answer.isEmpty()) {
                 System.out.println("Leaving the puzzle unsolved for now.");
                 return false;
+            }
+
+            if ("hint".equalsIgnoreCase(answer)) {
+                if (!revealHint(game, sessionState)) {
+                    System.out.println("No hints remain for this session.");
+                }
+                continue;
+            }
+
+            if ("item".equalsIgnoreCase(answer) || "use".equalsIgnoreCase(answer)) {
+                if (!useItemOnPuzzle(scanner, puzzle, sessionState)) {
+                    System.out.println("No usable items were selected.");
+                }
+                continue;
             }
 
             boolean solved = game.submitAnswer(puzzle.getId(), answer);
@@ -251,6 +282,7 @@ public class LockedInDriver {
             System.out.println("Description: " + puzzle.getDescription());
         }
         System.out.println("Type: " + puzzle.getType());
+        System.out.println("(You can type 'hint' for a clue or 'item' to use something you've collected.)");
 
         if (puzzle instanceof MultipleChoicePuzzle mcPuzzle) {
             List<String> options = mcPuzzle.getOptions();
@@ -390,7 +422,7 @@ public class LockedInDriver {
      *
      * @param game facade that provides final scores, timers, and leaderboard entries
      */
-    private static void showEndScreen(GameFacade game) {
+    private static void showEndScreen(GameFacade game, SessionState sessionState) {
         System.out.println();
         System.out.println("=== Escape Summary ===");
         game.getActivePlayer()
@@ -418,7 +450,129 @@ public class LockedInDriver {
             showLeaderboard(game);
         }
 
+        if (sessionState != null) {
+            System.out.println();
+            System.out.println("Items collected this run: " + sessionState.describeCollectedItems());
+            System.out.println("Hints used: " + sessionState.getHintsUsed());
+        }
+
         System.out.println("Thanks for playing Locked-In!");
+    }
+
+    /**
+     * Lets players take the available items from the current room so they can satisfy
+     * the haunted-mansion scenario requirements.
+     */
+    private static void collectRoomItems(Room room, SessionState sessionState, Optional<Player> activePlayer, Scanner scanner) {
+        List<Item> items = room.getItems();
+        List<Item> newItems = items.stream()
+                .filter(item -> !sessionState.hasItem(item))
+                .toList();
+        if (newItems.isEmpty()) {
+            return;
+        }
+
+        System.out.println();
+        System.out.println("You spot a few curiosities lying around:");
+        for (Item item : newItems) {
+            boolean takeItem = askYesNo(scanner, "Pick up the " + item.getName() + "? (y/n): ");
+            if (!takeItem) {
+                continue;
+            }
+            sessionState.addItem(item);
+            activePlayer.ifPresent(player -> addItemToPlayer(player, item));
+            System.out.println("You stash the " + item.getName() + " in your bag." + (item.isReusable() ? " It feels sturdy enough to reuse." : " It might crumble after one use."));
+        }
+        System.out.println();
+    }
+
+    private static void printInventory(SessionState sessionState) {
+        if (sessionState.getInventory().isEmpty()) {
+            System.out.println("Inventory: (no items collected yet)");
+            return;
+        }
+        System.out.println("Inventory:");
+        List<Item> inventory = sessionState.getInventory();
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+            System.out.printf(" %d) %s%s%n", i + 1, item.getName(), sessionState.wasItemUsed(item) ? " (used)" : "");
+        }
+    }
+
+    private static boolean useItemOnPuzzle(Scanner scanner, Puzzle puzzle, SessionState sessionState) {
+        if (sessionState.getInventory().isEmpty()) {
+            System.out.println("Your bag is empty. Explore another room for tools.");
+            return false;
+        }
+        System.out.println("Choose an item to use (press Enter to cancel):");
+        List<Item> inventory = sessionState.getInventory();
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+            System.out.printf(" %d) %s%s%n", i + 1, item.getName(), item.isReusable() ? " (reusable)" : " (fragile)" );
+        }
+        System.out.print("Selection: ");
+        String input = scanner.nextLine().trim();
+        if (input.isEmpty()) {
+            return false;
+        }
+        try {
+            int index = Integer.parseInt(input) - 1;
+            if (index < 0 || index >= inventory.size()) {
+                return false;
+            }
+            Item item = inventory.get(index);
+            sessionState.markItemUsed(item);
+            System.out.println(describeItemEffect(item, puzzle));
+            return true;
+        } catch (NumberFormatException ignored) {
+            return false;
+        }
+    }
+
+    private static String describeItemEffect(Item item, Puzzle puzzle) {
+        return switch (item.getName()) {
+            case "Shadow Candle" -> "The candlelight bends, revealing ghostly letters that make the answer clearer.";
+            case "Lantern Dial" -> "You twist the dial and replay the blinking pattern at will.";
+            case "Frame Hook" -> "The hook lets you lift every portrait safely, making swaps painless.";
+            case "Mirror Brush" -> "Dust vanishes from the mirror, showing which reflection still moves.";
+            case "Ash Brush" -> "Soot sweeps aside to expose the etched numbers.";
+            case "Chant Scroll" -> "Reciting from the scroll makes the final echoed word ring louder.";
+            default -> "Using the " + item.getName() + " helps you focus on " + puzzle.getName() + ".";
+        };
+    }
+
+    private static String recommendItemFor(Puzzle puzzle) {
+        Long legacyId = puzzle.getLegacyId();
+        if (legacyId == null) {
+            return null;
+        }
+        return switch (legacyId.intValue()) {
+            case 301 -> "Shadow Candle";
+            case 302 -> "Lantern Dial";
+            case 303 -> "Frame Hook";
+            case 304 -> "Mirror Brush";
+            case 305 -> "Ash Brush";
+            case 306 -> "Chant Scroll";
+            default -> null;
+        };
+    }
+
+    private static boolean revealHint(GameFacade game, SessionState sessionState) {
+        Optional<Hint> hint = game.useHint();
+        if (hint.isEmpty()) {
+            return false;
+        }
+        sessionState.recordHintUse();
+        System.out.println("Hint: " + hint.get().getText());
+        return true;
+    }
+
+    private static void addItemToPlayer(Player player, Item item) {
+        boolean alreadyOwned = player.getInventory().asList().stream()
+                .anyMatch(existing -> existing.getId().equals(item.getId()));
+        if (!alreadyOwned) {
+            player.getInventory().add(item);
+        }
     }
 
     /**
@@ -469,5 +623,70 @@ public class LockedInDriver {
         long minutes = (seconds % 3600) / 60;
         long secs = seconds % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
+    }
+
+    private static final class SessionState {
+        private final List<Item> inventory;
+        private final Set<UUID> usedItemIds;
+        private final Set<String> collectedNames;
+        private int hintsUsed;
+
+        private SessionState(List<Item> seed) {
+            this.inventory = new ArrayList<>(seed);
+            this.usedItemIds = new HashSet<>();
+            this.collectedNames = new LinkedHashSet<>();
+            seed.forEach(item -> collectedNames.add(item.getName()));
+        }
+
+        static SessionState from(Optional<Player> player) {
+            List<Item> seed = new ArrayList<>();
+            player.ifPresent(value -> seed.addAll(value.getInventory().asList()));
+            return new SessionState(seed);
+        }
+
+        List<Item> getInventory() {
+            return List.copyOf(inventory);
+        }
+
+        boolean hasItem(Item item) {
+            return inventory.stream().anyMatch(existing -> existing.getId().equals(item.getId()));
+        }
+
+        boolean hasItemNamed(String name) {
+            return inventory.stream().anyMatch(existing -> existing.getName().equalsIgnoreCase(name));
+        }
+
+        boolean wasItemUsed(Item item) {
+            return usedItemIds.contains(item.getId());
+        }
+
+        void addItem(Item item) {
+            if (!hasItem(item)) {
+                inventory.add(item);
+            }
+            collectedNames.add(item.getName());
+        }
+
+        void markItemUsed(Item item) {
+            usedItemIds.add(item.getId());
+            if (!item.isReusable()) {
+                inventory.removeIf(existing -> existing.getId().equals(item.getId()));
+            }
+        }
+
+        void recordHintUse() {
+            hintsUsed++;
+        }
+
+        int getHintsUsed() {
+            return hintsUsed;
+        }
+
+        String describeCollectedItems() {
+            if (collectedNames.isEmpty()) {
+                return "none";
+            }
+            return String.join(", ", collectedNames);
+        }
     }
 }
