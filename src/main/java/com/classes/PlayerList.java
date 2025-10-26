@@ -17,24 +17,50 @@ import java.util.HashSet;
 public class PlayerList {
     private final List<Player> players;
 
+    /**
+     * Creates an empty, mutable list of players.
+     */
     public PlayerList() {
         this.players = new ArrayList<>();
     }
 
+    /**
+     * Adds a player to the list when the reference is non-null.
+     *
+     * @param player player to add
+     */
     public void add(Player player) {
         if (player != null) {
             players.add(player);
         }
     }
 
+    /**
+     * Removes the specified player instance from the list.
+     *
+     * @param player player to remove
+     * @return {@code true} if the list contained the player
+     */
     public boolean remove(Player player) {
         return players.remove(player);
     }
 
+    /**
+     * Finds a player by their unique identifier.
+     *
+     * @param id identifier to search for
+     * @return matching player, if present
+     */
     public Optional<Player> findById(UUID id) {
         return players.stream().filter(p -> p.getId().equals(id)).findFirst();
     }
 
+    /**
+     * Looks up a player by email address, ignoring case and surrounding whitespace.
+     *
+     * @param email email address to match
+     * @return player whose normalized email matches, if any
+     */
     public Optional<Player> findByEmail(String email) {
         String normalized = normalizeEmail(email);
         if (normalized == null) {
@@ -48,10 +74,25 @@ public class PlayerList {
                 .findFirst();
     }
 
+    /**
+     * Checks whether a player already uses the supplied email address.
+     *
+     * @param email email to check
+     * @return {@code true} if the email is associated with an existing player
+     */
     public boolean emailExists(String email) {
         return findByEmail(email).isPresent();
     }
 
+    /**
+     * Creates and stores a new player, validating email uniqueness and auto-assigning a legacy id.
+     *
+     * @param name   desired player name
+     * @param email  unique email address
+     * @param avatar optional avatar reference
+     * @return newly created player
+     * @throws IllegalArgumentException when the email is missing or already in use
+     */
     public Player createPlayer(String name, String email, String avatar) {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("Email is required.");
@@ -71,6 +112,11 @@ public class PlayerList {
         return player;
     }
 
+    /**
+     * Determines whether any players share the same normalized email address.
+     *
+     * @return {@code true} if duplicate emails are discovered
+     */
     public boolean hasDuplicateUsers() {
         Set<String> emails = new HashSet<>();
         for (Player player : players) {
@@ -85,6 +131,11 @@ public class PlayerList {
         return false;
     }
 
+    /**
+     * Collects all players that share a duplicate email address with at least one other player.
+     *
+     * @return list of players involved in duplicate email collisions
+     */
     public List<Player> findDuplicateUsers() {
         Map<String, List<Player>> groupedByEmail = new LinkedHashMap<>();
         for (Player player : players) {
@@ -103,14 +154,30 @@ public class PlayerList {
         return duplicates;
     }
 
+    /**
+     * Returns an immutable snapshot of the players in insertion order.
+     *
+     * @return unmodifiable player list
+     */
     public List<Player> asList() {
         return Collections.unmodifiableList(players);
     }
 
+    /**
+     * Reports the number of registered players.
+     *
+     * @return player count
+     */
     public int size() {
         return players.size();
     }
 
+    /**
+     * Normalizes email strings by trimming whitespace and converting to lower case.
+     *
+     * @param email raw email input
+     * @return normalized email or {@code null} when the input is blank
+     */
     private String normalizeEmail(String email) {
         if (email == null) {
             return null;

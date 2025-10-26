@@ -15,6 +15,11 @@ import java.util.UUID;
 public class LockedInDriver {
     private static final String DEFAULT_DATA_DIR = "JSON";
 
+    /**
+     * Launches the Locked-In game using the provided data directory, or the default directory when none is supplied.
+     *
+     * @param args optional first argument that overrides the data directory root
+     */
     public static void main(String[] args) {
         String dataDirectory = args.length > 0 ? args[0] : DEFAULT_DATA_DIR;
         GameFacade game = new GameFacade(dataDirectory);
@@ -47,6 +52,12 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Prompts the user to choose or create an active player profile before gameplay begins.
+     *
+     * @param game    facade coordinating game state and persistence
+     * @param scanner console input source for user interactions
+     */
     private static void preparePlayer(GameFacade game, Scanner scanner) {
         while (game.getActivePlayer().isEmpty()) {
             List<Player> players = game.getPlayerList().asList();
@@ -92,6 +103,12 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Drives the main escape-room loop, presenting rooms and puzzles until the user stops or content ends.
+     *
+     * @param game    facade orchestrating the game and timer
+     * @param scanner console input source for puzzle answers and decisions
+     */
     private static void runEscapeExperience(GameFacade game, Scanner scanner) {
         game.startTimerCountdown();
         try {
@@ -142,6 +159,13 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Asks the player to select an unsolved puzzle within the active room.
+     *
+     * @param room    current room containing puzzles
+     * @param scanner console input source for puzzle selection
+     * @return selected puzzle wrapped in {@link Optional}, or empty if the player declines
+     */
     private static Optional<Puzzle> promptPuzzleSelection(Room room, Scanner scanner) {
         while (true) {
             List<Puzzle> unsolved = room.getPuzzles().stream()
@@ -178,6 +202,14 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Handles repeated answer submissions for the supplied puzzle until it is solved or the player quits.
+     *
+     * @param game    facade granting access to puzzle evaluation and rewards
+     * @param scanner console input source for player answers
+     * @param puzzle  puzzle being attempted
+     * @return {@code true} when the puzzle is solved; {@code false} if the player exits early
+     */
     private static boolean attemptPuzzle(GameFacade game, Scanner scanner, Puzzle puzzle) {
         System.out.println();
         presentPuzzleDetails(puzzle);
@@ -207,6 +239,11 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Outputs key information and narration cues needed for the player to understand the puzzle.
+     *
+     * @param puzzle puzzle whose description, type, and narration should be shown
+     */
     private static void presentPuzzleDetails(Puzzle puzzle) {
         System.out.println();
         System.out.println("Attempting: " + puzzle.getName());
@@ -237,6 +274,11 @@ public class LockedInDriver {
         PuzzleNarration.narrateAsync(puzzle);
     }
 
+    /**
+     * Displays an overview of the room, including items and puzzle completion status.
+     *
+     * @param room room currently explored by the player
+     */
     private static void printRoomSummary(Room room) {
         System.out.println("Room details:");
         if (room.getItems().isEmpty()) {
@@ -264,6 +306,13 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Prompts the user for a yes or no response and keeps asking until a definitive answer is provided.
+     *
+     * @param scanner console input source
+     * @param prompt  question to display to the user
+     * @return {@code true} for affirmative responses, {@code false} for negative or empty responses
+     */
     private static boolean askYesNo(Scanner scanner, String prompt) {
         while (true) {
             System.out.print(prompt + " ");
@@ -285,6 +334,11 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Prints all registered players so the user can choose an existing profile.
+     *
+     * @param game facade providing access to the known players
+     */
     private static void listPlayers(GameFacade game) {
         List<Player> players = game.getPlayerList().asList();
         if (players.isEmpty()) {
@@ -303,6 +357,12 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Collects details from the console to create a new player profile in the persistence store.
+     *
+     * @param game    facade used to store the newly created player
+     * @param scanner console input source for name, email, and avatar path
+     */
     private static void createPlayer(GameFacade game, Scanner scanner) {
         System.out.print("Enter player name: ");
         String name = scanner.nextLine().trim();
@@ -324,6 +384,11 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Displays a summary of the player's progress and highlights the leaderboard at the end of the session.
+     *
+     * @param game facade that provides final scores, timers, and leaderboard entries
+     */
     private static void showEndScreen(GameFacade game) {
         System.out.println();
         System.out.println("=== Escape Summary ===");
@@ -355,6 +420,11 @@ public class LockedInDriver {
         System.out.println("Thanks for playing Locked-In!");
     }
 
+    /**
+     * Prints the leaderboard in order so players can compare high scores.
+     *
+     * @param game facade that exposes the leaderboard entries
+     */
     private static void showLeaderboard(GameFacade game) {
         List<ScoreEntry> scores = game.getLeaderboard().getScores();
         if (scores.isEmpty()) {
@@ -372,6 +442,12 @@ public class LockedInDriver {
         }
     }
 
+    /**
+     * Formats a room identifier, preferring the legacy numeric reference when available.
+     *
+     * @param room room whose identifier should be displayed
+     * @return formatted identifier string for console output
+     */
     private static String formatRoomId(Room room) {
         if (room.getLegacyId() != null) {
             return "#" + room.getLegacyId();
@@ -379,6 +455,12 @@ public class LockedInDriver {
         return room.getId().toString();
     }
 
+    /**
+     * Converts a {@link Duration} to an {@code HH:MM:SS} string, treating {@code null} values as zero.
+     *
+     * @param duration duration to format
+     * @return formatted time string safe for user display
+     */
     private static String formatDuration(Duration duration) {
         Duration safeDuration = duration == null ? Duration.ZERO : duration;
         long seconds = safeDuration.getSeconds();
