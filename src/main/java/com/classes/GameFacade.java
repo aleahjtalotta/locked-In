@@ -116,8 +116,14 @@ public class GameFacade {
      * @param email  login email for the player
      * @param avatar avatar identifier or path
      * @return the newly created {@link Player}
+     * @throws IllegalArgumentException when the email is missing or already registered to another player
      */
     public Player createAccount(String name, String email, String avatar) {
+        Optional<Player> existing = gameSystem.getPlayers().findByEmail(email);
+        if (existing.isPresent()) {
+            String ownerName = existing.get().getName();
+            throw new IllegalArgumentException(ownerName + " has already made an account in the system. Please use a different email.");
+        }
         Player player = gameSystem.getPlayers().createPlayer(name, email, avatar);
         saveGame();
         return player;

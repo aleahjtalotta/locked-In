@@ -378,7 +378,8 @@ public class LockedInDriver {
 
         try {
             Player player = game.createAccount(name, email, avatar);
-            System.out.println("Player created with ID " + player.getId());
+            game.login(player.getEmail());
+            System.out.println("Player created with ID " + player.getId() + " and logged in.");
         } catch (IllegalArgumentException ex) {
             System.out.println("Unable to create player: " + ex.getMessage());
         }

@@ -301,6 +301,7 @@ public class LockedInApp extends Application {
 
         try {
             Player player = game.createAccount(nameResult.get(), emailResult.get(), null);
+            game.login(player.getEmail());
             refreshGameState();
             selectPlayerById(player.getId());
             showInformation("Player Created", "Added " + player.getName() + " to the roster.");
