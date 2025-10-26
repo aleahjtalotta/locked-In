@@ -136,10 +136,10 @@ public class DataLoader {
     }
 
     /**
-     * Converts the hints section from JSON into our {@link Hints} queue.
+     * Converts the hints section from JSON into our queue.
      *
-     * @param hintsArray raw hints array loaded from {@code rooms.json}; may be {@code null}
-     * @return populated {@link Hints} instance; never {@code null}
+     * @param hintsArray raw hints array loaded from {@code rooms.json}; may be 
+     * @return populated instance
      */
     private Hints parseHints(JSONArray hintsArray) {
         Hints hints = new Hints();
