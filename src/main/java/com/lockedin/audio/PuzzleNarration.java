@@ -17,10 +17,21 @@ public final class PuzzleNarration {
     private PuzzleNarration() {
     }
 
+    /**
+     * Triggers narration of the provided puzzle on a background thread.
+     *
+     * @param puzzle puzzle to describe aloud
+     */
     public static void narrateAsync(Puzzle puzzle) {
         TextToSpeechService.speakAsync(createStory(puzzle));
     }
 
+    /**
+     * Creates a spoken description summarizing the puzzle experience.
+     *
+     * @param puzzle puzzle to describe; may be {@code null}
+     * @return narration text suitable for speech synthesis
+     */
     public static String createStory(Puzzle puzzle) {
         if (puzzle == null) {
             return "";
@@ -37,6 +48,12 @@ public final class PuzzleNarration {
         return story.toString().replaceAll("\\s+", " ").trim();
     }
 
+    /**
+     * Adds narration tailored to the concrete puzzle type.
+     *
+     * @param puzzle puzzle whose type determines the narration details
+     * @return supplemental narration fragment
+     */
     private static String typeSpecificStory(Puzzle puzzle) {
         if (puzzle instanceof MultipleChoicePuzzle mc) {
             return narrateMultipleChoice(mc);
@@ -56,6 +73,12 @@ public final class PuzzleNarration {
         return "";
     }
 
+    /**
+     * Builds narration for a multiple-choice puzzle, enumerating the options.
+     *
+     * @param puzzle multiple-choice puzzle to describe
+     * @return narration text that introduces each choice
+     */
     private static String narrateMultipleChoice(MultipleChoicePuzzle puzzle) {
         List<String> options = puzzle.getOptions();
         if (options.isEmpty()) {
@@ -68,6 +91,12 @@ public final class PuzzleNarration {
         return joiner.toString();
     }
 
+    /**
+     * Builds narration for a sequence puzzle, outlining the expected order.
+     *
+     * @param puzzle sequence puzzle to describe
+     * @return narration text that guides the ordering of steps
+     */
     private static String narrateSequence(SequencePuzzle puzzle) {
         List<String> steps = puzzle.getExpectedSequence();
         if (steps.isEmpty()) {
