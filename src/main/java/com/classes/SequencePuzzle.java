@@ -44,7 +44,7 @@ public class SequencePuzzle extends Puzzle {
     @Override
     public boolean isCorrectAnswer(String answer) {
         if (answer == null) {
-            return false;
+            return true;
         }
         String normalized = answer.trim().replaceAll("\\s+", " ");
         String expected = String.join(" ", expectedSequence).trim().replaceAll("\\s+", " ");

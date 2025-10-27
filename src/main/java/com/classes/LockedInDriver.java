@@ -3,7 +3,12 @@ package com.classes;
 import com.lockedin.audio.PuzzleNarration;
 import com.lockedin.audio.RoomNarration;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -18,6 +23,7 @@ import java.util.UUID;
  */
 public class LockedInDriver {
     private static final String DEFAULT_DATA_DIR = "JSON";
+    private static final String CERTIFICATE_DIRECTORY = "certificates";
 
     /**
      * Launches the Locked-In game using the provided data directory, or the default directory when none is supplied.
@@ -254,6 +260,15 @@ public class LockedInDriver {
                 continue;
             }
 
+            if (puzzle instanceof MultipleChoicePuzzle multipleChoicePuzzle) {
+                Optional<String> resolved = resolveMultipleChoiceAnswer(answer, multipleChoicePuzzle);
+                if (resolved.isEmpty()) {
+                    System.out.println("Please enter a valid choice number or answer text shown in the list.");
+                    continue;
+                }
+                answer = resolved.get();
+            }
+
             boolean solved = game.submitAnswer(puzzle.getId(), answer);
             if (solved) {
                 System.out.println("Correct! Puzzle solved and progress updated.");
@@ -450,13 +465,83 @@ public class LockedInDriver {
             showLeaderboard(game);
         }
 
+        int hintsUsed = 0;
         if (sessionState != null) {
+            hintsUsed = sessionState.getHintsUsed();
             System.out.println();
             System.out.println("Items collected this run: " + sessionState.describeCollectedItems());
-            System.out.println("Hints used: " + sessionState.getHintsUsed());
+            System.out.println("Hints used: " + hintsUsed);
+        }
+
+        if (totalPuzzles >= 3 && solvedPuzzles == totalPuzzles) {
+            generateCompletionCertificate(game, sessionState, solvedPuzzles, totalPuzzles, hintsUsed)
+                    .ifPresent(path -> System.out.println("Completion certificate saved to: " + path.toAbsolutePath()));
         }
 
         System.out.println("Thanks for playing Locked-In!");
+    }
+
+    private static Optional<Path> generateCompletionCertificate(GameFacade game,
+                                                                SessionState sessionState,
+                                                                int solvedPuzzles,
+                                                                int totalPuzzles,
+                                                                int hintsUsed) {
+        Timer timer = game.getGameSystem().getTimer();
+        Duration elapsed = timer == null ? Duration.ZERO : timer.getElapsed();
+        String elapsedFormatted = formatDuration(elapsed);
+
+        String playerName = game.getActivePlayer()
+                .map(Player::getName)
+                .orElse("Guest");
+        int finalScore = game.getActivePlayer()
+                .map(Player::getCurrentScore)
+                .orElse(Math.max(0, solvedPuzzles * 5 - hintsUsed));
+
+        DifficultyLevel difficulty = game.getGameSystem().getDifficulty();
+        String difficultyLabel = formatDifficultyLabel(difficulty);
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter fileStampFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy 'at' HH:mm:ss");
+        String sanitizedName = playerName.replaceAll("[^a-zA-Z0-9]+", "_").toLowerCase();
+        if (sanitizedName.isBlank()) {
+            sanitizedName = "guest";
+        }
+        String fileName = String.format("LockedIn_Certificate_%s_%s.txt", sanitizedName, now.format(fileStampFormatter));
+        Path certificateDir = Path.of(CERTIFICATE_DIRECTORY);
+        String newline = System.lineSeparator();
+
+        StringBuilder content = new StringBuilder()
+                .append("========================================").append(newline)
+                .append("          Locked In - Certificate       ").append(newline)
+                .append("========================================").append(newline).append(newline)
+                .append("Congrats!! You Locked-In and escaped!").append(newline).append(newline)
+                .append("Game: Locked In").append(newline)
+                .append("Player: ").append(playerName).append(newline)
+                .append("Difficulty: ").append(difficultyLabel).append(newline)
+                .append("Time Taken: ").append(elapsedFormatted).append(newline)
+                .append("Hints Used: ").append(hintsUsed).append(newline)
+                .append("Puzzles Solved: ").append(solvedPuzzles).append("/").append(totalPuzzles).append(newline)
+                .append("Final Score: ").append(finalScore).append(newline)
+                .append("Completed On: ").append(now.format(displayFormatter)).append(newline);
+
+        try {
+            Files.createDirectories(certificateDir);
+            Path certificatePath = certificateDir.resolve(fileName);
+            Files.writeString(certificatePath, content.toString());
+            return Optional.of(certificatePath);
+        } catch (IOException ex) {
+            System.out.println("Unable to create completion certificate: " + ex.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    private static String formatDifficultyLabel(DifficultyLevel difficulty) {
+        if (difficulty == null) {
+            return "Unknown";
+        }
+        String name = difficulty.name().toLowerCase();
+        return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }
 
     /**
@@ -555,6 +640,56 @@ public class LockedInDriver {
             case 306 -> "Chant Scroll";
             default -> null;
         };
+    }
+
+    /**
+     * Resolves user input for a multiple-choice puzzle into the canonical option string so answer validation
+     * succeeds when the player provides a number, letter, or partial text.
+     *
+     * @param input  raw player input gathered from the console
+     * @param puzzle the multiple choice puzzle being attempted
+     * @return optional containing the normalized option text when the input maps to a known option
+     */
+    private static Optional<String> resolveMultipleChoiceAnswer(String input, MultipleChoicePuzzle puzzle) {
+        if (input == null) {
+            return Optional.empty();
+        }
+        String trimmed = input.trim();
+        if (trimmed.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<String> options = puzzle.getOptions();
+
+        if (trimmed.matches("\\d+")) {
+            int index = Integer.parseInt(trimmed) - 1;
+            if (index >= 0 && index < options.size()) {
+                return Optional.of(options.get(index));
+            }
+            return Optional.empty();
+        }
+
+        if (trimmed.length() == 1 && Character.isLetter(trimmed.charAt(0))) {
+            int index = Character.toUpperCase(trimmed.charAt(0)) - 'A';
+            if (index >= 0 && index < options.size()) {
+                return Optional.of(options.get(index));
+            }
+        }
+
+        for (String option : options) {
+            if (option.equalsIgnoreCase(trimmed)) {
+                return Optional.of(option);
+            }
+        }
+
+        String lower = trimmed.toLowerCase();
+        List<String> matches = options.stream()
+                .filter(option -> option.toLowerCase().contains(lower))
+                .toList();
+        if (matches.size() == 1) {
+            return Optional.of(matches.get(0));
+        }
+        return Optional.empty();
     }
 
     private static boolean revealHint(GameFacade game, SessionState sessionState) {
