@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.classes.RoomTest" time="0.035" tests="8" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/anchalpatel/escape room/locked-In/target/test-classes:/Users/anchalpatel/escape room/locked-In/.m2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-base/21/javafx-base-21.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /Users/anchalpatel/escape room/locked-In/target/surefire 2025-11-02T15-59-19_214-jvmRun1 surefire-20251102155919334_1tmp surefire_0-20251102155919334_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/anchalpatel/escape room/locked-In/target/test-classes:/Users/anchalpatel/escape room/locked-In/.m2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-base/21/javafx-base-21.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/anchalpatel"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="jdk.module.path" value="/Users/anchalpatel/escape room/locked-In/target/classes:/Users/anchalpatel/escape room/locked-In/.m2/junit/junit/4.13.2/junit-4.13.2.jar:/Users/anchalpatel/escape room/locked-In/.m2/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-controls/21/javafx-controls-21-mac-aarch64.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-graphics/21/javafx-graphics-21-mac-aarch64.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-base/21/javafx-base-21-mac-aarch64.jar"/>
+    <property name="java.version.date" value="2025-10-21"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/anchalpatel/escape room/locked-In"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/surefire-booter/3.2.5/surefire-booter-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/surefire-api/3.2.5/surefire-api-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/surefire-logger-api/3.2.5/surefire-logger-api-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/surefire-shared-utils/3.2.5/surefire-shared-utils-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/surefire-extensions-spi/3.2.5/surefire-extensions-spi-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/target/test-classes:/Users/anchalpatel/escape room/locked-In/.m2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/openjfx/javafx-base/21/javafx-base-21.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/surefire-junit4/3.2.5/surefire-junit4-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/common-java5/3.2.5/common-java5-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/common-junit3/3.2.5/common-junit3-3.2.5.jar:/Users/anchalpatel/escape room/locked-In/.m2/org/apache/maven/surefire/common-junit4/3.2.5/common-junit4-3.2.5.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.1"/>
+    <property name="user.name" value="anchalpatel"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="15.6.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/anchalpatel/escape room/locked-In/.m2"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/x8/lvxkxz954gd4czm5g55055180000gn/T/"/>
+    <property name="java.version" value="25.0.1"/>
+    <property name="user.dir" value="/Users/anchalpatel/escape room/locked-In"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/anchalpatel/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.1"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="maven.repo.local" value=".m2"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="findPuzzleReturnsEmptyForNullId" classname="com.classes.RoomTest" time="0.01"/>
+  <testcase name="addPuzzleStoresNonNullPuzzle" classname="com.classes.RoomTest" time="0.0"/>
+  <testcase name="addPuzzleIgnoresNullReferences" classname="com.classes.RoomTest" time="0.0"/>
+  <testcase name="addItemIgnoresNullReferences" classname="com.classes.RoomTest" time="0.0"/>
+  <testcase name="findPuzzleReturnsMatchingPuzzle" classname="com.classes.RoomTest" time="0.0"/>
+  <testcase name="getFirstUnsolvedPuzzleReturnsFirstUnsolved" classname="com.classes.RoomTest" time="0.0"/>
+  <testcase name="getFirstUnsolvedPuzzleReturnsEmptyWhenAllSolved" classname="com.classes.RoomTest" time="0.0"/>
+  <testcase name="addItemStoresNonNullItems" classname="com.classes.RoomTest" time="0.0"/>
+</testsuite>
