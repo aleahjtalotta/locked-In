@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.classes.TimerTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in com.classes.TimerTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.150 s -- in com.classes.TimerTest
