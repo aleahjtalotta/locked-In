@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.classes.DataWriterTest" time="0.011" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.classes.DataWriterTest" time="0.015" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /Users/anchalpatel/escape room/locked-In/target/surefire 2025-11-02T13-08-00_828-jvmRun1 surefire-20251102130800951_1tmp surefire_0-20251102130800951_2tmp"/>
+    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /Users/anchalpatel/escape room/locked-In/target/surefire 2025-11-02T20-29-53_842-jvmRun1 surefire-20251102202954049_1tmp surefire_0-20251102202954049_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/anchalpatel/escape room/locked-In/target/test-classes:/Users/anchalpatel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/anchalpatel/.m2/repository/org/openjfx/javafx-controls/21/javafx-controls-21.jar:/Users/anchalpatel/.m2/repository/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar:/Users/anchalpatel/.m2/repository/org/openjfx/javafx-base/21/javafx-base-21.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -57,9 +57,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="saveGame_writesCompleteStateToJsonFiles" classname="com.classes.DataWriterTest" time="0.006"/>
-  <testcase name="saveGame_returnsFalseWhenDestinationCannotBeCreated" classname="com.classes.DataWriterTest" time="0.005">
-    <system-err><![CDATA[java.nio.file.FileAlreadyExistsException: /var/folders/x8/lvxkxz954gd4czm5g55055180000gn/T/junit1683854046583462451/not-a-directory
+  <testcase name="saveGameReturnsFalseWhenDestinationPathIsAFile" classname="com.classes.DataWriterTest" time="0.001">
+    <system-err><![CDATA[java.nio.file.FileAlreadyExistsException: /var/folders/x8/lvxkxz954gd4czm5g55055180000gn/T/junit16009968618396033671/existing-file.tmp
 	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:94)
 	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
 	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
@@ -67,8 +66,8 @@
 	at java.base/java.nio.file.Files.createDirectory(Files.java:647)
 	at java.base/java.nio.file.Files.createAndCheckIsDirectory(Files.java:734)
 	at java.base/java.nio.file.Files.createDirectories(Files.java:689)
-	at com.lockedin@1.0.0-SNAPSHOT/com.classes.DataWriter.saveGame(DataWriter.java:55)
-	at com.lockedin@1.0.0-SNAPSHOT/com.classes.DataWriterTest.saveGame_returnsFalseWhenDestinationCannotBeCreated(DataWriterTest.java:88)
+	at com.lockedin/com.classes.DataWriter.saveGame(DataWriter.java:55)
+	at com.lockedin/com.classes.DataWriterTest.saveGameReturnsFalseWhenDestinationPathIsAFile(DataWriterTest.java:136)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at junit@4.13.2/org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
@@ -98,4 +97,5 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 ]]></system-err>
   </testcase>
+  <testcase name="saveGameWritesRoomsAndUsersFilesWithExpectedContent" classname="com.classes.DataWriterTest" time="0.012"/>
 </testsuite>

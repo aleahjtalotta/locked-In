@@ -1,0 +1,4 @@
+--patch-module
+com.lockedin=_
+--add-reads
+com.lockedin=ALL-UNNAMED
