@@ -4,6 +4,9 @@ https://youtu.be/q7pfS47aeBs
 # Prototype Implementation
 https://www.youtube.com/watch?v=2c1Ax6tp72s
 
+# GitHub Pages with Prototype PDF
+https://aleahjtalotta.github.io/locked-in/
+
 # locked-In
 "Locked In" is a spooky-themed virtual escape room. Explore eerie rooms, solve lightweight puzzles, and escape before the timer runs out.
 
