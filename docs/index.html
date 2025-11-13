@@ -209,32 +209,85 @@
 	</script>
 	<!-- ====================== END DEBUG HELPERS ====================== -->
 
-	<!-- Original project init script -- keep, but replace direct call with safe wrapper further down -->
 	<script type="text/javascript">
-		// Minimal project config copy (keeps original references used by player scripts)
-		try {
-			prx = prx || {};
+
 			prx.ver = '6.8.41.2';
-			prx.url = prx.url || {};
 			prx.url.account = 'https://anchalpatel.proto.io';
 			prx.url.staticassets = 'https://gal.proto.io';
 			prx.url.devices = 'https://dteyv52hbg2at.cloudfront.net/devices';
 			prx.url.static = 'https://dteyv52hbg2at.cloudfront.net';
 			prx.url.siteurl = 'proto.io';
 			prx.url.crossmsg = 'https://anchalpatel.proto.io';
-			prx.nodejsassetsserver = prx.nodejsassetsserver || {};
+
+			prx.nodejsassetsserver = {};
 			prx.nodejsassetsserver.host = ".proto.io";
 			prx.nodejsassetsserver.subdomainprefix = "https://a3";
 			prx.nodejsassetsserver.maxsubdomains = "20";
+
 			prx.device_library = 'generic2';
-			prx.devices = prx.devices || {};
-			prx.devices[prx.device] = prx.devices[prx.device] || {};
-			prx.projectsettings = prx.projectsettings || {};
-			// ... other prx fields left as is if present by player-export.js
-		} catch (e) {
-			console.error('Error setting minimal prx defaults:', e);
-		}
-	</script>
+			prx.devices[prx.device] = {
+				name: prx.device
+				,defaultOrientation: 'landscape'
+				,portrait_applies: 0 //new
+				,portrait: [0,0]
+				,landscape_applies: 1 //new
+				,landscape: [1440,900]
+				,allow_orientation_change: 1 //new
+				,statusbar_skin: 'default' // new
+				,statusbarheightportrait: 0
+				,statusbarheightlandscape: 0
+				,navigationbar_skin: 'default' //new
+				,navigationbarheightportrait: 0
+				,navigationbarheightlandscape: 0
+				,normalportrait: [0,0]
+				,normallandscape: [1440,900]
+				,device_s3bucket: '133086fa-e022-48c1-9ac1-c999659222d9'
+				,dpr: '1.00'
+				,deviceType: "default"
+                ,showiPhoneXNotch: false
+                ,hasCustomSkinNotch: false
+				,appleWatchRoundedCorners: false
+				,scrollType: "default"
+				,initialscale: 1.00
+				,targetdensitydpi: "device-dpi"
+			}
+			// save a copy of the device in the player state
+			prx.currentPlayerStatus.projectDevice = prx.toolbox.clone(prx.devices[prx.device]);
+			prx.currentPlayerStatus.targetDevice = {"ISANDROIDTABLET":0,"ISIPOD":0,"ISCHROME":0,"ISIOS":0,"ISMSIE":0,"ISMOZILLA":0,"isAndroid-Pad":0,"ISOPERA":0,"ISWEBKIT":0,"SOSVERSION":{"CBUILDVER":"","CMAJORVER":"","CMINORVER":"","CTEXT":"","IMINORVER":0,"IMAJORVER":0,"IBUILDVER":0},"ISIPAD":0,"ISMOBILE":1,"ISSAFARI":0,"ISIPHONE":0,"ISWINDOWS":0,"ISWINDOWSTOUCH":0,"ISDEVICE":1,"ISANDROID":0,"ISCUSTOM":0};
+			prx.releaseChannel = 'stable';
+
+			prx.projectsettings.id = 'b0d3eb6d-90ac-42be-90ec-0e88ec7104af';
+			prx.projectsettings.s3b = 'anchalpatel-1688123-c19d9e11-0a6d-be1a-03c30ca97821745b';
+			prx.projectsettings.account = 'anchalpatel';
+			prx.projectsettings.statusbar = '0'; 
+			prx.projectsettings.statusbarapplies = '0';
+			prx.projectsettings.navigationbar = '0';
+			prx.projectsettings.navigationbarapplies = '0';
+			prx.projectsettings.initialpageid = -1;
+			
+			
+			prx.projectsettings.flashactions = 1;
+			prx.projectsettings.gatrackingcode = '';
+
+			prx.export2html = '1' == true;
+			prx.mobPlayer = 0;
+
+			prx.user.country = 'US';
+
+			prx.s3Links = []; 
+			var sLinkedAssets = [];
+			
+
+			prx.csrf_token = '9B30F83744FD4166B1647BBEB1A476E27A6FA4C181AAD911F3739CA747D73DC3';
+
+            
+
+            
+                            prx.assetsAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkIjp7InVpZCI6Ii0xIiwicHJvamVjdF9pZCI6ImIwZDNlYjZkLTkwYWMtNDJiZS05MGVjLTBlODhlYzcxMDRhZiJ9LCJ2IjowLCJleHAiOjE3NjMxODY5MDksImlhdCI6MTc2MzAwNjkwOX0.Dafb3WgBhhBbsQ13b5tA-TyGSAql6DZdHDTcRkMDQXA";
+
+			prx.iniPlayer.iniPreLoad();
+
+		</script>
 
 </head>
 
@@ -276,28 +329,6 @@
 		<div id="poweredby"></div>
 	</div>
 
-	<!-- SAFE init: call iniPreLoad only if available, wrapped in try/catch -->
-	<script>
-		(function () {
-			try {
-				if (window.prx && prx.iniPlayer && typeof prx.iniPlayer.iniPreLoad === 'function') {
-					prx.iniPlayer.iniPreLoad();
-					console.log('%c[INIT] prx.iniPlayer.iniPreLoad() called', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;');
-				} else {
-					console.warn('%c[INIT] prx.iniPlayer.iniPreLoad not available (skipped)', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;');
-				}
-			} catch (e) {
-				console.error('%c[INIT ERROR] prx.iniPlayer.iniPreLoad failed:', 'background:#b71c1c;color:white;padding:2px 6px;border-radius:3px;', e);
-			}
-
-			// extra: list all referenced paths for quick glance (callable from console too)
-			console.group('%c[DEBUG] Referenced resources', 'background:#1976d2;color:white;padding:2px 6px;border-radius:3px;');
-			if (typeof window.debugListResources === 'function') {
-				try { window.debugListResources(); } catch (e) { console.warn('debugListResources failed', e); }
-			}
-			console.groupEnd();
-		})();
-	</script>
 
 	<!-- additional runtime patch: clear inline width/transform if present -->
 	<script>
