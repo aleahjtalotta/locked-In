@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>Oldlantern</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="stroked" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Science" sketch:type="MSLayerGroup" transform="translate(-740.000000, -627.000000)" stroke="#ffffff" stroke-width="2">
+            <g id="Oldlanter" transform="translate(746.000000, 630.000000)" sketch:type="MSShapeGroup">
+                <path d="M24.9350288,15.5146359 C28.2556722,15.5146359 30.9475856,12.8227225 30.9475856,9.50207915 C30.9475856,6.18143576 24.9350288,0 24.9350288,0 C24.9350288,0 18.9224721,6.18143576 18.9224721,9.50207915 C18.9224721,12.8227225 21.6143855,15.5146359 24.9350288,15.5146359 Z" id="Oval-147" stroke-linecap="round" stroke-linejoin="round"></path>
+                <rect id="Rectangle-60" stroke-linecap="round" stroke-linejoin="round" x="18" y="20" width="14" height="12"></rect>
+                <rect id="Rectangle-61" stroke-linecap="round" stroke-linejoin="round" x="15" y="37" width="19" height="8"></rect>
+                <rect id="Rectangle-62" stroke-linecap="round" stroke-linejoin="round" x="0" y="45" width="48" height="8"></rect>
+                <path d="M25,37 L25,32.4009805" id="Line" stroke-linecap="square"></path>
+                <path d="M25,37 L25,32.4009805" id="Line-66" stroke-linecap="square"></path>
+                <path d="M28.5,41 L43,41" id="Line" stroke-linecap="square"></path>
+                <path d="M43,40.5 L43,34.4172375" id="Line" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>

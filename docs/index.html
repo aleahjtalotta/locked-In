@@ -1,37 +1,326 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prototype Showcase</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
 
-        iframe {
-            width: 90vw;
-            height: 90vh;
-            border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+	<meta charset="utf-8">
+	<title>Prototype - Proto.io (Debug)</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="1440">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="cleartype" content="on">
+
+	<!-- Icons (keep original links) -->
+	<link rel="icon" sizes="192x192" href="./src/assets/branding/android-icon-hires.png">
+	<link rel="icon" sizes="128x128" href="./src/assets/branding/android-icon.png">
+	<link href="./src/assets/branding/apple-touch-icon-retina180.png" sizes="180x180" rel="apple-touch-icon">
+	<link href="./src/assets/branding/apple-touch-icon-retina.png" sizes="114x114" rel="apple-touch-icon">
+	<link href="./src/assets/branding/apple-touch-icon.png" sizes="57x57" rel="apple-touch-icon">
+
+	<!-- Core scripts/styles (unchanged) -->
+	<script type="text/javascript" src="./scripts/plugins/jquery/jquery.js"></script>
+	<link rel="stylesheet" href="./stylesheets/player-export.css" />
+	<script type="text/javascript" src="./scripts/player-export.js"></script>
+	<script type="text/javascript" src="./libraries/common/components.js"></script>
+	<link type="text/css" rel="Stylesheet" href="./libraries/common/components.1.00.css" />
+	<script type="text/javascript" src="./libraries/generic2/components.js"></script>
+	<link type="text/css" rel="Stylesheet" href="./libraries/generic2/components.1.00.css" />
+	<script type="text/javascript" src="./data/data.js"></script>
+
+	<!-- Responsive + Centering Overrides (keeps layout) -->
+	<style>
+		html,
+		body {
+			width: 100% !important;
+			height: 100% !important;
+			margin: 0 !important;
+			padding: 0 !important;
+			overflow: hidden !important;
+			background: #000;
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		body,
+		#window-wrapper,
+		.prx-page,
+		.player,
+		.preview,
+		.landscape,
+		.portrait {
+			width: 100% !important;
+			height: 100vh !important;
+			max-width: none !important;
+			min-height: 0 !important;
+		}
+
+		.letterbox,
+		.preview-letterbox,
+		.player-letterbox {
+			transform: none !important;
+			width: 100% !important;
+			height: 100% !important;
+			left: 0 !important;
+			top: 0 !important;
+			margin: 0 !important;
+		}
+
+		.screen,
+		.stage,
+		.proto-stage,
+		.stage-inner {
+			width: 100% !important;
+			height: 100% !important;
+		}
+
+		#window-wrapper {
+			margin: auto;
+			position: relative;
+			transform: none !important;
+		}
+	</style>
+
+	<!-- ====================== DEBUG HELPERS (do not remove) ====================== -->
+	<script>
+		// Global error handlers
+		window.addEventListener('error', function (ev) {
+			console.error('%c[PAGE ERROR] ', 'background:#b71c1c;color:white;padding:2px 6px;border-radius:3px;', ev.message, ev.filename + ':' + ev.lineno + ':' + ev.colno);
+		});
+
+		window.addEventListener('unhandledrejection', function (ev) {
+			console.error('%c[UNHANDLED PROMISE] ', 'background:#f57f17;color:black;padding:2px 6px;border-radius:3px;', ev.reason);
+		});
+
+		// Monkey-patch fetch to log failed responses
+		(function () {
+			if (!window.fetch) return;
+			const origFetch = window.fetch;
+			window.fetch = function (...args) {
+				return origFetch.apply(this, args)
+					.then(resp => {
+						if (!resp.ok) {
+							console.warn('%c[FETCH FAIL]', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;',
+								resp.status, resp.statusText, resp.url);
+						} else {
+							console.log('%c[FETCH OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', resp.status, resp.url);
+						}
+						return resp;
+					})
+					.catch(err => {
+						console.error('%c[FETCH ERROR]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', args[0], err);
+						throw err;
+					});
+			};
+		})();
+
+		// Monkey-patch XMLHttpRequest to log network failures
+		(function () {
+			const OrigXHR = window.XMLHttpRequest;
+			function DebugXHR() {
+				const xhr = new OrigXHR();
+				xhr.addEventListener('load', function () {
+					if (xhr.status === 0 || (xhr.status >= 400 && xhr.status <= 599)) {
+						console.warn('%c[XHR FAIL]', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;', xhr.status, xhr.responseURL);
+					} else {
+						console.log('%c[XHR OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', xhr.status, xhr.responseURL);
+					}
+				});
+				xhr.addEventListener('error', function (e) {
+					console.error('%c[XHR ERROR]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', xhr.responseURL, e);
+				});
+				return xhr;
+			}
+			window.XMLHttpRequest = DebugXHR;
+		})();
+
+		// Resource probing: check scripts, stylesheets, images, iframes
+		function probeResources() {
+			const resources = [];
+
+			// collect script src
+			document.querySelectorAll('script[src]').forEach(s => resources.push({ type: 'script', url: s.getAttribute('src') }));
+			// collect stylesheet href
+			document.querySelectorAll('link[rel="stylesheet"][href]').forEach(l => resources.push({ type: 'style', url: l.getAttribute('href') }));
+			// collect images referenced as <img>
+			document.querySelectorAll('img[src]').forEach(i => resources.push({ type: 'img', url: i.getAttribute('src') }));
+			// collect iframes
+			document.querySelectorAll('iframe[src]').forEach(f => resources.push({ type: 'iframe', url: f.getAttribute('src') }));
+
+			// also check common assets folder (proto exports sometimes use src/assets/ in scripts), but we'll use only tags for now
+			if (resources.length === 0) {
+				console.info('[DEBUG] No resources found by tags — verify index.html references.');
+			}
+
+			// probe each resource. For images use Image() to better detect 404s across origins.
+			resources.forEach(r => {
+				const full = r.url;
+				if (!full) return;
+				try {
+					if (r.type === 'img') {
+						const img = new Image();
+						img.onload = () => console.log('%c[IMG OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', full);
+						img.onerror = () => console.error('%c[IMG FAIL]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', full);
+						img.src = full;
+					} else {
+						// try fetch for scripts/styles/iframes. Some cross-origin endpoints deny CORS and will throw — still useful.
+						fetch(full, { method: 'GET', cache: 'no-store' })
+							.then(resp => {
+								if (!resp.ok) {
+									console.warn('%c[RESOURCE FAIL]', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;', r.type, resp.status, resp.statusText, full);
+								} else {
+									console.log('%c[RESOURCE OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', r.type, resp.status, full);
+								}
+							})
+							.catch(err => {
+								console.error('%c[RESOURCE ERROR]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', r.type, full, err.message || err);
+							});
+					}
+				} catch (e) {
+					console.error('[PROBE ERROR]', full, e);
+				}
+			});
+		}
+
+		// Run probes after DOM load so tags exist
+		document.addEventListener('DOMContentLoaded', function () {
+			console.group('%c[DEBUG] Resource probe started', 'background:#2196f3;color:white;padding:2px 6px;border-radius:3px;');
+			probeResources();
+			console.groupEnd();
+		});
+
+		// Helper: list missing paths by checking elements and logging their resolved URL
+		function listAllReferencedPaths() {
+			const arr = [];
+			document.querySelectorAll('script[src], link[href], img[src], iframe[src]').forEach(el => {
+				const url = el.src || el.href;
+				arr.push({ tag: el.tagName.toLowerCase(), attr: el.src ? 'src' : 'href', url });
+			});
+			console.table(arr);
+			return arr;
+		}
+		// expose to console
+		window.debugListResources = listAllReferencedPaths;
+	</script>
+	<!-- ====================== END DEBUG HELPERS ====================== -->
+
+	<!-- Original project init script -- keep, but replace direct call with safe wrapper further down -->
+	<script type="text/javascript">
+		// Minimal project config copy (keeps original references used by player scripts)
+		try {
+			prx = prx || {};
+			prx.ver = '6.8.41.2';
+			prx.url = prx.url || {};
+			prx.url.account = 'https://anchalpatel.proto.io';
+			prx.url.staticassets = 'https://gal.proto.io';
+			prx.url.devices = 'https://dteyv52hbg2at.cloudfront.net/devices';
+			prx.url.static = 'https://dteyv52hbg2at.cloudfront.net';
+			prx.url.siteurl = 'proto.io';
+			prx.url.crossmsg = 'https://anchalpatel.proto.io';
+			prx.nodejsassetsserver = prx.nodejsassetsserver || {};
+			prx.nodejsassetsserver.host = ".proto.io";
+			prx.nodejsassetsserver.subdomainprefix = "https://a3";
+			prx.nodejsassetsserver.maxsubdomains = "20";
+			prx.device_library = 'generic2';
+			prx.devices = prx.devices || {};
+			prx.devices[prx.device] = prx.devices[prx.device] || {};
+			prx.projectsettings = prx.projectsettings || {};
+			// ... other prx fields left as is if present by player-export.js
+		} catch (e) {
+			console.error('Error setting minimal prx defaults:', e);
+		}
+	</script>
+
 </head>
 
-<body>
-    <h1>Prototype Showcase</h1>
-    <p>View our prototype presentation below:</p>
+<body class="player device-cursor-web mobile-device-true" id="mbd">
 
-    <!-- Display the PDF -->
-    <iframe src="prototype.pdf" title="Prototype PDF"></iframe>
+	<div id="window-wrapper">
+		<div id="dragarea"></div>
+		<div id="statusbar"></div>
+		<div id="underlay"></div>
 
-    <!-- Optional: direct download link -->
-    <p><a href="prototype.pdf" target="_blank">Open in new tab / Download PDF</a></p>
+		<div class="prx-page" data-role="page" id="p-1" data-id="1"></div>
+		<div class="prx-page" data-role="page" id="p-2" data-id="2"></div>
+		<div class="prx-page" data-role="page" id="p-3" data-id="3"></div>
+		<div class="prx-page" data-role="page" id="p-4" data-id="4"></div>
+		<div class="prx-page" data-role="page" id="p-5" data-id="5"></div>
+		<div class="prx-page" data-role="page" id="p-9" data-id="9"></div>
+		<div class="prx-page" data-role="page" id="p-10" data-id="10"></div>
+		<div class="prx-page" data-role="page" id="p-12" data-id="12"></div>
+		<div class="prx-page" data-role="page" id="p-13" data-id="13"></div>
+		<div class="prx-page" data-role="page" id="p-14" data-id="14"></div>
+		<div class="prx-page" data-role="page" id="p-15" data-id="15"></div>
+		<div class="prx-page" data-role="page" id="p-16" data-id="16"></div>
+		<div class="prx-page" data-role="page" id="p-17" data-id="17"></div>
+		<div class="prx-page" data-role="page" id="p-18" data-id="18"></div>
+		<div class="prx-page" data-role="page" id="p-19" data-id="19"></div>
+		<div class="prx-page" data-role="page" id="p-20" data-id="20"></div>
+		<div class="prx-page" data-role="page" id="p-21" data-id="21"></div>
+
+		<div id="navigationbar"></div>
+		<div id="overlay"></div>
+		<div id="trash"></div>
+		<div id="quick-audios"></div>
+	</div>
+
+	<div id="loader-wrapper">
+		<div class="progress">
+			<div class="progress-bar"></div>
+		</div>
+		<div id="poweredby"></div>
+	</div>
+
+	<!-- SAFE init: call iniPreLoad only if available, wrapped in try/catch -->
+	<script>
+		(function () {
+			try {
+				if (window.prx && prx.iniPlayer && typeof prx.iniPlayer.iniPreLoad === 'function') {
+					prx.iniPlayer.iniPreLoad();
+					console.log('%c[INIT] prx.iniPlayer.iniPreLoad() called', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;');
+				} else {
+					console.warn('%c[INIT] prx.iniPlayer.iniPreLoad not available (skipped)', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;');
+				}
+			} catch (e) {
+				console.error('%c[INIT ERROR] prx.iniPlayer.iniPreLoad failed:', 'background:#b71c1c;color:white;padding:2px 6px;border-radius:3px;', e);
+			}
+
+			// extra: list all referenced paths for quick glance (callable from console too)
+			console.group('%c[DEBUG] Referenced resources', 'background:#1976d2;color:white;padding:2px 6px;border-radius:3px;');
+			if (typeof window.debugListResources === 'function') {
+				try { window.debugListResources(); } catch (e) { console.warn('debugListResources failed', e); }
+			}
+			console.groupEnd();
+		})();
+	</script>
+
+	<!-- additional runtime patch: clear inline width/transform if present -->
+	<script>
+		(function () {
+			const selectors = ['body', '#window-wrapper', '.player', '.prx-page', '.screen', '.stage', '.letterbox', '.preview-letterbox'];
+			selectors.forEach(sel => {
+				document.querySelectorAll(sel).forEach(el => {
+					if (!el) return;
+					try {
+						el.style.width = '100%';
+						el.style.height = '100vh';
+						el.style.maxWidth = 'none';
+						el.style.minHeight = '0';
+						el.style.transform = '';
+						el.style.left = '0';
+						el.style.top = '0';
+					} catch (e) { }
+				});
+			});
+			setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+		})();
+	</script>
+
 </body>
 
 </html>
