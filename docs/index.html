@@ -1,215 +1,107 @@
+
+
+
 <!DOCTYPE HTML>
-<html>
+	<head>
 
-<head>
+		<meta charset="utf-8">
 
-	<meta charset="utf-8">
-	<title>Prototype - Proto.io (Debug)</title>
+		<title>Prototype - Proto.io</title>
 
-	<meta name="HandheldFriendly" content="True">
-	<meta name="MobileOptimized" content="1440">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="format-detection" content="telephone=no">
-	<meta http-equiv="cleartype" content="on">
+		
+			<meta name="HandheldFriendly" content="True">
+			<meta name="MobileOptimized" content="1440"> 
 
-	<!-- Icons (keep original links) -->
-	<link rel="icon" sizes="192x192" href="./assets/branding/android-icon-hires.png">
-	<link rel="icon" sizes="128x128" href="./assets/branding/android-icon.png">
-	<link href="./assets/branding/apple-touch-icon-retina180.png" sizes="180x180" rel="apple-touch-icon">
-	<link href="./assets/branding/apple-touch-icon-retina.png" sizes="114x114" rel="apple-touch-icon">
-	<link href="./assets/branding/apple-touch-icon.png" sizes="57x57" rel="apple-touch-icon">
+			
+			
+			
+			<meta name="viewport" content="minimum-scale=1.00, maximum-scale=1.00, initial-scale=1.00, user-scalable=no, shrink-to-fit=no" />
 
-	<!-- Core scripts/styles (unchanged) -->
-	<script type="text/javascript" src="./scripts/plugins/jquery/jquery.js"></script>
-	<link rel="stylesheet" href="./stylesheets/player-export.css" />
-	<script type="text/javascript" src="./scripts/player-export.js"></script>
-	<script type="text/javascript" src="./libraries/common/components.js"></script>
-	<link type="text/css" rel="Stylesheet" href="./libraries/common/components.1.00.css" />
-	<script type="text/javascript" src="./libraries/generic2/components.js"></script>
-	<link type="text/css" rel="Stylesheet" href="./libraries/generic2/components.1.00.css" />
-	<script type="text/javascript" src="./data/data.js"></script>
+			
 
-	<!-- Responsive + Centering Overrides (keeps layout) -->
-	<style>
-		html,
-		body {
-			width: 100% !important;
-			height: 100% !important;
-			margin: 0 !important;
-			padding: 0 !important;
-			overflow: hidden !important;
-			background: #000;
-		}
+			<meta name="format-detection" content="telephone=no">
 
-		body {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
 
-		body,
-		#window-wrapper,
-		.prx-page,
-		.player,
-		.preview,
-		.landscape,
-		.portrait {
-			width: 100% !important;
-			height: 100vh !important;
-			max-width: none !important;
-			min-height: 0 !important;
-		}
+			
 
-		.letterbox,
-		.preview-letterbox,
-		.player-letterbox {
-			transform: none !important;
-			width: 100% !important;
-			height: 100% !important;
-			left: 0 !important;
-			top: 0 !important;
-			margin: 0 !important;
-		}
+            
+            <link rel="icon" sizes="192x192" href="./assets/branding/android-icon-hires.png">
+            <link rel="icon" sizes="128x128" href="./assets/branding/android-icon.png">
 
-		.screen,
-		.stage,
-		.proto-stage,
-		.stage-inner {
-			width: 100% !important;
-			height: 100% !important;
-		}
+            
+            <link href="./assets/branding/apple-touch-icon-retina180.png" sizes="180x180" rel="apple-touch-icon">
 
-		#window-wrapper {
-			margin: auto;
-			position: relative;
-			transform: none !important;
-		}
-	</style>
+            
+            <link href="./assets/branding/apple-touch-icon-retina.png" sizes="114x114" rel="apple-touch-icon">
 
-	<!-- ====================== DEBUG HELPERS (do not remove) ====================== -->
-	<script>
-		// Global error handlers
-		window.addEventListener('error', function (ev) {
-			console.error('%c[PAGE ERROR] ', 'background:#b71c1c;color:white;padding:2px 6px;border-radius:3px;', ev.message, ev.filename + ':' + ev.lineno + ':' + ev.colno);
-		});
+            
+            <link href="./assets/branding/apple-touch-icon.png" sizes="57x57" rel="apple-touch-icon">
 
-		window.addEventListener('unhandledrejection', function (ev) {
-			console.error('%c[UNHANDLED PROMISE] ', 'background:#f57f17;color:black;padding:2px 6px;border-radius:3px;', ev.reason);
-		});
+            
+            <link href="./assets/branding/startup.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
 
-		// Monkey-patch fetch to log failed responses
-		(function () {
-			if (!window.fetch) return;
-			const origFetch = window.fetch;
-			window.fetch = function (...args) {
-				return origFetch.apply(this, args)
-					.then(resp => {
-						if (!resp.ok) {
-							console.warn('%c[FETCH FAIL]', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;',
-								resp.status, resp.statusText, resp.url);
-						} else {
-							console.log('%c[FETCH OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', resp.status, resp.url);
-						}
-						return resp;
-					})
-					.catch(err => {
-						console.error('%c[FETCH ERROR]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', args[0], err);
-						throw err;
-					});
-			};
-		})();
+            
+            <link href="./assets/branding/startup-retina.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-		// Monkey-patch XMLHttpRequest to log network failures
-		(function () {
-			const OrigXHR = window.XMLHttpRequest;
-			function DebugXHR() {
-				const xhr = new OrigXHR();
-				xhr.addEventListener('load', function () {
-					if (xhr.status === 0 || (xhr.status >= 400 && xhr.status <= 599)) {
-						console.warn('%c[XHR FAIL]', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;', xhr.status, xhr.responseURL);
-					} else {
-						console.log('%c[XHR OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', xhr.status, xhr.responseURL);
-					}
-				});
-				xhr.addEventListener('error', function (e) {
-					console.error('%c[XHR ERROR]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', xhr.responseURL, e);
-				});
-				return xhr;
-			}
-			window.XMLHttpRequest = DebugXHR;
-		})();
+            
+            <link href="./assets/branding/startup-568.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-		// Resource probing: check scripts, stylesheets, images, iframes
-		function probeResources() {
-			const resources = [];
+            
+            <link href="./assets/branding/startup-retina-6.png" media="(device-width: 375px) and (device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-			// collect script src
-			document.querySelectorAll('script[src]').forEach(s => resources.push({ type: 'script', url: s.getAttribute('src') }));
-			// collect stylesheet href
-			document.querySelectorAll('link[rel="stylesheet"][href]').forEach(l => resources.push({ type: 'style', url: l.getAttribute('href') }));
-			// collect images referenced as <img>
-			document.querySelectorAll('img[src]').forEach(i => resources.push({ type: 'img', url: i.getAttribute('src') }));
-			// collect iframes
-			document.querySelectorAll('iframe[src]').forEach(f => resources.push({ type: 'iframe', url: f.getAttribute('src') }));
+            
+            <link href="./assets/branding/startup-retina-6plus.png" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
 
-			// also check common assets folder (proto exports sometimes use src/assets/ in scripts), but we'll use only tags for now
-			if (resources.length === 0) {
-				console.info('[DEBUG] No resources found by tags — verify index.html references.');
-			}
+            
+            <link href="./assets/branding/startup-retina-6plus-landscape.png" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image">
 
-			// probe each resource. For images use Image() to better detect 404s across origins.
-			resources.forEach(r => {
-				const full = r.url;
-				if (!full) return;
-				try {
-					if (r.type === 'img') {
-						const img = new Image();
-						img.onload = () => console.log('%c[IMG OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', full);
-						img.onerror = () => console.error('%c[IMG FAIL]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', full);
-						img.src = full;
-					} else {
-						// try fetch for scripts/styles/iframes. Some cross-origin endpoints deny CORS and will throw — still useful.
-						fetch(full, { method: 'GET', cache: 'no-store' })
-							.then(resp => {
-								if (!resp.ok) {
-									console.warn('%c[RESOURCE FAIL]', 'background:#ff9800;color:black;padding:2px 6px;border-radius:3px;', r.type, resp.status, resp.statusText, full);
-								} else {
-									console.log('%c[RESOURCE OK]', 'background:#4caf50;color:white;padding:2px 6px;border-radius:3px;', r.type, resp.status, full);
-								}
-							})
-							.catch(err => {
-								console.error('%c[RESOURCE ERROR]', 'background:#d32f2f;color:white;padding:2px 6px;border-radius:3px;', r.type, full, err.message || err);
-							});
-					}
-				} catch (e) {
-					console.error('[PROBE ERROR]', full, e);
-				}
-			});
-		}
+            
+            <link href="./assets/branding/startup-ipad.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
 
-		// Run probes after DOM load so tags exist
-		document.addEventListener('DOMContentLoaded', function () {
-			console.group('%c[DEBUG] Resource probe started', 'background:#2196f3;color:white;padding:2px 6px;border-radius:3px;');
-			probeResources();
-			console.groupEnd();
-		});
+            
+            <link href="./assets/branding/startup-ipad-landscape.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image">
 
-		// Helper: list missing paths by checking elements and logging their resolved URL
-		function listAllReferencedPaths() {
-			const arr = [];
-			document.querySelectorAll('script[src], link[href], img[src], iframe[src]').forEach(el => {
-				const url = el.src || el.href;
-				arr.push({ tag: el.tagName.toLowerCase(), attr: el.src ? 'src' : 'href', url });
-			});
-			console.table(arr);
-			return arr;
-		}
-		// expose to console
-		window.debugListResources = listAllReferencedPaths;
-	</script>
-	<!-- ====================== END DEBUG HELPERS ====================== -->
+            
+            <link href="./assets/branding/startup-ipad-retina.png" media="(device-width: 768px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 
-	<script type="text/javascript">
+            
+            <link href="./assets/branding/startup-ipad-landscape-retina.png" media="(device-width: 768px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+            
+            <link href="./assets/branding/startup-ipad-pro.png" media="(device-width: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+            
+            <link href="./assets/branding/startup-ipad-pro-landscape.png" media="(device-width: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+			<meta http-equiv="cleartype" content="on"> 
+
+
+			 
+		    <script type="text/javascript" src="./scripts/plugins/jquery/jquery.js"></script>
+
+			
+				<link rel="stylesheet" href="./stylesheets/player-export.css" />
+				<script type="text/javascript" src="./scripts/player-export.js"></script>
+			
+
+			
+			<script type="text/javascript" src="./libraries/common/components.js"></script> 
+			<link type="text/css" rel="Stylesheet" href="./libraries/common/components.1.00.css" /> 
+
+			
+					<script type="text/javascript" src="./libraries/generic2/components.js"></script> 
+					<link type="text/css" rel="Stylesheet" href="./libraries/generic2/components.1.00.css" /> 
+				
+				<script type="text/javascript" src="./data/data.js"></script> 
+			
+
+		<style>
+			body { width: 1440px; height: 900px; }
+			.landscape, .landscape .prx-page { min-height: 1440px; }
+			.portrait, .portrait .prx-page { min-height: 900px; }
+		</style>
+
+		<script type="text/javascript">
 
 			prx.ver = '6.8.41.2';
 			prx.url.account = 'https://anchalpatel.proto.io';
@@ -278,80 +170,80 @@
 			var sLinkedAssets = [];
 			
 
-			prx.csrf_token = '9B30F83744FD4166B1647BBEB1A476E27A6FA4C181AAD911F3739CA747D73DC3';
+			prx.csrf_token = '7FB4F18305F795843DB81E2C11E0A1CE7887E3C097F2EC9B7E749F0D605D1BA7';
 
             
 
             
-                            prx.assetsAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkIjp7InVpZCI6Ii0xIiwicHJvamVjdF9pZCI6ImIwZDNlYjZkLTkwYWMtNDJiZS05MGVjLTBlODhlYzcxMDRhZiJ9LCJ2IjowLCJleHAiOjE3NjMxODY5MDksImlhdCI6MTc2MzAwNjkwOX0.Dafb3WgBhhBbsQ13b5tA-TyGSAql6DZdHDTcRkMDQXA";
+                            prx.assetsAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkIjp7InVpZCI6Ii0xIiwicHJvamVjdF9pZCI6ImIwZDNlYjZkLTkwYWMtNDJiZS05MGVjLTBlODhlYzcxMDRhZiJ9LCJ2IjowLCJleHAiOjE3NjM1MTA1NTUsImlhdCI6MTc2MzMzMDU1NX0.GhcCAgpgJFqpfM5fwoOyXFiVnaYtJTXNBWVNdpNHX4E";
 
 			prx.iniPlayer.iniPreLoad();
 
 		</script>
+	</head>
 
-</head>
+	
 
-<body class="player device-cursor-web mobile-device-true" id="mbd">
+			<body class="player device-cursor-web mobile-device-true " " id="mbd" >
 
-	<div id="window-wrapper">
-		<div id="dragarea"></div>
-		<div id="statusbar"></div>
-		<div id="underlay"></div>
+				
+				<div id="window-wrapper">
+					<div id="dragarea"></div>
+					<div id="statusbar"></div>
+					<div id="underlay" style=""></div>
 
-		<div class="prx-page" data-role="page" id="p-1" data-id="1"></div>
-		<div class="prx-page" data-role="page" id="p-2" data-id="2"></div>
-		<div class="prx-page" data-role="page" id="p-3" data-id="3"></div>
-		<div class="prx-page" data-role="page" id="p-4" data-id="4"></div>
-		<div class="prx-page" data-role="page" id="p-5" data-id="5"></div>
-		<div class="prx-page" data-role="page" id="p-9" data-id="9"></div>
-		<div class="prx-page" data-role="page" id="p-10" data-id="10"></div>
-		<div class="prx-page" data-role="page" id="p-12" data-id="12"></div>
-		<div class="prx-page" data-role="page" id="p-13" data-id="13"></div>
-		<div class="prx-page" data-role="page" id="p-14" data-id="14"></div>
-		<div class="prx-page" data-role="page" id="p-15" data-id="15"></div>
-		<div class="prx-page" data-role="page" id="p-16" data-id="16"></div>
-		<div class="prx-page" data-role="page" id="p-17" data-id="17"></div>
-		<div class="prx-page" data-role="page" id="p-18" data-id="18"></div>
-		<div class="prx-page" data-role="page" id="p-19" data-id="19"></div>
-		<div class="prx-page" data-role="page" id="p-20" data-id="20"></div>
-		<div class="prx-page" data-role="page" id="p-21" data-id="21"></div>
+					<div class="prx-page" data-role="page" id="p-1" data-id="1"></div>
+					
+								<div class="prx-page" data-role="page" id="p-2" data-id="2"></div>
+							
+								<div class="prx-page" data-role="page" id="p-3" data-id="3"></div>
+							
+								<div class="prx-page" data-role="page" id="p-4" data-id="4"></div>
+							
+								<div class="prx-page" data-role="page" id="p-5" data-id="5"></div>
+							
+								<div class="prx-page" data-role="page" id="p-9" data-id="9"></div>
+							
+								<div class="prx-page" data-role="page" id="p-10" data-id="10"></div>
+							
+								<div class="prx-page" data-role="page" id="p-12" data-id="12"></div>
+							
+								<div class="prx-page" data-role="page" id="p-13" data-id="13"></div>
+							
+								<div class="prx-page" data-role="page" id="p-14" data-id="14"></div>
+							
+								<div class="prx-page" data-role="page" id="p-15" data-id="15"></div>
+							
+								<div class="prx-page" data-role="page" id="p-16" data-id="16"></div>
+							
+								<div class="prx-page" data-role="page" id="p-17" data-id="17"></div>
+							
+								<div class="prx-page" data-role="page" id="p-18" data-id="18"></div>
+							
+								<div class="prx-page" data-role="page" id="p-19" data-id="19"></div>
+							
+								<div class="prx-page" data-role="page" id="p-20" data-id="20"></div>
+							
+								<div class="prx-page" data-role="page" id="p-21" data-id="21"></div>
+							
+					<div id="navigationbar"></div>
+					<div id="overlay"></div>
+					<div id="trash"></div>
+					<div id="quick-audios"></div>
+				</div>
 
-		<div id="navigationbar"></div>
-		<div id="overlay"></div>
-		<div id="trash"></div>
-		<div id="quick-audios"></div>
-	</div>
-
-	<div id="loader-wrapper">
-		<div class="progress">
-			<div class="progress-bar"></div>
-		</div>
-		<div id="poweredby"></div>
-	</div>
+				 
+			<div id="loader-wrapper">
+				
+				<div class="progress">
+					<div class="progress-bar"></div>
+				</div>
+				<div id="poweredby"></div>
+			</div>
+			
 
 
-	<!-- additional runtime patch: clear inline width/transform if present -->
-	<script>
-		(function () {
-			const selectors = ['body', '#window-wrapper', '.player', '.prx-page', '.screen', '.stage', '.letterbox', '.preview-letterbox'];
-			selectors.forEach(sel => {
-				document.querySelectorAll(sel).forEach(el => {
-					if (!el) return;
-					try {
-						el.style.width = '100%';
-						el.style.height = '100vh';
-						el.style.maxWidth = 'none';
-						el.style.minHeight = '0';
-						el.style.transform = '';
-						el.style.left = '0';
-						el.style.top = '0';
-					} catch (e) { }
-				});
-			});
-			setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
-		})();
-	</script>
-
-</body>
+			</body>
+		
 
 </html>
