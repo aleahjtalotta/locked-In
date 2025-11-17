@@ -63,6 +63,11 @@ public class LockedInApp extends Application {
     private ListView<Room> roomsView;
     private ListView<Puzzle> puzzlesView;
     private ListView<String> leaderboardView;
+    private ListView<Player> welcomePlayersView;
+
+    private Stage primaryStage;
+    private Scene mainScene;
+    private Scene welcomeScene;
 
     private final Label activePlayerLabel = new Label("Active player: none");
     private final Label timerLabel = new Label("Timer: --:--:-- remaining");
@@ -86,24 +91,18 @@ public class LockedInApp extends Application {
 
     @Override
     public void start(Stage stage) {
+        this.primaryStage = stage;
         stage.setTitle("Locked-In Escape Room");
 
-        BorderPane root = new BorderPane();
-        root.setPadding(new Insets(16));
-
-        root.setTop(buildTopBar());
-        root.setLeft(buildPlayersPane());
-        root.setCenter(buildRoomsPane());
-        root.setRight(buildPuzzlesPane());
-        root.setBottom(buildLeaderboardPane());
-
-        Scene scene = new Scene(root, 1200, 680);
-        stage.setScene(scene);
-        stage.show();
+        BorderPane mainRoot = buildMainLayout();
+        this.mainScene = new Scene(mainRoot, 1200, 680);
+        this.welcomeScene = buildWelcomeScene();
 
         refreshGameState();
-        game.startTimerCountdown();
         startTimerUpdates();
+
+        stage.setScene(welcomeScene);
+        stage.show();
     }
 
     @Override
@@ -112,6 +111,112 @@ public class LockedInApp extends Application {
             timerTimeline.stop();
         }
         game.pauseTimerCountdown();
+    }
+
+    private BorderPane buildMainLayout() {
+        BorderPane root = new BorderPane();
+        root.setPadding(new Insets(16));
+        root.setTop(buildTopBar());
+        root.setLeft(buildPlayersPane());
+        root.setCenter(buildRoomsPane());
+        root.setRight(buildPuzzlesPane());
+        root.setBottom(buildLeaderboardPane());
+        return root;
+    }
+
+    private Scene buildWelcomeScene() {
+        Label title = new Label("Locked-In Escape Room");
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+
+        Label subtitle = new Label("Select an existing player or create a new account to begin.");
+        subtitle.setWrapText(true);
+
+        welcomePlayersView = new ListView<>(players);
+        welcomePlayersView.setPrefHeight(220);
+        welcomePlayersView.setCellFactory(list -> new ListCell<>() {
+            @Override
+            protected void updateItem(Player player, boolean empty) {
+                super.updateItem(player, empty);
+                if (empty || player == null) {
+                    setText(null);
+                } else {
+                    setText(player.getName() + " — score: " + player.getCurrentScore());
+                }
+            }
+        });
+
+        Button loginButton = new Button("Log In");
+        loginButton.setMaxWidth(Double.MAX_VALUE);
+        loginButton.disableProperty().bind(welcomePlayersView.getSelectionModel().selectedItemProperty().isNull());
+        loginButton.setOnAction(e -> handleWelcomeLogin());
+
+        Button createButton = new Button("Create Account");
+        createButton.setMaxWidth(Double.MAX_VALUE);
+        createButton.setOnAction(e -> promptNewPlayer());
+
+        Button guestButton = new Button("Continue as Guest");
+        guestButton.setMaxWidth(Double.MAX_VALUE);
+        guestButton.setOnAction(e -> continueAsGuest());
+
+        Button exitButton = new Button("Exit");
+        exitButton.setMaxWidth(Double.MAX_VALUE);
+        exitButton.setOnAction(e -> Platform.exit());
+
+        VBox layout = new VBox(12, title, subtitle, welcomePlayersView, loginButton, createButton, guestButton, exitButton);
+        layout.setPadding(new Insets(24));
+        layout.setPrefWidth(520);
+
+        return new Scene(layout, 520, 480);
+    }
+
+    private void handleWelcomeLogin() {
+        if (welcomePlayersView == null) {
+            return;
+        }
+        Player selected = welcomePlayersView.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showError("Login Required", "Select a player to continue.");
+            return;
+        }
+        if (!game.loginPlayer(selected.getId())) {
+            showError("Login Failed", "Unable to load that player profile.");
+            return;
+        }
+        refreshGameState();
+        showMainScene();
+    }
+
+    private void continueAsGuest() {
+        game.logoutPlayer();
+        if (playersView != null) {
+            playersView.getSelectionModel().clearSelection();
+        }
+        refreshGameState();
+        showMainScene();
+    }
+
+    private void showMainScene() {
+        if (primaryStage == null || mainScene == null) {
+            return;
+        }
+        primaryStage.setScene(mainScene);
+        primaryStage.sizeToScene();
+        primaryStage.centerOnScreen();
+    }
+
+    private void showWelcomeScene() {
+        if (primaryStage == null || welcomeScene == null) {
+            return;
+        }
+        if (playersView != null) {
+            playersView.getSelectionModel().clearSelection();
+        }
+        if (welcomePlayersView != null) {
+            welcomePlayersView.getSelectionModel().clearSelection();
+        }
+        primaryStage.setScene(welcomeScene);
+        primaryStage.sizeToScene();
+        primaryStage.centerOnScreen();
     }
 
     private VBox buildTopBar() {
@@ -176,6 +281,7 @@ public class LockedInApp extends Application {
             playersView.getSelectionModel().clearSelection();
             game.logoutPlayer();
             updateActivePlayerLabel();
+            showWelcomeScene();
         });
 
         VBox box = new VBox(8, header, playersView, createButton, logoutButton);
@@ -305,6 +411,7 @@ public class LockedInApp extends Application {
             refreshGameState();
             selectPlayerById(player.getId());
             showInformation("Player Created", "Added " + player.getName() + " to the roster.");
+            showMainScene();
         } catch (IllegalArgumentException ex) {
             showError("Unable to create player", ex.getMessage());
         }
