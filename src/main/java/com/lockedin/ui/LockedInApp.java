@@ -14,7 +14,7 @@ public class LockedInApp extends Application {
         // Load the primary.fxml you made in SceneBuilder.
         // This path matches: src/main/resources/com/ourgroup1/primary.fxml
         FXMLLoader fxmlLoader =
-                new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/primary.fxml"));
+                new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/WelcomeScreen.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Locked In");
