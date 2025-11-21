@@ -28,5 +28,21 @@
             <Font name="Courier New" size="20.0" />
          </font>
       </Label>
+      <Label layoutX="45.0" layoutY="150.0" text="Puzzles Solved:" textFill="#fffafa">
+         <font>
+            <Font name="Courier New" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="173.0" text="Time to beat:" textFill="#fffafa">
+         <font>
+            <Font name="Courier New" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="125.0" text="Escape Record" textFill="#fffafa">
+         <font>
+            <Font name="Courier New Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="300.0" layoutY="238.0" mnemonicParsing="false" opacity="0.43" text="Enter Mansion" />
    </children>
 </Pane>
