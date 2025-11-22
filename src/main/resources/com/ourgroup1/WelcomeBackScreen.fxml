@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="615.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Downloads/WelcomeScreen.png" />
+            <Image url="@images/WelcomeScreen.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000006d" height="293.0" layoutX="29.0" layoutY="54.0" stroke="#cecfc264" strokeType="INSIDE" width="210.0" />
