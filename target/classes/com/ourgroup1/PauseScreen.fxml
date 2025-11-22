@@ -22,7 +22,7 @@
             <Font name="Courier New" size="13.0" />
          </font>
       </Button>
-      <Label layoutX="273.0" layoutY="107.0" prefHeight="23.0" prefWidth="55.0" text="Score" textFill="WHITE">
+      <Label layoutX="273.0" layoutY="107.0" prefHeight="23.0" prefWidth="55.0" text="Pause" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="18.0" />
          </font>
