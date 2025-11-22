@@ -33,7 +33,7 @@
             <Font name="Courier New" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="173.0" text="Time to beat:" textFill="#fffafa">
+      <Label layoutX="45.0" layoutY="173.0" text="Average Time:" textFill="#fffafa">
          <font>
             <Font name="Courier New" size="14.0" />
          </font>
