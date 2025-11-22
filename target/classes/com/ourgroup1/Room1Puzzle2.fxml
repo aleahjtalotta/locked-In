@@ -10,7 +10,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="620.0" fitWidth="416.0" layoutX="102.0" layoutY="-106.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
@@ -24,7 +23,7 @@
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="78.0" prefWidth="140.0" text="The heirloom locket replays four lantern flashes; press the buttons to match the haunted pattern." textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="The heirloom locket replays four lantern flashes; press the buttons to match the haunted pattern." textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
