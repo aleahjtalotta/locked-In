@@ -18,8 +18,8 @@
       </ImageView>
       <PasswordField layoutX="310.0" layoutY="164.0" />
       <Button layoutX="276.0" layoutY="211.0" mnemonicParsing="false" text="Login" />
-      <Label layoutX="185.0" layoutY="169.0" text="Enter Password :" textFill="WHITE" />
-      <Label layoutX="184.0" layoutY="126.0" text="Enter Username :" textFill="WHITE" />
+      <Label layoutX="185.0" layoutY="169.0" text="Enter email :" textFill="WHITE" />
+      <Label layoutX="184.0" layoutY="126.0" text="Enter name :" textFill="WHITE" />
       <TextField layoutX="310.0" layoutY="121.0" />
    </children>
 </Pane>
