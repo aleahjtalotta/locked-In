@@ -2,24 +2,24 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.LoginController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="684.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Downloads/ef7803957fda731414796b16d931a8c7.png" />
          </image>
       </ImageView>
-      <PasswordField layoutX="310.0" layoutY="164.0" />
-      <Button layoutX="276.0" layoutY="211.0" mnemonicParsing="false" text="Login" />
-      <Label layoutX="185.0" layoutY="169.0" text="Enter Password :" textFill="WHITE" />
-      <Label layoutX="184.0" layoutY="126.0" text="Enter Username :" textFill="WHITE" />
-      <TextField layoutX="310.0" layoutY="121.0" />
+      <TextField fx:id="nameField" layoutX="310.0" layoutY="121.0" promptText="Name" />
+      <TextField fx:id="emailField" layoutX="310.0" layoutY="164.0" promptText="Email" />
+      <Button layoutX="276.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+      <Label layoutX="184.0" layoutY="126.0" text="Enter name :" textFill="WHITE" />
+      <Label layoutX="185.0" layoutY="169.0" text="Enter email :" textFill="WHITE" />
+      <Label fx:id="errorLabel" layoutX="185.0" layoutY="243.0" textFill="#ffcccc" />
    </children>
 </Pane>

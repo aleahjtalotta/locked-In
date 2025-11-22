@@ -13,8 +13,26 @@ public class WelcomeController {
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
         // Swap to the login screen when the Log In button is pressed.
-        FXMLLoader loader =
-                new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/Login.fxml"));
+        switchToLogin(event);
+    }
+
+    @FXML
+    private void handleLeaderboard(ActionEvent event) throws IOException {
+        switchScene(event, "/com/ourgroup1/LeaderboardScreen.fxml");
+    }
+
+    @FXML
+    private void handleSignup(ActionEvent event) throws IOException {
+        // For now, sign up and login share the same screen (name + email).
+        switchToLogin(event);
+    }
+
+    private void switchToLogin(ActionEvent event) throws IOException {
+        switchScene(event, "/com/ourgroup1/Login.fxml");
+    }
+
+    private void switchScene(ActionEvent event, String resourcePath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
         Scene scene = new Scene(loader.load());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
