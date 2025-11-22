@@ -5,9 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,16 +14,19 @@
             <Image url="@images/ChoosePath.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#52504599" height="82.0" layoutX="128.0" layoutY="293.0" stroke="BLACK" strokeType="INSIDE" width="319.0" />
-      <Button layoutX="350.0" layoutY="321.0" mnemonicParsing="false" text="Leave" />
-      <Label layoutX="149.0" layoutY="293.0" prefHeight="82.0" prefWidth="181.0" text="Game Completed&#10;Exit Mansion" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="207.0" layoutY="304.0" prefHeight="82.0" prefWidth="202.0" text="Choose A Path&#10;" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Courier New" size="20.0" />
+            <Font name="Courier New" size="25.0" />
          </font>
       </Label>
-      <Button layoutX="192.0" layoutY="200.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="23.0" text="1" />
       <Button layoutX="318.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="2" />
       <Button layoutX="387.0" layoutY="200.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="8.0" text="3" />
       <Button layoutX="525.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Pause" />
+      <Label layoutX="131.0" layoutY="49.0" prefHeight="68.0" prefWidth="100.0" text="Room &#10;Completed" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="196.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="1" />
    </children>
 </Pane>
