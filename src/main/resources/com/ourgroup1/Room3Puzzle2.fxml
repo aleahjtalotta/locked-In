@@ -18,12 +18,12 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="You have entered the room Blinking Locket" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Echoed Name" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="The heirloom locket replays four lantern flashes; press the buttons to match the haunted pattern." textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="Listen to the chapel chant and write the final word the spirits repeat" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
