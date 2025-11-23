@@ -14,9 +14,9 @@
             <Image url="@images/ChoosePath.png" />
          </image>
       </ImageView>
-      <Label layoutX="207.0" layoutY="304.0" prefHeight="82.0" prefWidth="202.0" text="Choose A Path&#10;" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="199.0" layoutY="304.0" prefHeight="82.0" prefWidth="202.0" text="Choose A Path&#10;" textAlignment="CENTER" textFill="#e4e1b4">
          <font>
-            <Font name="Courier New" size="25.0" />
+            <Font name="Courier New Bold" size="25.0" />
          </font>
       </Label>
       <Button layoutX="318.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="2" />
