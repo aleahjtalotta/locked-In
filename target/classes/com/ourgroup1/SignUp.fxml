@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="665.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../Downloads/ef7803957fda731414796b16d931a8c7.png" />
+            <Image url="@images/WelcomeScreen.png"" />
          </image>
       </ImageView>
       <Label layoutX="189.0" layoutY="218.0" text="Select Avatar :" textFill="WHITE" />
