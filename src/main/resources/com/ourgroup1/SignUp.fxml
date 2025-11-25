@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.SignUpController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="684.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,9 +17,10 @@
       </ImageView>
       <TextField fx:id="nameField" layoutX="310.0" layoutY="121.0" promptText="Name" />
       <TextField fx:id="emailField" layoutX="310.0" layoutY="164.0" promptText="Email" />
-      <Button layoutX="276.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleLogin" text="Sign Up" />
+      <Button layoutX="276.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleSignup" text="Sign Up" />
       <Label layoutX="184.0" layoutY="126.0" text="Enter name :" textFill="WHITE" />
       <Label layoutX="185.0" layoutY="169.0" text="Enter email :" textFill="WHITE" />
       <Label layoutX="164.0" layoutY="287.0" text="Create new account by entering an email and name" textFill="WHITE" />
+      <Label fx:id="errorLabel" layoutX="184.0" layoutY="248.0" textFill="RED" />
    </children>
 </Pane>

@@ -23,8 +23,7 @@ public class WelcomeController {
 
     @FXML
     private void handleSignup(ActionEvent event) throws IOException {
-        // For now, sign up and login share the same screen (name + email).
-        switchToLogin(event);
+        switchScene(event, "/com/ourgroup1/SignUp.fxml");
     }
 
     private void switchToLogin(ActionEvent event) throws IOException {

@@ -24,7 +24,7 @@
             <Font name="Courier New" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="240.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleSignup" prefHeight="31.0" prefWidth="121.0" text="Sign In">
+      <Button layoutX="240.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleSignup" prefHeight="31.0" prefWidth="121.0" text="Sign Up">
          <font>
             <Font name="Courier New" size="13.0" />
          </font>
