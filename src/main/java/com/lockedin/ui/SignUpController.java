@@ -73,6 +73,11 @@ public class SignUpController {
         switchToWelcomeNewUser(event);
     }
 
+    @FXML
+    private void handleBack(ActionEvent event) throws IOException {
+        switchScene(event, "/com/ourgroup1/WelcomeScreen.fxml");
+    }
+
     private boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
     }
@@ -89,5 +94,14 @@ public class SignUpController {
             errorLabel.setText("Unable to load next screen.");
             e.printStackTrace();
         }
+    }
+
+    private void switchScene(ActionEvent event, String resourcePath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
+        Scene scene = new Scene(loader.load());
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

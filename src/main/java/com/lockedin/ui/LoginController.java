@@ -64,6 +64,11 @@ public class LoginController {
         }
     }
 
+    @FXML
+    private void handleBack(ActionEvent event) throws IOException {
+        switchScene(event, "/com/ourgroup1/WelcomeScreen.fxml");
+    }
+
     private Optional<Player> findUser(String name, String email) {
         Path dataDir = Paths.get("JSON");
         DataLoader loader = new DataLoader(dataDir);
@@ -86,5 +91,14 @@ public class LoginController {
 
     private String normalize(String value) {
         return value == null ? "" : value.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private void switchScene(ActionEvent event, String resourcePath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
+        Scene scene = new Scene(loader.load());
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

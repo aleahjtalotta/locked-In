@@ -8,7 +8,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.LeaderboardController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="613.0" pickOnBounds="true" preserveRatio="true">
@@ -27,7 +26,7 @@
             <Font name="Courier New Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="leaderboardLabel" layoutX="246.0" layoutY="159.0" prefHeight="103.0" prefWidth="130.0" text="1st: &#10;&#10;2nd: &#10;&#10;3rd: " textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="leaderboardLabel" layoutX="196.0" layoutY="159.0" prefHeight="103.0" prefWidth="230.0" text="1st: &#10;&#10;2nd: &#10;&#10;3rd: " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
