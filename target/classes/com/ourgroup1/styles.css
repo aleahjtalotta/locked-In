@@ -1,7 +1,135 @@
-.label {
-    -fx-text-fill: #549df9
+/* Deep, moody palette for the escape-room theme */
+.root {
+    -color-bg: #0b1220;
+    -color-surface: #111827;
+    -color-border: #1f2937;
+    -color-accent: #5eead4;
+    -color-accent-strong: #22d3ee;
+    -color-text: #e5e7eb;
+    -color-muted: #9ca3af;
+    /* Room-specific palette */
+    -color-room-sidebar: #545246;
+    -color-room-sidebar-overlay: rgba(84, 82, 70, 0.6);
+    -color-shadow-text: #e4e1b4;
+    -font-main: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+    -fx-font-family: -font-main;
+    -fx-background-color: linear-gradient(135deg, #0b1220 0%, #0f172a 40%, #0a0f1c 100%);
+    -fx-text-fill: -color-text;
 }
 
+.welcome-pane {
+    /* Keep the background image unobstructed on the welcome screen */
+    -fx-background-color: transparent;
+}
+
+/* labels and headings */
+.label {
+    -fx-text-fill: -color-text;
+}
+
+.heading-large {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-accent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 18, 0.3, 0, 4);
+}
+
+.heading-medium {
+    -fx-font-size: 20px;
+    -fx-text-fill: -color-muted;
+}
+
+/* Buttons */
 .button {
-    -fx-text-fill:red;
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-color-surface, 10%), -color-surface),
+        linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(0,0,0,0.12));
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: -color-border;
+    -fx-text-fill: -color-text;
+    -fx-font-weight: bold;
+    -fx-padding: 12 18;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0.25, 0, 3);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-color-surface, 25%), derive(-color-surface, 10%)),
+        linear-gradient(to bottom, rgba(255,255,255,0.14), rgba(0,0,0,0.1));
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #0e1a2c, #0c1625);
+    -fx-translate-y: 1;
+}
+
+.primary-button {
+    -fx-background-color: linear-gradient(to right, -color-accent, -color-accent-strong);
+    -fx-text-fill: #0b1220;
+    -fx-border-color: transparent;
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, -color-accent-strong, -color-accent);
+}
+
+.primary-button:pressed {
+    -fx-background-color: derive(-color-accent-strong, -10%);
+}
+
+/* Welcome screen specifics to match the provided mock */
+.welcome-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 2);
+}
+
+.welcome-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #f1f5f9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.25, 0, 2);
+}
+
+.welcome-card {
+    -fx-padding: 18;
+    /* Keep the image bright: very light overlay only for readability */
+    -fx-background-color: rgba(8, 12, 20, 0.18);
+    -fx-background-radius: 12;
+    -fx-spacing: 12;
+}
+
+.welcome-button {
+    -fx-background-color: linear-gradient(#f2f2f2, #d6d6d6);
+    -fx-border-color: #9e9e9e;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #111;
+    -fx-font-weight: normal;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 1);
+}
+
+.welcome-button:hover {
+    -fx-background-color: linear-gradient(#f7f7f7, #e3e3e3);
+}
+
+.welcome-button:pressed {
+    -fx-background-color: linear-gradient(#e6e6e6, #cccccc);
+    -fx-translate-y: 1;
+}
+
+/* Room utilities for consistency */
+.room-sidebar {
+    -fx-background-color: -color-room-sidebar-overlay;
+}
+
+.shadow-text {
+    -fx-text-fill: -color-shadow-text;
 }
