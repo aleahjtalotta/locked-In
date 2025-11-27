@@ -57,8 +57,9 @@ public class SignUpController {
             return;
         }
 
+        com.classes.Player newPlayer;
         try {
-            players.createPlayer(name, email, null);
+            newPlayer = players.createPlayer(name, email, null);
         } catch (IllegalArgumentException e) {
             errorLabel.setText("That user already exists, try again");
             return;
@@ -70,6 +71,7 @@ public class SignUpController {
             return;
         }
 
+        SessionContext.setActivePlayer(newPlayer);
         switchToWelcomeNewUser(event);
     }
 
