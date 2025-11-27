@@ -50,6 +50,7 @@ public class LoginController {
             return;
         }
 
+        SessionContext.setActivePlayer(user.get());
         // Successful login: navigate to the Welcome Back screen.
         try {
             FXMLLoader loader =
