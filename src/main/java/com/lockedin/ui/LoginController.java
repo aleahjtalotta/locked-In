@@ -55,6 +55,7 @@ public class LoginController {
             FXMLLoader loader =
                     new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/WelcomeBackScreen.fxml"));
             Scene scene = new Scene(loader.load());
+            LockedInApp.applyGlobalStyles(scene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();

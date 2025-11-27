@@ -33,6 +33,7 @@ public class WelcomeController {
     private void switchScene(ActionEvent event, String resourcePath) throws IOException {
         FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
         Scene scene = new Scene(loader.load());
+        LockedInApp.applyGlobalStyles(scene);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
