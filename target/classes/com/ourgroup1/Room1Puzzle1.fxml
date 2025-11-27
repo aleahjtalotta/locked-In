@@ -19,12 +19,12 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Shadow Wisper" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Shadow Whisper" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="78.0" prefWidth="140.0" text="Angle the Foyer Candlabras Until Their Shadows Overlap to Spell the Whicpered Word" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="14.0" layoutY="99.0" prefHeight="78.0" prefWidth="140.0" text="Angle the foyer candelabras until their shadows overlap to spell the whispered word." textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
