@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.LeaderboardController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="613.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,7 +17,7 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5452468f" height="256.0" layoutX="151.0" layoutY="82.0" stroke="BLACK" strokeType="INSIDE" width="319.0" />
-      <Button layoutX="159.0" layoutY="92.0" mnemonicParsing="false" text="Back">
+      <Button layoutX="159.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
          <font>
             <Font name="Courier New" size="13.0" />
          </font>
@@ -27,7 +27,7 @@
             <Font name="Courier New Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="246.0" layoutY="159.0" prefHeight="103.0" prefWidth="130.0" text="1st: &#10;&#10;2nd: &#10;&#10;3rd: " textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="leaderboardLabel" layoutX="246.0" layoutY="159.0" prefHeight="103.0" prefWidth="130.0" text="1st: &#10;&#10;2nd: &#10;&#10;3rd: " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
