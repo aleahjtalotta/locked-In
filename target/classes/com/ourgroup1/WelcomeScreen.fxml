@@ -19,9 +19,9 @@
          <children>
             <Label styleClass="welcome-title" text="Locked In" />
             <Label styleClass="welcome-subtitle" text="Welcome to the Haunted Mansion" />
-            <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="36.0" prefWidth="160.0" styleClass="welcome-button" text="Log In" />
-            <Button mnemonicParsing="false" onAction="#handleSignup" prefHeight="36.0" prefWidth="160.0" styleClass="welcome-button" text="Sign Up" />
-            <Button mnemonicParsing="false" onAction="#handleLeaderboard" prefHeight="36.0" prefWidth="160.0" styleClass="welcome-button" text="Leaderboard" />
+            <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Log In" />
+            <Button mnemonicParsing="false" onAction="#handleSignup" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Sign Up" />
+            <Button mnemonicParsing="false" onAction="#handleLeaderboard" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Leaderboard" />
          </children>
       </VBox>
    </children>

@@ -11,7 +11,7 @@
     -color-room-sidebar: #545246;
     -color-room-sidebar-overlay: rgba(84, 82, 70, 0.6);
     -color-shadow-text: #e4e1b4;
-    -font-main: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -font-main: "Courier New", "Courier", monospace;
 
     -fx-font-family: -font-main;
     -fx-background-color: linear-gradient(135deg, #0b1220 0%, #0f172a 40%, #0a0f1c 100%);
@@ -26,6 +26,7 @@
 /* labels and headings */
 .label {
     -fx-text-fill: -color-text;
+    -fx-font-family: -font-main;
 }
 
 .heading-large {
@@ -42,30 +43,27 @@
 
 /* Buttons */
 .button {
-    -fx-background-color:
-        linear-gradient(to bottom, derive(-color-surface, 10%), -color-surface),
-        linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(0,0,0,0.12));
+    -fx-background-color: linear-gradient(#f2f2f2, #d6d6d6);
     -fx-background-insets: 0, 1;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-border-color: -color-border;
-    -fx-text-fill: -color-text;
+    -fx-border-color: #9e9e9e;
+    -fx-text-fill: #111;
     -fx-font-weight: bold;
-    -fx-padding: 12 18;
+    -fx-font-family: -font-main;
+    -fx-padding: 10 16;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0.25, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 1);
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
 .button:hover {
-    -fx-background-color:
-        linear-gradient(to bottom, derive(-color-surface, 25%), derive(-color-surface, 10%)),
-        linear-gradient(to bottom, rgba(255,255,255,0.14), rgba(0,0,0,0.1));
+    -fx-background-color: linear-gradient(#f7f7f7, #e3e3e3);
 }
 
 .button:pressed {
-    -fx-background-color: linear-gradient(to bottom, #0e1a2c, #0c1625);
+    -fx-background-color: linear-gradient(#e6e6e6, #cccccc);
     -fx-translate-y: 1;
 }
 
@@ -85,15 +83,21 @@
 
 /* Welcome screen specifics to match the provided mock */
 .welcome-title {
-    -fx-font-size: 16px;
+    -fx-font-family: -font-main;
+    -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 10, 0.3, 0, 2);
 }
 
 .welcome-subtitle {
-    -fx-font-size: 13px;
+    -fx-font-family: -font-main;
+    -fx-font-size: 16px;
     -fx-text-fill: #f1f5f9;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.25, 0, 2);
 }
 
@@ -103,6 +107,7 @@
     -fx-background-color: rgba(8, 12, 20, 0.18);
     -fx-background-radius: 12;
     -fx-spacing: 12;
+    -fx-alignment: center;
 }
 
 .welcome-button {
@@ -112,7 +117,9 @@
     -fx-background-radius: 6;
     -fx-text-fill: #111;
     -fx-font-weight: normal;
-    -fx-padding: 10 16;
+    -fx-font-family: -font-main;
+    -fx-font-size: 14px;
+    -fx-padding: 8 12;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 1);
 }
 
