@@ -29,6 +29,7 @@ public final class SceneNavigator {
             Map.entry("ChooseDoorRoom1and3Complete.fxml", ChooseDoorController::new),
             Map.entry("ChooseDoorRoom2and3Complete.fxml", ChooseDoorController::new),
             Map.entry("GameCompleteExit.fxml", GameCompleteExitController::new),
+            Map.entry("LogOutScreen.fxml", LogOutController::new),
             Map.entry("PauseScreen.fxml", PauseController::new),
             Map.entry("UserScore.fxml", BackOnlyController::new),
             Map.entry("Room1Puzzle1.fxml", Room1Puzzle1Controller::new),
