@@ -2,6 +2,7 @@ package com.lockedin.ui;
 
 import java.util.Optional;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 
@@ -15,6 +16,26 @@ public class ChooseDoorController implements SceneBindable {
         wireRoomButton(root, "1", this::handleRoom1, GameState.room1Complete);
         wireRoomButton(root, "2", this::handleRoom2, GameState.room2Complete);
         wireRoomButton(root, "3", this::handleRoom3, GameState.room3Complete);
+    }
+
+    @FXML
+    private void goRoom1(ActionEvent event) {
+        handleRoom1(event);
+    }
+
+    @FXML
+    private void goRoom2(ActionEvent event) {
+        handleRoom2(event);
+    }
+
+    @FXML
+    private void goRoom3(ActionEvent event) {
+        handleRoom3(event);
+    }
+
+    @FXML
+    private void handlePause(ActionEvent event) {
+        SceneNavigator.switchTo(event, "PauseScreen.fxml");
     }
 
     private void handleRoom1(ActionEvent event) {
