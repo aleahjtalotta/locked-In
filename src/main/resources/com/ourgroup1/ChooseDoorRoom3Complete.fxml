@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="410.0" fitWidth="614.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../src/main/resources/com/ourgroup1/images/ChoosePath.png" />
+            <Image url="@images/ChoosePath.png" />
          </image>
       </ImageView>
       <Label layoutX="203.0" layoutY="305.0" prefHeight="82.0" prefWidth="202.0" text="Choose A Path&#10;" textAlignment="CENTER" textFill="#e4e1b4">
