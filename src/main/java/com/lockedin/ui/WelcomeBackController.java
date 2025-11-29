@@ -10,6 +10,11 @@ public class WelcomeBackController {
         navigateByProgress(event);
     }
 
+    @FXML
+    private void handlePause(ActionEvent event) {
+        SceneNavigator.switchTo(event, "PauseScreen.fxml");
+    }
+
     private void navigateByProgress(ActionEvent event) {
         int solved = SessionContext.getSolvedPuzzleCount();
         String target = ProgressNavigator.destinationForSolvedCount(solved);

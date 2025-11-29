@@ -49,9 +49,10 @@
     -fx-border-radius: 10;
     -fx-border-color: #9e9e9e;
     -fx-text-fill: #111;
-    -fx-font-weight: bold;
+    -fx-font-weight: normal;
+    -fx-font-size: 12px;
     -fx-font-family: -font-main;
-    -fx-padding: 10 16;
+    -fx-padding: 6 10;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 1);
     -fx-focus-color: transparent;

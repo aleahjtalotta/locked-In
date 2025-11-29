@@ -1,6 +1,8 @@
 package com.lockedin.ui;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
  */
 public final class SceneNavigator {
     private static final String RESOURCE_BASE = "/com/ourgroup1/";
+    private static final Deque<String> HISTORY = new ArrayDeque<>();
 
     private static final Map<String, Supplier<? extends SceneBindable>> CONTROLLERS = Map.ofEntries(
             Map.entry("ChooseDoorScreen.fxml", ChooseDoorController::new),
@@ -25,6 +28,9 @@ public final class SceneNavigator {
             Map.entry("ChooseDoorRoom1and2Complete.fxml", ChooseDoorController::new),
             Map.entry("ChooseDoorRoom1and3Complete.fxml", ChooseDoorController::new),
             Map.entry("ChooseDoorRoom2and3Complete.fxml", ChooseDoorController::new),
+            Map.entry("GameCompleteExit.fxml", GameCompleteExitController::new),
+            Map.entry("PauseScreen.fxml", PauseController::new),
+            Map.entry("UserScore.fxml", BackOnlyController::new),
             Map.entry("Room1Puzzle1.fxml", Room1Puzzle1Controller::new),
             Map.entry("Room1Puzzle2.fxml", Room1Puzzle2Controller::new),
             Map.entry("Room2Puzzle1.fxml", Room2Puzzle1Controller::new),
@@ -36,6 +42,25 @@ public final class SceneNavigator {
     }
 
     public static void switchTo(ActionEvent event, String fxmlName) {
+        switchTo(event, fxmlName, true);
+    }
+
+    public static void back(ActionEvent event) {
+        String previous = HISTORY.pollLast();
+        if (previous != null) {
+            switchTo(event, previous, false);
+        }
+    }
+
+    public static void resetHistory() {
+        HISTORY.clear();
+    }
+
+    public static void switchToWithoutHistory(ActionEvent event, String fxmlName) {
+        switchTo(event, fxmlName, false);
+    }
+
+    private static void switchTo(ActionEvent event, String fxmlName, boolean pushCurrent) {
         String resourcePath = normalize(fxmlName);
         FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
 
@@ -48,6 +73,13 @@ public final class SceneNavigator {
             Scene scene = new Scene(root);
             LockedInApp.applyGlobalStyles(scene);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            if (pushCurrent) {
+                Object current = stage.getScene() != null ? stage.getScene().getUserData() : null;
+                if (current instanceof String) {
+                    HISTORY.addLast((String) current);
+                }
+            }
+            scene.setUserData(resourcePath);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

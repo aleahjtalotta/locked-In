@@ -4,18 +4,13 @@ import com.classes.DataLoader;
 import com.classes.DataWriter;
 import com.classes.GameSystem;
 import com.classes.PlayerList;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * Controller for the sign-up screen that registers a new user in users.json.
@@ -76,8 +71,8 @@ public class SignUpController {
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-        switchScene(event, "/com/ourgroup1/WelcomeScreen.fxml");
+    private void handleBack(ActionEvent event) {
+        SceneNavigator.back(event);
     }
 
     private boolean isBlank(String value) {
@@ -85,26 +80,6 @@ public class SignUpController {
     }
 
     private void switchToWelcomeNewUser(ActionEvent event) {
-        try {
-            FXMLLoader loader =
-                    new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/WelcomeNewUser.fxml"));
-            Scene scene = new Scene(loader.load());
-            LockedInApp.applyGlobalStyles(scene);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            errorLabel.setText("Unable to load next screen.");
-            e.printStackTrace();
-        }
-    }
-
-    private void switchScene(ActionEvent event, String resourcePath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
-        Scene scene = new Scene(loader.load());
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        SceneNavigator.switchTo(event, "/com/ourgroup1/WelcomeNewUser.fxml");
     }
 }

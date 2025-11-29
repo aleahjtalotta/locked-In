@@ -4,19 +4,14 @@ import com.classes.DataLoader;
 import com.classes.GameSystem;
 import com.classes.Player;
 import com.classes.PlayerList;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * Controller for the login/sign-up screen that collects name + email and
@@ -52,23 +47,12 @@ public class LoginController {
 
         SessionContext.setActivePlayer(user.get());
         // Successful login: navigate to the Welcome Back screen.
-        try {
-            FXMLLoader loader =
-                    new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/WelcomeBackScreen.fxml"));
-            Scene scene = new Scene(loader.load());
-            LockedInApp.applyGlobalStyles(scene);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            errorLabel.setText("Unable to load Welcome Back screen.");
-            e.printStackTrace();
-        }
+        SceneNavigator.switchTo(event, "/com/ourgroup1/WelcomeBackScreen.fxml");
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-        switchScene(event, "/com/ourgroup1/WelcomeScreen.fxml");
+    private void handleBack(ActionEvent event) {
+        SceneNavigator.back(event);
     }
 
     private Optional<Player> findUser(String name, String email) {
@@ -93,14 +77,5 @@ public class LoginController {
 
     private String normalize(String value) {
         return value == null ? "" : value.trim().toLowerCase(Locale.ROOT);
-    }
-
-    private void switchScene(ActionEvent event, String resourcePath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LockedInApp.class.getResource(resourcePath));
-        Scene scene = new Scene(loader.load());
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
     }
 }

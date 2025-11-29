@@ -3,7 +3,6 @@ package com.lockedin.ui;
 import com.classes.DataLoader;
 import com.classes.GameSystem;
 import com.classes.ScoreEntry;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -11,11 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 /**
  * Controller that fills the leaderboard screen with the top three scores.
@@ -31,14 +26,8 @@ public class LeaderboardController {
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-        FXMLLoader loader =
-                new FXMLLoader(LockedInApp.class.getResource("/com/ourgroup1/WelcomeScreen.fxml"));
-        Scene scene = new Scene(loader.load());
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+    private void handleBack(ActionEvent event) {
+        SceneNavigator.back(event);
     }
 
     private void populateTopThree() {

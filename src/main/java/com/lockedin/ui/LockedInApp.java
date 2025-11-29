@@ -21,6 +21,8 @@ public class LockedInApp extends Application {
 
         Scene scene = new Scene(fxmlLoader.load());
         applyGlobalStyles(scene);
+        scene.setUserData("/com/ourgroup1/WelcomeScreen.fxml");
+        SceneNavigator.resetHistory();
         stage.setTitle("Locked In");
         stage.setScene(scene);
         stage.show();

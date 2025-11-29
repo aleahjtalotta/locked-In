@@ -16,6 +16,7 @@ public class ChooseDoorController implements SceneBindable {
         wireRoomButton(root, "1", this::handleRoom1, GameState.room1Complete);
         wireRoomButton(root, "2", this::handleRoom2, GameState.room2Complete);
         wireRoomButton(root, "3", this::handleRoom3, GameState.room3Complete);
+        wirePauseButton(root);
     }
 
     @FXML
@@ -86,5 +87,9 @@ public class ChooseDoorController implements SceneBindable {
                 .map(node -> (Button) node)
                 .filter(btn -> text.equals(btn.getText()))
                 .findFirst();
+    }
+
+    private void wirePauseButton(Parent root) {
+        findButtonWithText(root, "Pause").ifPresent(button -> button.setOnAction(this::handlePause));
     }
 }
