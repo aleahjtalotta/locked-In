@@ -12,7 +12,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="620.0" fitWidth="416.0" layoutX="102.0" layoutY="-106.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+      <ImageView fitHeight="416.0" fitWidth="611.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Room1Shadow.png" />
          </image>
