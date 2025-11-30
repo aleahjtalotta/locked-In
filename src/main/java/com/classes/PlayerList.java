@@ -1,5 +1,6 @@
 package com.classes;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -109,7 +110,8 @@ public class PlayerList {
                 .filter(java.util.Objects::nonNull)
                 .max(Comparator.naturalOrder())
                 .orElse(0) + 1;
-        Player player = new Player(UUID.randomUUID(), nextLegacy, safeName, email.trim(), avatar,
+        UUID playerId = deriveUuid("player", nextLegacy);
+        Player player = new Player(playerId, nextLegacy, safeName, email.trim(), avatar,
                 new ItemList(), new Statistics(), 0, Collections.emptySet());
         players.add(player);
         return player;
@@ -218,5 +220,13 @@ public class PlayerList {
         }
         String normalized = name.trim().toLowerCase();
         return normalized.isEmpty() ? null : normalized;
+    }
+
+    private UUID deriveUuid(String prefix, Number id) {
+        if (id == null) {
+            return UUID.randomUUID();
+        }
+        String seed = prefix + "-" + id.longValue();
+        return UUID.nameUUIDFromBytes(seed.getBytes(StandardCharsets.UTF_8));
     }
 }
