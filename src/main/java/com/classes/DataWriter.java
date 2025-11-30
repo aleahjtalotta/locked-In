@@ -1,17 +1,22 @@
 package com.classes;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Persists the current escape-room state back into the JSON files used by the
@@ -69,7 +74,9 @@ public class DataWriter {
         root.put("timer", writeTimer(gameSystem.getTimer()));
         root.put("hints", writeHints(gameSystem.getHints()));
         root.put("leaderboard", writeLeaderboard(gameSystem.getLeaderboard()));
-        root.put("rooms", writeRoomsArray(gameSystem.getRooms()));
+
+        Map<Long, PuzzleHint> puzzleHints = loadExistingPuzzleHints();
+        root.put("rooms", writeRoomsArray(gameSystem.getRooms(), puzzleHints));
 
         writeJson(destinationDirectory.resolve(ROOMS_FILE), root);
     }
@@ -131,13 +138,13 @@ public class DataWriter {
         return obj;
     }
 
-    private JSONArray writeRoomsArray(RoomList rooms) {
+    private JSONArray writeRoomsArray(RoomList rooms, Map<Long, PuzzleHint> puzzleHints) {
         JSONArray array = new JSONArray();
         for (Room room : rooms.asList()) {
             JSONObject roomObj = new JSONObject();
             roomObj.put("roomID", valueOrFallback(room.getLegacyId(), room.getId()));
             roomObj.put("items", writeItems(room.getItems()));
-            roomObj.put("puzzles", writePuzzles(room.getPuzzles()));
+            roomObj.put("puzzles", writePuzzles(room.getPuzzles(), puzzleHints));
             array.add(roomObj);
         }
         return array;
@@ -155,17 +162,19 @@ public class DataWriter {
         return array;
     }
 
-    private JSONArray writePuzzles(List<Puzzle> puzzles) {
+    private JSONArray writePuzzles(List<Puzzle> puzzles, Map<Long, PuzzleHint> puzzleHints) {
         JSONArray array = new JSONArray();
         for (Puzzle puzzle : puzzles) {
             JSONObject puzzleObj = new JSONObject();
-            puzzleObj.put("puzzleName", valueOrFallback(puzzle.getLegacyId(), puzzle.getId()));
+            Long legacyId = puzzle.getLegacyId();
+            puzzleObj.put("puzzleName", valueOrFallback(legacyId, puzzle.getId()));
             puzzleObj.put("name", puzzle.getName());
             puzzleObj.put("description", puzzle.getDescription());
             puzzleObj.put("reward", puzzle.getReward());
             puzzleObj.put("type", puzzle.getType().name());
             puzzleObj.put("solved", puzzle.isSolved());
             enrichPuzzleByType(puzzle, puzzleObj);
+            includePuzzleHintMetadata(puzzleObj, legacyId, puzzleHints);
             array.add(puzzleObj);
         }
         return array;
@@ -191,6 +200,29 @@ public class DataWriter {
         }
     }
 
+    private void includePuzzleHintMetadata(JSONObject target,
+                                           Long puzzleLegacyId,
+                                           Map<Long, PuzzleHint> puzzleHints) {
+        if (puzzleLegacyId == null || puzzleHints.isEmpty()) {
+            return;
+        }
+        PuzzleHint hint = puzzleHints.get(puzzleLegacyId);
+        if (hint == null || hint.hintText == null || hint.hintText.isBlank()) {
+            return;
+        }
+        if (hint.hintId != null) {
+            target.put("hintID", hint.hintId);
+        }
+        JSONObject hintObj = new JSONObject();
+        if (hint.hintId != null) {
+            hintObj.put("hintID", hint.hintId);
+        }
+        hintObj.put("hintText", hint.hintText);
+        JSONArray hintsArray = new JSONArray();
+        hintsArray.add(hintObj);
+        target.put("hints", hintsArray);
+    }
+
     private JSONObject writeStatistics(Statistics statistics) {
         JSONObject obj = new JSONObject();
         if (statistics != null) {
@@ -210,6 +242,104 @@ public class DataWriter {
             }
         }
         return array;
+    }
+
+    private Map<Long, PuzzleHint> loadExistingPuzzleHints() {
+        Path roomsPath = destinationDirectory.resolve(ROOMS_FILE);
+        if (!Files.exists(roomsPath)) {
+            return Collections.emptyMap();
+        }
+        JSONParser parser = new JSONParser();
+        try (Reader reader = Files.newBufferedReader(roomsPath, StandardCharsets.UTF_8)) {
+            Object parsed = parser.parse(reader);
+            if (!(parsed instanceof JSONObject root)) {
+                return Collections.emptyMap();
+            }
+            Map<Long, String> hintTexts = extractHintTextMap((JSONArray) root.get("hints"));
+            return extractPuzzleHints((JSONArray) root.get("rooms"), hintTexts);
+        } catch (IOException | ParseException e) {
+            return Collections.emptyMap();
+        }
+    }
+
+    private Map<Long, String> extractHintTextMap(JSONArray hintsArray) {
+        if (hintsArray == null) {
+            return Collections.emptyMap();
+        }
+        Map<Long, String> hints = new HashMap<>();
+        for (Object entry : hintsArray) {
+            if (entry instanceof JSONObject hintObj) {
+                Long id = asLong(hintObj.get("hintID"));
+                if (id != null) {
+                    Object text = hintObj.get("hintText");
+                    hints.put(id, text == null ? "" : text.toString());
+                }
+            }
+        }
+        return hints;
+    }
+
+    private Map<Long, PuzzleHint> extractPuzzleHints(JSONArray roomsArray, Map<Long, String> fallbackById) {
+        if (roomsArray == null) {
+            return Collections.emptyMap();
+        }
+        Map<Long, PuzzleHint> puzzleHints = new HashMap<>();
+        for (Object roomObj : roomsArray) {
+            if (!(roomObj instanceof JSONObject room)) {
+                continue;
+            }
+            JSONArray puzzles = (JSONArray) room.get("puzzles");
+            if (puzzles == null) {
+                continue;
+            }
+            for (Object puzzleObj : puzzles) {
+                if (!(puzzleObj instanceof JSONObject puzzle)) {
+                    continue;
+                }
+                Long puzzleId = asLong(puzzle.get("puzzleName"));
+                if (puzzleId == null) {
+                    continue;
+                }
+                PuzzleHint hint = resolvePuzzleHint(puzzle, fallbackById);
+                if (hint != null) {
+                    puzzleHints.put(puzzleId, hint);
+                }
+            }
+        }
+        return puzzleHints;
+    }
+
+    private PuzzleHint resolvePuzzleHint(JSONObject puzzle, Map<Long, String> fallbackById) {
+        JSONArray hintsArray = (JSONArray) puzzle.get("hints");
+        String text = firstHintText(hintsArray);
+        Long hintId = asLong(puzzle.get("hintID"));
+        if ((text == null || text.isBlank()) && hintId != null) {
+            text = fallbackById.get(hintId);
+        }
+        if (hintId == null && hintsArray != null && !hintsArray.isEmpty()) {
+            Object first = hintsArray.get(0);
+            if (first instanceof JSONObject hintObj) {
+                hintId = asLong(hintObj.get("hintID"));
+            }
+        }
+        if (text == null || text.isBlank()) {
+            return null;
+        }
+        return new PuzzleHint(hintId, text);
+    }
+
+    private String firstHintText(JSONArray hintsArray) {
+        if (hintsArray == null || hintsArray.isEmpty()) {
+            return null;
+        }
+        Object first = hintsArray.get(0);
+        if (first instanceof JSONObject hintObj) {
+            Object text = hintObj.get("hintText");
+            if (text != null) {
+                return text.toString();
+            }
+        }
+        return null;
     }
 
     private void writeJson(Path path, JSONObject content) throws IOException {
@@ -255,5 +385,28 @@ public class DataWriter {
         long minutes = (seconds % 3600) / 60;
         long secs = seconds % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
+    }
+
+    private Long asLong(Object value) {
+        if (value instanceof Number number) {
+            return number.longValue();
+        }
+        if (value instanceof String str && !str.isBlank()) {
+            try {
+                return Long.parseLong(str.trim());
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return null;
+    }
+
+    private static final class PuzzleHint {
+        private final Long hintId;
+        private final String hintText;
+
+        private PuzzleHint(Long hintId, String hintText) {
+            this.hintId = hintId;
+            this.hintText = hintText;
+        }
     }
 }
