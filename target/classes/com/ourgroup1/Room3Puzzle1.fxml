@@ -18,22 +18,22 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Ashen Cove" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle The Spill That Speaks" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="Brush away the hearth soot to reveal the numbers that unlock the cellar latch." textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="The fallen glass left more than water. The spill is outline reveals the cellars code." textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="195.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="46.0" layoutY="204.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <ToggleButton fx:id="hintButton" id="hintButton" layoutX="14.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="35.0" text="Hint">
+      <ToggleButton id="hintButton" fx:id="hintButton" layoutX="14.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="35.0" text="Hint">
          <font>
             <Font size="10.0" />
          </font>
