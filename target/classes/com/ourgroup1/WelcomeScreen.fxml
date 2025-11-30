@@ -6,7 +6,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="welcome-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.WelcomeController">
    <children>
@@ -22,6 +21,7 @@
             <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Log In" />
             <Button mnemonicParsing="false" onAction="#handleSignup" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Sign Up" />
             <Button mnemonicParsing="false" onAction="#handleLeaderboard" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Leaderboard" />
+            <Button mnemonicParsing="false" onAction="#handleQuit" prefHeight="32.0" prefWidth="140.0" styleClass="welcome-button" text="Quit Game" />
          </children>
       </VBox>
    </children>
