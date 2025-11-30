@@ -23,7 +23,7 @@
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="78.0" prefWidth="140.0" text="Angle the foyer candelabras until their shadows overlap to spell the whispered word." textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="14.0" layoutY="99.0" prefHeight="78.0" prefWidth="140.0" text="Look closely at the candle shadows together they reveal the secret word." textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -33,7 +33,7 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <ToggleButton fx:id="hintButton" id="hintButton" layoutX="14.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="35.0" text="Hint">
+      <ToggleButton id="hintButton" fx:id="hintButton" layoutX="14.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="35.0" text="Hint">
          <font>
             <Font size="10.0" />
          </font>
