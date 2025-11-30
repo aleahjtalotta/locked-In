@@ -59,7 +59,7 @@
             <Font name="Courier New Bold" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="pauseButton" layoutX="556.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="41.0" text="Pause">
+      <Button fx:id="pauseButton" layoutX="546.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Pause">
          <font>
             <Font size="10.0" />
          </font>
