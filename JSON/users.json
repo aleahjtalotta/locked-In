@@ -1,1 +1,254 @@
-[{"currentScore":0,"solvedPuzzles":["c879fb74-4d1a-3359-bc87-1b5a1cd61fa7"],"name":"Bob","avatar":"avatar1.png","items":[{"itemID":101,"itemName":"Magic Key","isReusable":false},{"itemID":102,"itemName":"Torch","isReusable":true}],"email":"bob@example.com","playerID":1,"statistics":{"avgTime":"00:30:00","gamesPlayed":5,"puzzlesSolved":12,"gamesWon":2}},{"currentScore":10,"solvedPuzzles":["c879fb74-4d1a-3359-bc87-1b5a1cd61fa7","c0e77fb8-4333-3bea-9c47-f8797916feab","84ce00be-0d16-37c7-a00e-5b3cd0e7d07c","e6864c49-9c8a-3129-b758-d4b9c32733e4"],"name":"Jasmine","avatar":"avatar2.png","items":[{"itemID":103,"itemName":"Ancient Dial","isReusable":true}],"email":"loveleejasmine@example.com","playerID":2,"statistics":{"avgTime":"00:25:00","gamesPlayed":3,"puzzlesSolved":7,"gamesWon":2}},{"currentScore":0,"solvedPuzzles":[],"name":"Mei","avatar":"avatar3.png","items":[{"itemID":104,"itemName":"Cipher Wheel","isReusable":true},{"itemID":105,"itemName":"Vault Keycard","isReusable":false},{"itemID":101,"itemName":"Shadow Candle","isReusable":true},{"itemID":102,"itemName":"Lantern Dial","isReusable":true}],"email":"mei.chen@example.com","playerID":3,"statistics":{"avgTime":"00:28:00","gamesPlayed":6,"puzzlesSolved":15,"gamesWon":4}},{"currentScore":0,"solvedPuzzles":[],"name":"youremai","avatar":"emai","items":[],"email":"youremoi@gmail.com","playerID":4,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":5,"solvedPuzzles":["c879fb74-4d1a-3359-bc87-1b5a1cd61fa7"],"name":"Anchal","avatar":"an","items":[{"itemID":101,"itemName":"Shadow Candle","isReusable":true}],"email":"anchal066@gmail.com","playerID":5,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":5,"solvedPuzzles":["c879fb74-4d1a-3359-bc87-1b5a1cd61fa7"],"name":"Aleah","avatar":"an","items":[],"email":"aleaht@gmail.com","playerID":6,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":25,"solvedPuzzles":["c879fb74-4d1a-3359-bc87-1b5a1cd61fa7","c0e77fb8-4333-3bea-9c47-f8797916feab","84ce00be-0d16-37c7-a00e-5b3cd0e7d07c","e6864c49-9c8a-3129-b758-d4b9c32733e4","fdb59a42-3ccc-3d1e-b753-8b03b553c488"],"name":"jack","avatar":"no","items":[{"itemID":101,"itemName":"Shadow Candle","isReusable":true},{"itemID":102,"itemName":"Lantern Dial","isReusable":true},{"itemID":103,"itemName":"Frame Hook","isReusable":false},{"itemID":104,"itemName":"Mirror Brush","isReusable":true},{"itemID":105,"itemName":"Ash Brush","isReusable":false}],"email":"jack@email.com","playerID":9,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":0,"solvedPuzzles":[],"name":"Rivers","avatar":"Riv","items":[],"email":"Rivers@gmail.com","playerID":10,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":0,"solvedPuzzles":[],"name":"jazz","avatar":null,"items":[],"email":"jazz@email.com","playerID":11,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":0,"solvedPuzzles":[],"name":"sonic","avatar":null,"items":[],"email":"sonic@email.com","playerID":12,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}},{"currentScore":0,"solvedPuzzles":[],"name":"emy","avatar":null,"items":[],"email":"emy@email.com","playerID":13,"statistics":{"avgTime":"00:00:00","gamesPlayed":0,"puzzlesSolved":0,"gamesWon":0}}]
+[
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [
+            "c879fb74-4d1a-3359-bc87-1b5a1cd61fa7"
+        ],
+        "name": "Bob",
+        "avatar": "avatar1.png",
+        "items": [
+            {
+                "itemID": 101,
+                "itemName": "Magic Key",
+                "isReusable": false
+            },
+            {
+                "itemID": 102,
+                "itemName": "Torch",
+                "isReusable": true
+            }
+        ],
+        "email": "bob@example.com",
+        "playerID": 1,
+        "statistics": {
+            "avgTime": "00:30:00",
+            "gamesPlayed": 5,
+            "puzzlesSolved": 12,
+            "gamesWon": 2
+        }
+    },
+    {
+        "currentScore": 10,
+        "solvedPuzzles": [
+            "c879fb74-4d1a-3359-bc87-1b5a1cd61fa7",
+            "c0e77fb8-4333-3bea-9c47-f8797916feab",
+            "84ce00be-0d16-37c7-a00e-5b3cd0e7d07c",
+            "e6864c49-9c8a-3129-b758-d4b9c32733e4"
+        ],
+        "name": "Jasmine",
+        "avatar": "avatar2.png",
+        "items": [
+            {
+                "itemID": 103,
+                "itemName": "Ancient Dial",
+                "isReusable": true
+            }
+        ],
+        "email": "loveleejasmine@example.com",
+        "playerID": 2,
+        "statistics": {
+            "avgTime": "00:25:00",
+            "gamesPlayed": 3,
+            "puzzlesSolved": 7,
+            "gamesWon": 2
+        }
+    },
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [],
+        "name": "Mei",
+        "avatar": "avatar3.png",
+        "items": [
+            {
+                "itemID": 104,
+                "itemName": "Cipher Wheel",
+                "isReusable": true
+            },
+            {
+                "itemID": 105,
+                "itemName": "Vault Keycard",
+                "isReusable": false
+            },
+            {
+                "itemID": 101,
+                "itemName": "Shadow Candle",
+                "isReusable": true
+            },
+            {
+                "itemID": 102,
+                "itemName": "Lantern Dial",
+                "isReusable": true
+            }
+        ],
+        "email": "mei.chen@example.com",
+        "playerID": 3,
+        "statistics": {
+            "avgTime": "00:28:00",
+            "gamesPlayed": 6,
+            "puzzlesSolved": 15,
+            "gamesWon": 4
+        }
+    },
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [],
+        "name": "youremai",
+        "avatar": "emai",
+        "items": [],
+        "email": "youremoi@gmail.com",
+        "playerID": 4,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 5,
+        "solvedPuzzles": [
+            "c879fb74-4d1a-3359-bc87-1b5a1cd61fa7"
+        ],
+        "name": "Anchal",
+        "avatar": "an",
+        "items": [
+            {
+                "itemID": 101,
+                "itemName": "Shadow Candle",
+                "isReusable": true
+            }
+        ],
+        "email": "anchal066@gmail.com",
+        "playerID": 5,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 5,
+        "solvedPuzzles": [
+            "c879fb74-4d1a-3359-bc87-1b5a1cd61fa7"
+        ],
+        "name": "Aleah",
+        "avatar": "an",
+        "items": [],
+        "email": "aleaht@gmail.com",
+        "playerID": 6,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 25,
+        "solvedPuzzles": [
+            "c879fb74-4d1a-3359-bc87-1b5a1cd61fa7",
+            "c0e77fb8-4333-3bea-9c47-f8797916feab",
+            "84ce00be-0d16-37c7-a00e-5b3cd0e7d07c",
+            "e6864c49-9c8a-3129-b758-d4b9c32733e4",
+            "fdb59a42-3ccc-3d1e-b753-8b03b553c488"
+        ],
+        "name": "jack",
+        "avatar": "no",
+        "items": [
+            {
+                "itemID": 101,
+                "itemName": "Shadow Candle",
+                "isReusable": true
+            },
+            {
+                "itemID": 102,
+                "itemName": "Lantern Dial",
+                "isReusable": true
+            },
+            {
+                "itemID": 103,
+                "itemName": "Frame Hook",
+                "isReusable": false
+            },
+            {
+                "itemID": 104,
+                "itemName": "Mirror Brush",
+                "isReusable": true
+            },
+            {
+                "itemID": 105,
+                "itemName": "Ash Brush",
+                "isReusable": false
+            }
+        ],
+        "email": "jack@email.com",
+        "playerID": 9,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [],
+        "name": "Rivers",
+        "avatar": "Riv",
+        "items": [],
+        "email": "Rivers@gmail.com",
+        "playerID": 10,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [],
+        "name": "jazz",
+        "avatar": null,
+        "items": [],
+        "email": "jazz@email.com",
+        "playerID": 11,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [],
+        "name": "sonic",
+        "avatar": null,
+        "items": [],
+        "email": "sonic@email.com",
+        "playerID": 12,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    },
+    {
+        "currentScore": 0,
+        "solvedPuzzles": [],
+        "name": "emy",
+        "avatar": null,
+        "items": [],
+        "email": "emy@email.com",
+        "playerID": 13,
+        "statistics": {
+            "avgTime": "00:00:00",
+            "gamesPlayed": 0,
+            "puzzlesSolved": 0,
+            "gamesWon": 0
+        }
+    }
+]
