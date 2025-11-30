@@ -6,11 +6,17 @@ import com.classes.GameSystem;
 import com.classes.PlayerList;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 /**
  * Controller for the sign-up screen that registers a new user in users.json.
@@ -25,6 +31,16 @@ public class SignUpController {
 
     @FXML
     private Label errorLabel;
+
+    @FXML
+    private ComboBox<AvatarOption> imageComboBox;
+
+    private ObservableList<AvatarOption> avatarChoices;
+
+    @FXML
+    private void initialize() {
+        configureAvatarChoices();
+    }
 
     @FXML
     private void handleSignup(ActionEvent event) {
@@ -52,9 +68,12 @@ public class SignUpController {
             return;
         }
 
+        AvatarOption selectedAvatar = imageComboBox == null ? null : imageComboBox.getValue();
+        String avatarId = selectedAvatar == null ? null : selectedAvatar.id();
+
         com.classes.Player newPlayer;
         try {
-            newPlayer = players.createPlayer(name, email, null);
+            newPlayer = players.createPlayer(name, email, avatarId);
         } catch (IllegalArgumentException e) {
             errorLabel.setText("That user already exists, try again");
             return;
@@ -82,5 +101,53 @@ public class SignUpController {
 
     private void switchToWelcomeNewUser(ActionEvent event) {
         SceneNavigator.switchTo(event, "/com/ourgroup1/WelcomeNewUser.fxml");
+    }
+
+    private void configureAvatarChoices() {
+        if (imageComboBox == null) {
+            return;
+        }
+        avatarChoices = FXCollections.observableArrayList(defaultAvatars());
+        imageComboBox.setItems(avatarChoices);
+        imageComboBox.setCellFactory(list -> new AvatarListCell());
+        imageComboBox.setButtonCell(new AvatarListCell());
+        if (!avatarChoices.isEmpty()) {
+            imageComboBox.getSelectionModel().selectFirst();
+        }
+    }
+
+    private List<AvatarOption> defaultAvatars() {
+        return List.of(
+                new AvatarOption("bat_avatar", "Bat", "/com/ourgroup1/images/BatAvatar.png"),
+                new AvatarOption("pumpkin_avatar", "Pumpkin", "/com/ourgroup1/images/PumpkinAvatar.png"),
+                new AvatarOption("ghost_avatar", "Ghost", "/com/ourgroup1/images/GhostAvatar.png")
+        );
+    }
+
+    private static final class AvatarListCell extends ListCell<AvatarOption> {
+        private final ImageView preview = new ImageView();
+
+        private AvatarListCell() {
+            preview.setFitHeight(32);
+            preview.setFitWidth(48);
+            preview.setPreserveRatio(true);
+        }
+
+        @Override
+        protected void updateItem(AvatarOption item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setText(null);
+                setGraphic(null);
+                return;
+            }
+            setText(item.displayName());
+            if (item.image() != null) {
+                preview.setImage(item.image());
+                setGraphic(preview);
+            } else {
+                setGraphic(null);
+            }
+        }
     }
 }
