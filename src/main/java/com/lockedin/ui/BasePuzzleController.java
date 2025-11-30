@@ -48,6 +48,7 @@ public abstract class BasePuzzleController implements SceneBindable {
         } else {
             findButtonWithText(root, "Enter").ifPresent(button -> button.setOnAction(this::handleEnterClick));
         }
+        configurePauseButton(root);
         configureHintButton(root);
     }
 
@@ -169,5 +170,22 @@ public abstract class BasePuzzleController implements SceneBindable {
             return Optional.of(label);
         }
         return Optional.empty();
+    }
+
+    private void configurePauseButton(Parent root) {
+        findPauseButton(root).ifPresent(button -> button.setOnAction(event -> SceneNavigator.switchTo(event, "PauseScreen.fxml")));
+    }
+
+    private Optional<ButtonBase> findPauseButton(Parent root) {
+        Node byId = root.lookup("#pauseButton");
+        if (byId instanceof ButtonBase button) {
+            return Optional.of(button);
+        }
+        return root.lookupAll(".button")
+                .stream()
+                .filter(node -> node instanceof ButtonBase)
+                .map(node -> (ButtonBase) node)
+                .filter(btn -> "Pause".equals(btn.getText()))
+                .findFirst();
     }
 }
