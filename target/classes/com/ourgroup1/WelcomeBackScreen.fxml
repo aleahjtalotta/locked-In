@@ -28,6 +28,11 @@
             <Font name="Courier New" size="20.0" />
          </font>
       </Label>
+      <Label layoutX="45.0" layoutY="246.0" prefHeight="66.0" prefWidth="180.0" text="Frame Hook&#10;Lantern Dial&#10;Shadow Candle" textFill="#fffafa">
+         <font>
+            <Font name="Courier New" size="14.0" />
+         </font>
+      </Label>
       <Label layoutX="45.0" layoutY="150.0" text="Puzzles Solved:" textFill="#fffafa">
          <font>
             <Font name="Courier New" size="14.0" />

@@ -39,7 +39,7 @@
          </font>
       </Label>
       <Button layoutX="310.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleEnterMansion" opacity="0.43" text="Enter Mansion" />
-      <Label layoutX="91.0" layoutY="292.0" text="No Items Yet" textFill="#fffafa">
+      <Label layoutX="47.0" layoutY="300.0" prefHeight="66.0" prefWidth="200.0" text="Frame Hook&#10;Lantern Dial&#10;Shadow Candle" textFill="#fffafa">
          <font>
             <Font name="Courier New" size="14.0" />
          </font>

@@ -235,20 +235,5 @@
             "puzzlesSolved": 0,
             "gamesWon": 0
         }
-    },
-    {
-        "currentScore": 0,
-        "solvedPuzzles": [],
-        "name": "emy",
-        "avatar": null,
-        "items": [],
-        "email": "emy@email.com",
-        "playerID": 13,
-        "statistics": {
-            "avgTime": "00:00:00",
-            "gamesPlayed": 0,
-            "puzzlesSolved": 0,
-            "gamesWon": 0
-        }
     }
 ]
