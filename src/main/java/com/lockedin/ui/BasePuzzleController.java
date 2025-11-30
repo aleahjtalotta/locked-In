@@ -22,6 +22,7 @@ public abstract class BasePuzzleController implements SceneBindable {
     private final Supplier<String> nextScreenSupplier;
     private final Long puzzleLegacyId;
     private boolean puzzleSolved;
+    private boolean hintUsed;
 
     private Parent root;
     private Button enterButton;
@@ -138,6 +139,10 @@ public abstract class BasePuzzleController implements SceneBindable {
     private void configureHintButton(Parent root) {
         findHintButton(root).ifPresent(button -> button.setOnAction(event -> {
             displayHint(root);
+            if (!hintUsed) {
+                ProgressSaver.recordHintUsed(puzzleLegacyId);
+                hintUsed = true;
+            }
             if (button instanceof ToggleButton toggle) {
                 toggle.setSelected(false);
             }
