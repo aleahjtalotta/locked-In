@@ -67,6 +67,7 @@ public class SignUpController {
         }
 
         SessionContext.setActivePlayer(newPlayer);
+        GameState.syncFrom(system, newPlayer);
         switchToWelcomeNewUser(event);
     }
 

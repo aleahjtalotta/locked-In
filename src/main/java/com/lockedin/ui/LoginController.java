@@ -39,13 +39,22 @@ public class LoginController {
             return;
         }
 
-        Optional<Player> user = findUser(name, email);
+        Path dataDir = Paths.get("JSON");
+        DataLoader loader = new DataLoader(dataDir);
+        Optional<GameSystem> systemOpt = loader.loadGame();
+        if (systemOpt.isEmpty()) {
+            errorLabel.setText("Unable to load user data.");
+            return;
+        }
+
+        Optional<Player> user = findUser(systemOpt.get().getPlayers(), name, email);
         if (user.isEmpty()) {
             errorLabel.setText("User not found.");
             return;
         }
 
         SessionContext.setActivePlayer(user.get());
+        GameState.syncFrom(systemOpt.get(), user.get());
         // Successful login: navigate to the Welcome Back screen.
         SceneNavigator.switchTo(event, "/com/ourgroup1/WelcomeBackScreen.fxml");
     }
@@ -55,14 +64,7 @@ public class LoginController {
         SceneNavigator.back(event);
     }
 
-    private Optional<Player> findUser(String name, String email) {
-        Path dataDir = Paths.get("JSON");
-        DataLoader loader = new DataLoader(dataDir);
-        Optional<GameSystem> system = loader.loadGame();
-        if (system.isEmpty()) {
-            return Optional.empty();
-        }
-        PlayerList players = system.get().getPlayers();
+    private Optional<Player> findUser(PlayerList players, String name, String email) {
         String targetName = normalize(name);
         String targetEmail = normalize(email);
         return players.asList().stream()
