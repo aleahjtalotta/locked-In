@@ -2,9 +2,10 @@ package com.lockedin.ui;
 
 import com.classes.DataLoader;
 import com.classes.GameSystem;
-import com.classes.ScoreEntry;
+import com.classes.Player;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class LeaderboardController {
     }
 
     private void populateTopThree() {
-        List<ScoreEntry> topThree = loadTopThreeScores();
+        List<Player> topThree = loadTopThreePlayers();
         if (topThree.isEmpty()) {
             leaderboardLabel.setText("No scores available yet.");
             return;
@@ -45,10 +46,10 @@ public class LeaderboardController {
             }
             text.append(positions[i]).append(": ");
             if (i < topThree.size()) {
-                ScoreEntry entry = topThree.get(i);
-                text.append(entry.getPlayerName())
+                Player player = topThree.get(i);
+                text.append(player.getName())
                         .append(" - ")
-                        .append(entry.getScore())
+                        .append(player.getCurrentScore())
                         .append(" points");
             } else {
                 text.append("N/A");
@@ -57,7 +58,7 @@ public class LeaderboardController {
         leaderboardLabel.setText(text.toString());
     }
 
-    private List<ScoreEntry> loadTopThreeScores() {
+    private List<Player> loadTopThreePlayers() {
         Path dataDir = Paths.get("JSON");
         DataLoader loader = new DataLoader(dataDir);
         Optional<GameSystem> systemOpt = loader.loadGame();
@@ -65,7 +66,9 @@ public class LeaderboardController {
             return Collections.emptyList();
         }
 
-        return systemOpt.get().getLeaderboard().getScores().stream()
+        return systemOpt.get().getPlayers().asList().stream()
+                .sorted(Comparator.comparingInt(Player::getCurrentScore).reversed()
+                        .thenComparing(Player::getName, String.CASE_INSENSITIVE_ORDER))
                 .limit(3)
                 .toList();
     }
