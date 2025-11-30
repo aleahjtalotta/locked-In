@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="426.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Downloads/f0e389ba54fdd8379553dccd8acb325b.png" />
+            <Image url="@images/EscapedRoom.png" />
          </image>
       </ImageView>
       <Label layoutX="116.0" layoutY="47.0" prefHeight="44.0" prefWidth="369.0" text="You have Escaped!" textAlignment="CENTER" textFill="WHITE">

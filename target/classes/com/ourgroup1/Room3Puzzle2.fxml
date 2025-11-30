@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="620.0" fitWidth="416.0" layoutX="102.0" layoutY="-106.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
          <image>
-            <Image url="@../../../../../../../Desktop/Screenshot%202025-11-05%20at%206.40.02%E2%80%AFPM.png" />
+            <Image url="@images/Room3Bathroom.png" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
