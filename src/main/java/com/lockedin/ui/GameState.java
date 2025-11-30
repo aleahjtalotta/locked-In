@@ -59,17 +59,8 @@ public final class GameState {
     }
 
     public static String getNextHubScreen() {
-        if (!room1Complete && !room2Complete && !room3Complete) {
-            return "ChooseDoorScreen.fxml";
-        }
-        if (room1Complete && !room2Complete && !room3Complete) {
-            return "ChooseDoorRoom1Complete.fxml";
-        }
-        if (room2Complete && !room1Complete && !room3Complete) {
-            return "ChooseDoorRoom2Complete.fxml";
-        }
-        if (room3Complete && !room1Complete && !room2Complete) {
-            return "ChooseDoorRoom3Complete.fxml";
+        if (room1Complete && room2Complete && room3Complete) {
+            return "GameCompleteExit.fxml";
         }
         if (room1Complete && room2Complete && !room3Complete) {
             return "ChooseDoorRoom1and2Complete.fxml";
@@ -80,8 +71,14 @@ public final class GameState {
         if (room2Complete && room3Complete && !room1Complete) {
             return "ChooseDoorRoom2and3Complete.fxml";
         }
-        if (room1Complete && room2Complete && room3Complete) {
-            return "GameCompleteExit.fxml";
+        if (room1Complete && !room2Complete && !room3Complete) {
+            return "ChooseDoorRoom1Complete.fxml";
+        }
+        if (room2Complete && !room1Complete && !room3Complete) {
+            return "ChooseDoorRoom2Complete.fxml";
+        }
+        if (room3Complete && !room1Complete && !room2Complete) {
+            return "ChooseDoorRoom3Complete.fxml";
         }
         return "ChooseDoorScreen.fxml";
     }
