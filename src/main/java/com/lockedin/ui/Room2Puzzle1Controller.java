@@ -5,6 +5,6 @@ package com.lockedin.ui;
  */
 public class Room2Puzzle1Controller extends BasePuzzleController {
     public Room2Puzzle1Controller() {
-        super(GameState::completeRoom2Puzzle1, () -> "Room2Puzzle2.fxml");
+        super(GameState::completeRoom2Puzzle1, () -> "Room2Puzzle2.fxml", 303L);
     }
 }
