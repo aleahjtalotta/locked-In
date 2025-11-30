@@ -33,7 +33,7 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <ToggleButton fx:id="hintButton" id="hintButton" layoutX="14.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="35.0" text="Hint">
+      <ToggleButton id="hintButton" fx:id="hintButton" layoutX="14.0" layoutY="376.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="35.0" text="Hint">
          <font>
             <Font size="10.0" />
          </font>
@@ -59,5 +59,10 @@
             <Font name="Courier New Bold" size="10.0" />
          </font>
       </Label>
+      <Button fx:id="enterButton1" layoutX="556.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="41.0" text="Pause">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
