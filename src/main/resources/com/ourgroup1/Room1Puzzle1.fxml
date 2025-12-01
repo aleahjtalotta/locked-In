@@ -69,9 +69,50 @@
             <Font size="10.0" />
          </font>
       </Label>
+<<<<<<< HEAD
          <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="55.0" text="Leave">
          <font>
             <Font name="Courier New" size="10.0" />
          </font></Button>
+=======
+      <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
+      <HBox layoutX="10.0" layoutY="217.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
+         <children>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="29.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+>>>>>>> 14f9ee3 (Resolve puzzle FXML conflicts and keep inventory bar)
    </children>
 </Pane>

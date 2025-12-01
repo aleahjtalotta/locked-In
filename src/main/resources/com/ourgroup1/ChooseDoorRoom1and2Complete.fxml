@@ -14,11 +14,6 @@
             <Image url="@images/ChoosePath.png" />
          </image>
       </ImageView>
-      <Label layoutX="207.0" layoutY="304.0" prefHeight="82.0" prefWidth="202.0" text="Choose A Path&#10;" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="Courier New" size="25.0" />
-         </font>
-      </Label>
       <Button layoutX="318.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="2" />
       <Button layoutX="387.0" layoutY="200.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="8.0" text="3" />
       <Button layoutX="525.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Pause" />
