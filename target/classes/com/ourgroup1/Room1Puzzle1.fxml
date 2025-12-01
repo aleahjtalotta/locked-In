@@ -64,5 +64,10 @@
             <Font size="10.0" />
          </font>
       </Button>
+      <Label layoutX="283.0" layoutY="350.0" prefHeight="10.0" prefWidth="44.0" text="GLOW" textFill="#faf4d94a">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
