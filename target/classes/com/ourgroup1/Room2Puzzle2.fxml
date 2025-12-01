@@ -18,17 +18,17 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Haunted Reflection" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Mirror Search" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="Three ballroom mirrors show different scenes; only one keeps moving when the lights die" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" layoutY="69.0" prefHeight="98.0" prefWidth="140.0" text="Which wall contains the smallest painting?" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="195.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="46.0" layoutY="250.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -64,5 +64,20 @@
             <Font size="10.0" />
          </font>
       </Button>
+      <Label layoutX="15.0" layoutY="109.0" prefHeight="98.0" prefWidth="140.0" text="A: Top" textFill="#e4e1b4" wrapText="true">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="126.0" prefHeight="98.0" prefWidth="140.0" text="B: Left" textFill="#e4e1b4" wrapText="true">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="144.0" prefHeight="98.0" prefWidth="140.0" text="C: Right" textFill="#e4e1b4" wrapText="true">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

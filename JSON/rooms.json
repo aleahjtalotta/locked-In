@@ -100,17 +100,17 @@
                     "type": "SEQUENCE"
                 },
                 {
-                    "reward": "Polished Crest",
+                    "reward": "Painting Search",
                     "puzzleName": 304,
                     "name": "Haunted Reflection",
                     "options": [
-                        "Mirror A - Silent ballroom",
-                        "Mirror B - Empty hallway",
-                        "Mirror C - Swaying trees"
+                        "Mirror A - top",
+                        "Mirror B - left",
+                        "Mirror C - right"
                     ],
-                    "description": "Three ballroom mirrors show different scenes; only one keeps moving when the lights die.",
+                    "description": "Which wall contains the smallest painting",
                     "solved": true,
-                    "correctOption": "Mirror C - Swaying trees",
+                    "correctOption": "A",
                     "type": "MULTIPLE_CHOICE"
                 }
             ],
