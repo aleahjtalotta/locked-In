@@ -66,9 +66,7 @@
             <Font size="10.0" />
          </font>
       </Button>
-<<<<<<< Updated upstream
-         <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
-=======
+      <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
       <HBox layoutX="13.0" layoutY="229.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
          <children>
             <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
@@ -106,6 +104,5 @@
             </StackPane>
          </children>
       </HBox>
->>>>>>> Stashed changes
    </children>
 </Pane>
