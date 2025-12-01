@@ -22,12 +22,12 @@
             <Font name="Courier New" size="13.0" />
          </font>
       </Button>
-      <Label layoutX="353.0" layoutY="82.0" prefHeight="15.0" prefWidth="95.0" style="-fx-alignment: center;" text="Time Left" textFill="WHITE">
+      <Label layoutX="377.0" layoutY="82.0" prefHeight="15.0" prefWidth="95.0" style="-fx-alignment: center;" text="Time Left" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="timerLabel" layoutX="353.0" layoutY="100.0" prefHeight="18.0" prefWidth="95.0" style="-fx-alignment: center;" text="15:00" textFill="WHITE">
+      <Label fx:id="timerLabel" layoutX="377.0" layoutY="100.0" prefHeight="18.0" prefWidth="95.0" style="-fx-alignment: center;" text="15:00" textFill="WHITE">
          <font>
             <Font name="Courier New Bold" size="14.0" />
          </font>
