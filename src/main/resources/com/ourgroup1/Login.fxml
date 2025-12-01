@@ -29,7 +29,7 @@
          <font>
             <Font name="Courier New" size="15.0" />
          </font></Label>
-      <Label fx:id="errorLabel" layoutX="185.0" layoutY="243.0" textFill="#ffcccc" />
+      <Label fx:id="errorLabel" layoutX="185.0" layoutY="220.0" textFill="#ffcccc" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
          <font>
             <Font name="Courier New" size="13.0" />
