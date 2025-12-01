@@ -16,7 +16,7 @@
       </ImageView>
       <Button layoutX="318.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="2" />
       <Button layoutX="387.0" layoutY="200.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="8.0" text="3" />
-      <Button layoutX="525.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Pause" />
+      <Button layoutX="510.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Pause" />
       <Button layoutX="196.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="1" />
       <Label layoutX="97.0" layoutY="89.0" prefHeight="26.0" prefWidth="130.0" text="Room 1 Complete" textAlignment="CENTER" textFill="WHITE">
          <font>
