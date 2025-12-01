@@ -66,13 +66,8 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Label fx:id="timerLabel" layoutX="536.0" layoutY="50.0" prefHeight="18.0" prefWidth="75.0" style="-fx-alignment: center;" text="15:00" textFill="#e4e1b4" textAlignment="CENTER">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Label>
       <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
-      <HBox layoutX="13.0" layoutY="229.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
+      <HBox layoutX="9.0" layoutY="229.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
          <children>
             <StackPane fx:id="stack0" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
