@@ -18,17 +18,17 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Missing Reflection" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Missing Reflection" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="Two mirrors face the room, yet neither shows a soul. Write what should appear… but does not." textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="12.0" layoutY="82.0" prefHeight="125.0" prefWidth="153.0" text="I sit beneath two mirrors' glare,Two mouths that drink but never share.They catch the water, drain the blue — How many mouths belong to you?" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="207.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="50.0" layoutY="219.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -64,5 +64,6 @@
             <Font size="10.0" />
          </font>
       </Button>
+      <ImageView fitHeight="98.0" fitWidth="132.0" layoutX="19.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>
