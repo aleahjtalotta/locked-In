@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.SignUpController">
    <children>
@@ -17,13 +18,25 @@
       </ImageView>
       <TextField fx:id="nameField" layoutX="310.0" layoutY="121.0" promptText="Name" />
       <TextField fx:id="emailField" layoutX="310.0" layoutY="164.0" promptText="Email" />
-      <Button layoutX="270.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleSignup" text="Sign Up" />
-      <Label layoutX="182.0" layoutY="127.0" prefHeight="17.0" prefWidth="69.0" text="Enter name :" textFill="WHITE" />
-      <Label layoutX="182.0" layoutY="169.0" prefHeight="17.0" prefWidth="68.0" text="Enter email :" textFill="WHITE" />
-      <Label layoutX="106.0" layoutY="317.0" text="Create new account by entering a name, email, and choosing your avatar" textFill="WHITE" />
+      <Button layoutX="248.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleSignup" text="Sign Up" />
+      <Label layoutX="138.0" layoutY="125.0" prefHeight="19.0" prefWidth="116.0" text="Enter name :" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font></Label>
+      <Label layoutX="138.0" layoutY="168.0" prefHeight="19.0" prefWidth="126.0" text="Enter email :" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font></Label>
+      <Label layoutX="27.0" layoutY="333.0" prefHeight="16.0" prefWidth="551.0" text="Create new account by entering a name, email, and choosing your avatar" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="13.0" />
+         </font></Label>
       <Label fx:id="errorLabel" layoutX="184.0" layoutY="248.0" textFill="RED" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
       <ComboBox fx:id="imageComboBox" layoutX="319.0" layoutY="210.0" prefWidth="150.0" />
-      <Label layoutX="185.0" layoutY="214.0" text="Choose your avatar:" textFill="WHITE" />
+      <Label layoutX="138.0" layoutY="214.0" text="Choose your avatar:" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font></Label>
    </children>
 </Pane>

@@ -11,11 +11,10 @@
     -color-room-sidebar: #545246;
     -color-room-sidebar-overlay: rgba(84, 82, 70, 0.6);
     -color-shadow-text: #e4e1b4;
-    -font-main: "Courier New", "Courier", monospace;
 
-    -fx-font-family: -font-main;
+    -fx-font-family: "Courier New", "Courier", monospace;
     -fx-background-color: linear-gradient(135deg, #0b1220 0%, #0f172a 40%, #0a0f1c 100%);
-    -fx-text-fill: -color-text;
+    -fx-text-fill: #ffffff;
 }
 
 .welcome-pane {
@@ -25,8 +24,7 @@
 
 /* labels and headings */
 .label {
-    -fx-text-fill: -color-text;
-    -fx-font-family: -font-main;
+    -fx-text-fill: #ffffff;
 }
 
 .heading-large {
@@ -51,7 +49,6 @@
     -fx-text-fill: #111;
     -fx-font-weight: normal;
     -fx-font-size: 12px;
-    -fx-font-family: -font-main;
     -fx-padding: 6 10;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 1);
@@ -84,7 +81,7 @@
 
 /* Welcome screen specifics to match the provided mock */
 .welcome-title {
-    -fx-font-family: -font-main;
+    -fx-font-family: "Courier New", "Courier", monospace;
     -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -94,9 +91,9 @@
 }
 
 .welcome-subtitle {
-    -fx-font-family: -font-main;
+    -fx-font-family: "Courier New", "Courier", monospace;
     -fx-font-size: 16px;
-    -fx-text-fill: #f1f5f9;
+    -fx-text-fill: #ffffff;
     -fx-alignment: center;
     -fx-text-alignment: center;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.25, 0, 2);
@@ -116,9 +113,8 @@
     -fx-border-color: #9e9e9e;
     -fx-border-radius: 6;
     -fx-background-radius: 6;
-    -fx-text-fill: #111;
+    -fx-text-fill: #111111;
     -fx-font-weight: normal;
-    -fx-font-family: -font-main;
     -fx-font-size: 14px;
     -fx-padding: 8 12;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0.2, 0, 1);
