@@ -79,5 +79,6 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
+         <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
    </children>
 </Pane>
