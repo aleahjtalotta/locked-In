@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lockedin.ui.LoginController">
    <children>
@@ -14,12 +15,24 @@
             <Image url="@images/WelcomeScreen.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nameField" layoutX="310.0" layoutY="121.0" promptText="Name" />
-      <TextField fx:id="emailField" layoutX="310.0" layoutY="164.0" promptText="Email" />
-      <Button layoutX="276.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
-      <Label layoutX="184.0" layoutY="126.0" text="Enter name :" textFill="WHITE" />
-      <Label layoutX="185.0" layoutY="169.0" text="Enter email :" textFill="WHITE" />
+      <TextField fx:id="nameField" layoutX="309.0" layoutY="136.0" promptText="Name" />
+      <TextField fx:id="emailField" layoutX="309.0" layoutY="187.0" promptText="Email" />
+      <Button layoutX="272.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleLogin" text="Login">
+         <font>
+            <Font name="Courier New" size="13.0" />
+         </font></Button>
+      <Label layoutX="162.0" layoutY="140.0" text="Enter name :" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font></Label>
+      <Label layoutX="164.0" layoutY="191.0" text="Enter email :" textFill="WHITE">
+         <font>
+            <Font name="Courier New" size="15.0" />
+         </font></Label>
       <Label fx:id="errorLabel" layoutX="185.0" layoutY="243.0" textFill="#ffcccc" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" text="Back" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" text="Back">
+         <font>
+            <Font name="Courier New" size="13.0" />
+         </font></Button>
    </children>
 </Pane>
