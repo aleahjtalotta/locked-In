@@ -28,6 +28,7 @@ public abstract class BasePuzzleController implements SceneBindable {
     private Button enterButton;
     private TextField answerField;
     private Label feedbackLabel;
+    private Label timerLabel;
 
     protected BasePuzzleController(Runnable completionAction,
                                    Supplier<String> nextScreenSupplier,
@@ -43,12 +44,15 @@ public abstract class BasePuzzleController implements SceneBindable {
         this.answerField = findAnswerField(root).orElse(null);
         this.enterButton = findEnterButton(root).orElse(null);
         this.feedbackLabel = findFeedbackLabel(root).orElse(null);
+        this.timerLabel = findTimerLabel(root).orElse(null);
 
         if (enterButton != null) {
             enterButton.setOnAction(this::handleEnterClick);
         } else {
             findButtonWithText(root, "Enter").ifPresent(button -> button.setOnAction(this::handleEnterClick));
         }
+        CountdownTimerManager.bindLabel(timerLabel);
+        CountdownTimerManager.startIfNeeded();
         configurePauseButton(root);
         configureLeaveButton(root);
         configureHintButton(root);
@@ -137,6 +141,14 @@ public abstract class BasePuzzleController implements SceneBindable {
         return Optional.empty();
     }
 
+    private Optional<Label> findTimerLabel(Parent root) {
+        Node node = root.lookup("#timerLabel");
+        if (node instanceof Label label) {
+            return Optional.of(label);
+        }
+        return Optional.empty();
+    }
+
     private void configureHintButton(Parent root) {
         findHintButton(root).ifPresent(button -> button.setOnAction(event -> {
             displayHint(root);
@@ -179,7 +191,10 @@ public abstract class BasePuzzleController implements SceneBindable {
     }
 
     private void configurePauseButton(Parent root) {
-        findPauseButton(root).ifPresent(button -> button.setOnAction(event -> SceneNavigator.switchTo(event, "PauseScreen.fxml")));
+        findPauseButton(root).ifPresent(button -> button.setOnAction(event -> {
+            CountdownTimerManager.pauseAndPersist();
+            SceneNavigator.switchTo(event, "PauseScreen.fxml");
+        }));
     }
 
     private Optional<ButtonBase> findPauseButton(Parent root) {

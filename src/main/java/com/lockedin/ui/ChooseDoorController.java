@@ -36,6 +36,7 @@ public class ChooseDoorController implements SceneBindable {
 
     @FXML
     private void handlePause(ActionEvent event) {
+        CountdownTimerManager.pauseAndPersist();
         SceneNavigator.switchTo(event, "PauseScreen.fxml");
     }
 

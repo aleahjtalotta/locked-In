@@ -39,12 +39,14 @@ public class LogOutController implements SceneBindable {
     }
 
     private void handleLogout(ActionEvent event) {
+        CountdownTimerManager.finalizeTimer();
         SessionContext.clear();
         SceneNavigator.resetHistory();
         SceneNavigator.switchToWithoutHistory(event, "WelcomeScreen.fxml");
     }
 
     private void handleQuit(ActionEvent event) {
+        CountdownTimerManager.finalizeTimer();
         Platform.exit();
     }
 

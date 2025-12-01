@@ -13,11 +13,15 @@ import javafx.scene.control.Label;
 public class UserScoreController implements SceneBindable {
 
     private Label scoreDetailsLabel;
+    private Label timerLabel;
 
     @Override
     public void onSceneLoaded(Parent root) {
         this.scoreDetailsLabel = findScoreLabel(root);
+        this.timerLabel = findTimerLabel(root);
         wireBackButton(root);
+        CountdownTimerManager.bindLabel(timerLabel);
+        CountdownTimerManager.refreshDisplay();
         populateStats();
     }
 
@@ -71,6 +75,14 @@ public class UserScoreController implements SceneBindable {
 
     private Label findScoreLabel(Parent root) {
         var node = root.lookup("#scoreDetailsLabel");
+        if (node instanceof Label label) {
+            return label;
+        }
+        return null;
+    }
+
+    private Label findTimerLabel(Parent root) {
+        var node = root.lookup("#timerLabel");
         if (node instanceof Label label) {
             return label;
         }

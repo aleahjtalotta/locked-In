@@ -35,6 +35,7 @@ public class PauseController implements SceneBindable {
     }
 
     private void handleLogout(ActionEvent event) {
+        CountdownTimerManager.pauseAndPersist();
         SessionContext.clear();
         GameState.reset();
         SceneNavigator.resetHistory();
@@ -42,6 +43,7 @@ public class PauseController implements SceneBindable {
     }
 
     private void handleQuitGame(ActionEvent event) {
+        CountdownTimerManager.finalizeTimer();
         saveProgress();
         Platform.exit();
     }

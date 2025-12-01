@@ -19,11 +19,13 @@ public class GameCompleteExitController implements SceneBindable {
 
     @FXML
     private void handleLeave(ActionEvent event) {
+        CountdownTimerManager.finalizeTimer();
         SceneNavigator.switchTo(event, "LogOutScreen.fxml");
     }
 
     @FXML
     private void handlePause(ActionEvent event) {
+        CountdownTimerManager.pauseAndPersist();
         SceneNavigator.switchTo(event, "PauseScreen.fxml");
     }
 

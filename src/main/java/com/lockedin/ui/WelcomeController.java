@@ -30,6 +30,7 @@ public class WelcomeController {
 
     @FXML
     private void handleQuit(ActionEvent event) {
+        CountdownTimerManager.finalizeTimer();
         persistSessionProgress();
         Platform.exit();
     }
