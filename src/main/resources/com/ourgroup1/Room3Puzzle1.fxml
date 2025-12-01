@@ -72,39 +72,36 @@
          </font>
       </Label>
       <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
-      <HBox layoutX="13.0" layoutY="237.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
+      <HBox layoutX="13.0" layoutY="229.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
          <children>
-            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+            <StackPane fx:id="stack0" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image0" fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+            <StackPane fx:id="stack1" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image1" fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+            <StackPane fx:id="stack2" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image2" fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+            <StackPane fx:id="stack3" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image3" fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+            <StackPane fx:id="stack4" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image4" fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
-            <StackPane prefHeight="31.0" prefWidth="29.0" style="-fx-border-color: white;">
+            <StackPane fx:id="stack5" prefHeight="31.0" prefWidth="29.0" style="-fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="image5" fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
          </children>
