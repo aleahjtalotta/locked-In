@@ -58,21 +58,34 @@ public final class ProgressSaver {
         if (activePlayer.isEmpty()) {
             return;
         }
+
+        Player sessionPlayer = activePlayer.get();
+        sessionPlayer.addScore(-HINT_PENALTY);
+
         DataLoader loader = new DataLoader(DATA_DIR);
         Optional<GameSystem> systemOpt = loader.loadGame();
         if (systemOpt.isEmpty()) {
             return;
         }
         GameSystem system = systemOpt.get();
-        applyScoreDelta(system, activePlayer.get(), -HINT_PENALTY);
+        applyScoreDeltaToSaved(system, sessionPlayer, -HINT_PENALTY);
         new DataWriter(DATA_DIR).saveGame(system);
     }
 
     private static void applyScoreDelta(GameSystem system, Player sessionPlayer, int delta) {
-        if (delta == 0) {
+        if (delta == 0 || sessionPlayer == null) {
             return;
         }
         sessionPlayer.addScore(delta);
-        system.getPlayers().findById(sessionPlayer.getId()).ifPresent(savedPlayer -> savedPlayer.addScore(delta));
+        applyScoreDeltaToSaved(system, sessionPlayer, delta);
+    }
+
+    private static void applyScoreDeltaToSaved(GameSystem system, Player sessionPlayer, int delta) {
+        if (delta == 0 || system == null || sessionPlayer == null) {
+            return;
+        }
+        system.getPlayers()
+                .findById(sessionPlayer.getId())
+                .ifPresent(savedPlayer -> savedPlayer.addScore(delta));
     }
 }
