@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -14,11 +12,6 @@
             <Image url="@images/ChoosePath.png" />
          </image>
       </ImageView>
-      <Label layoutX="217.0" layoutY="290.0" prefHeight="36.0" prefWidth="166.0" text="Choose a path" textAlignment="CENTER" textFill="#e4e1b4">
-         <font>
-            <Font name="Courier New Bold" size="20.0" />
-         </font>
-      </Label>
       <Button layoutX="192.0" layoutY="200.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="23.0" text="1" />
       <Button layoutX="318.0" layoutY="200.0" mnemonicParsing="false" prefHeight="8.0" prefWidth="3.0" text="2" />
       <Button layoutX="387.0" layoutY="200.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="8.0" text="3" />
