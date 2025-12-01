@@ -6,7 +6,9 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -64,6 +66,46 @@
             <Font size="10.0" />
          </font>
       </Button>
+<<<<<<< Updated upstream
          <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
+=======
+      <HBox layoutX="13.0" layoutY="249.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
+         <children>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane prefHeight="31.0" prefWidth="29.0" style="-fx-border-color: white;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+>>>>>>> Stashed changes
    </children>
 </Pane>
