@@ -132,10 +132,10 @@
             "puzzles": [
                 {
                     "reward": "Cellar Key",
-                    "code": "1342",
+                    "code": "water",
                     "puzzleName": 305,
-                    "name": "The Spill That Speaks",
-                    "description": "The fallen glass left more than water. The spill is outline reveals the cellars code.",
+                    "name": "The Spilled Riddle",
+                    "description": "I can crash with power or drip in peace, in endless forms, I never cease. What am I?",
                     "solved": true,
                     "type": "CODE_LOCK"
                 },
