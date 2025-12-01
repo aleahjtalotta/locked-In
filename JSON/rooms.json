@@ -142,11 +142,11 @@
                 {
                     "reward": "Sanctum Seal",
                     "puzzleName": 306,
-                    "name": "Missing Reflection",
-                    "description": "Two mirrors face the room, yet neither shows a soul. Write what should appear\u2026 but does not.",
+                    "name": "Mirror Riddle",
+                    "description": "I sit beneath two mirrors' glare, two mouths that drink but never share. They catch the water, drain the blue—how many mouths belong to you?",
                     "solved": true,
                     "type": "WRITE_IN",
-                    "correctAnswer": "face"
+                    "correctAnswer": "two"
                 }
             ],
             "items": [

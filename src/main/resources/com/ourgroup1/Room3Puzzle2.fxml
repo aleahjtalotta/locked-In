@@ -18,7 +18,7 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Missing Reflection" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle Mirror Riddle" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
