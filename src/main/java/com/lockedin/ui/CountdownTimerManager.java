@@ -59,9 +59,8 @@ public final class CountdownTimerManager {
                 if (timer.getTotalTime().isZero()) {
                     timer.setTotalTime(DEFAULT_DURATION);
                 }
-                if (timer.getRemaining().isZero()) {
-                    timer.reset();
-                }
+                // Always start a fresh 15:00 for a new session entry.
+                timer.reset();
                 initialized = true;
             }
             if (!timer.isRunning() && !timer.getRemaining().isZero()) {
