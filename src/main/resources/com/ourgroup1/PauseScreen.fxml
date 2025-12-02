@@ -26,9 +26,9 @@
             <Font name="Courier New Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="264.0" layoutY="157.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Leaderboard" />
-      <Button layoutX="264.0" layoutY="200.0" mnemonicParsing="false" text="Current Score" />
-      <Button layoutX="264.0" layoutY="240.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Log out" />
-      <Button layoutX="264.0" layoutY="281.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="Quit Game" />
+      <Button layoutX="264.0" layoutY="157.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="Leaderboard" />
+      <Button layoutX="264.0" layoutY="200.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="Current Score" />
+      <Button layoutX="264.0" layoutY="240.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="Log out" />
+      <Button layoutX="264.0" layoutY="281.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" text="Quit Game" />
    </children>
 </Pane>
