@@ -40,9 +40,9 @@
             <Font size="10.0" />
          </font>
       </ToggleButton>
-      <Button fx:id="enterButton" layoutX="109.0" layoutY="356.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="41.0" text="Enter">
+      <Button fx:id="enterButton" layoutX="60.0" layoutY="352.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="110.0" text="Enter">
          <font>
-            <Font size="10.0" />
+            <Font size="12.0" />
          </font>
       </Button>
       <Label id="hintLabel" layoutX="11.0" layoutY="268.0" managed="false" prefHeight="40.0" prefWidth="150.0" textFill="#e4e1b4" visible="false" wrapText="true">
@@ -61,12 +61,17 @@
             <Font name="Courier New Bold" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="pauseButton" layoutX="546.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Pause">
+      <Button fx:id="pauseButton" layoutX="520.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" text="Pause">
          <font>
-            <Font size="10.0" />
+            <Font size="12.0" />
          </font>
       </Button>
-      <Button fx:id="leaveButton" layoutX="480.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="55.0" text="Leave" />
+      <Label fx:id="timerLabel" layoutX="520.0" layoutY="40.0" prefHeight="20.0" prefWidth="90.0" style="-fx-alignment: center;" text="15:00" textFill="#e4e1b4" textAlignment="CENTER">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="leaveButton" layoutX="420.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" text="Leave" />
       <HBox layoutX="9.0" layoutY="229.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
          <children>
             <StackPane fx:id="stack0" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
