@@ -1,6 +1,8 @@
 package com.lockedin.ui;
 
 import com.classes.Puzzle;
+import com.lockedin.ui.InventoryManager;
+import com.lockedin.ui.InventoryItem;
 import java.util.Optional;
 import java.util.function.Supplier;
 import javafx.event.ActionEvent;
@@ -11,6 +13,8 @@ import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  * Handles common wiring for puzzle screens so subclasses only supply the
@@ -29,6 +33,9 @@ public abstract class BasePuzzleController implements SceneBindable {
     private TextField answerField;
     private Label feedbackLabel;
     private Label timerLabel;
+
+    private Label itemHintOverlay;
+    private java.util.List<ImageView> inventorySlots = java.util.Collections.emptyList();
 
     protected BasePuzzleController(Runnable completionAction,
                                    Supplier<String> nextScreenSupplier,
@@ -51,6 +58,8 @@ public abstract class BasePuzzleController implements SceneBindable {
         } else {
             findButtonWithText(root, "Enter").ifPresent(button -> button.setOnAction(this::handleEnterClick));
         }
+        bindInventorySlots(root);
+        refreshInventoryUI();
         CountdownTimerManager.bindLabel(timerLabel);
         CountdownTimerManager.startIfNeeded();
         configurePauseButton(root);
@@ -87,6 +96,8 @@ public abstract class BasePuzzleController implements SceneBindable {
         if (correct) {
             puzzle.markSolved();
             ProgressSaver.recordSolved(puzzleLegacyId);
+            InventoryManager.addItemForPuzzle(puzzleLegacyId);
+            refreshInventoryUI();
             completionAction.run();
         } else {
             showFeedback("Incorrect answer, try again!");
@@ -228,5 +239,63 @@ public abstract class BasePuzzleController implements SceneBindable {
                 .map(node -> (ButtonBase) node)
                 .filter(btn -> "Leave".equals(btn.getText()))
                 .findFirst();
+    }
+
+    private void bindInventorySlots(Parent root) {
+        var slots = new java.util.ArrayList<ImageView>(6);
+        for (int i = 0; i < 6; i++) {
+            Node node = root.lookup("#image" + i);
+            if (node instanceof ImageView iv) {
+                slots.add(iv);
+            }
+        }
+        this.inventorySlots = slots;
+        ensureItemHintOverlay(root);
+    }
+
+    private void refreshInventoryUI() {
+        if (inventorySlots.isEmpty()) {
+            return;
+        }
+        var items = InventoryManager.getItems();
+        for (int i = 0; i < inventorySlots.size(); i++) {
+            ImageView slot = inventorySlots.get(i);
+            if (i < items.size()) {
+                InventoryItem item = items.get(i);
+                slot.setImage(item.image());
+                slot.setOpacity(1.0);
+                slot.setOnMouseClicked(e -> showItemHint(item));
+            } else {
+                slot.setImage(null);
+                slot.setOpacity(0.35);
+                slot.setOnMouseClicked(null);
+            }
+        }
+    }
+
+    private void ensureItemHintOverlay(Parent root) {
+        if (!(root instanceof Pane pane)) {
+            return;
+        }
+        Label label = new Label();
+        label.setVisible(false);
+        label.setManaged(false);
+        label.setStyle("-fx-background-color: rgba(0,0,0,0.75); -fx-text-fill: #e4e1b4; -fx-padding: 10; -fx-font-size: 13; -fx-border-color: #e4e1b4; -fx-border-width: 1;");
+        pane.getChildren().add(label);
+        // Center the overlay within the pane
+        label.layoutXProperty().bind(pane.widthProperty().subtract(label.widthProperty()).divide(2));
+        label.layoutYProperty().bind(pane.heightProperty().subtract(label.heightProperty()).divide(2));
+        this.itemHintOverlay = label;
+    }
+
+    private void showItemHint(InventoryItem item) {
+        if (itemHintOverlay == null) {
+            return;
+        }
+        itemHintOverlay.setText(item.name() + ":\n" + item.hint());
+        itemHintOverlay.setVisible(true);
+        itemHintOverlay.setManaged(true);
+        // Bring to front to ensure visibility
+        itemHintOverlay.toFront();
     }
 }

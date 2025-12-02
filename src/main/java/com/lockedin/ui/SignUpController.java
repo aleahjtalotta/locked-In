@@ -63,8 +63,8 @@ public class SignUpController {
 
         GameSystem system = systemOpt.get();
         PlayerList players = system.getPlayers();
-        if (players.nameExists(name) || players.emailExists(email)) {
-            errorLabel.setText("That user already exists, try again");
+        if (players.emailExists(email)) {
+            errorLabel.setText("That email already exists, try again.");
             return;
         }
 
@@ -75,7 +75,7 @@ public class SignUpController {
         try {
             newPlayer = players.createPlayer(name, email, avatarId);
         } catch (IllegalArgumentException e) {
-            errorLabel.setText("That user already exists, try again");
+            errorLabel.setText("That email already exists, try again.");
             return;
         }
 

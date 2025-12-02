@@ -29,6 +29,7 @@ public final class GameState {
         room1Complete = false;
         room2Complete = false;
         room3Complete = false;
+        InventoryManager.clear();
     }
 
     public static void completeRoom1Puzzle1() {
@@ -89,6 +90,7 @@ public final class GameState {
             return;
         }
         var solved = new java.util.HashSet<java.util.UUID>(activePlayer.getSolvedPuzzleIds());
+        var solvedLegacyIds = new java.util.ArrayList<Long>();
 
         applyIfSolved(system, solved, 301L, GameState::completeRoom1Puzzle1);
         applyIfSolved(system, solved, 302L, GameState::completeRoom1Puzzle2);
@@ -96,6 +98,14 @@ public final class GameState {
         applyIfSolved(system, solved, 304L, GameState::completeRoom2Puzzle2);
         applyIfSolved(system, solved, 305L, GameState::completeRoom3Puzzle1);
         applyIfSolved(system, solved, 306L, GameState::completeRoom3Puzzle2);
+
+        system.getPuzzles().asList().stream()
+                .filter(p -> p.getLegacyId() != null && solved.contains(p.getId()))
+                .map(com.classes.Puzzle::getLegacyId)
+                .forEach(solvedLegacyIds::add);
+
+        InventoryManager.rebuildFromSolvedLegacyIds(solvedLegacyIds);
+        InventoryManager.addFromPlayerInventory(activePlayer.getInventory().asList());
     }
 
     private static void applyIfSolved(com.classes.GameSystem system,

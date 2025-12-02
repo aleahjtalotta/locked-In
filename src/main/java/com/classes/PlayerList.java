@@ -102,9 +102,6 @@ public class PlayerList {
             throw new IllegalArgumentException("A player with that email already exists.");
         }
         String safeName = (name == null || name.isBlank()) ? "New Player" : name.trim();
-        if (nameExists(safeName)) {
-            throw new IllegalArgumentException("A player with that name already exists.");
-        }
         int nextLegacy = players.stream()
                 .map(Player::getLegacyId)
                 .filter(java.util.Objects::nonNull)
