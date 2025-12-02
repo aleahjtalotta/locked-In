@@ -36,6 +36,7 @@ public abstract class BasePuzzleController implements SceneBindable {
 
     private Label itemHintOverlay;
     private java.util.List<ImageView> inventorySlots = java.util.Collections.emptyList();
+    private Integer activeHintItemId = null;
 
     protected BasePuzzleController(Runnable completionAction,
                                    Supplier<String> nextScreenSupplier,
@@ -281,22 +282,36 @@ public abstract class BasePuzzleController implements SceneBindable {
         Label label = new Label();
         label.setVisible(false);
         label.setManaged(false);
-        label.setStyle("-fx-background-color: rgba(0,0,0,0.75); -fx-text-fill: #e4e1b4; -fx-padding: 10; -fx-font-size: 13; -fx-border-color: #e4e1b4; -fx-border-width: 1;");
+        label.setStyle("-fx-background-color: rgba(0,0,0,0.9); -fx-text-fill: #e4e1b4; -fx-padding: 12; -fx-font-size: 13; -fx-border-color: #e4e1b4; -fx-border-width: 1;");
         pane.getChildren().add(label);
         // Center the overlay within the pane
         label.layoutXProperty().bind(pane.widthProperty().subtract(label.widthProperty()).divide(2));
         label.layoutYProperty().bind(pane.heightProperty().subtract(label.heightProperty()).divide(2));
         this.itemHintOverlay = label;
+        label.setOnMouseClicked(e -> hideItemHint());
     }
 
     private void showItemHint(InventoryItem item) {
         if (itemHintOverlay == null) {
             return;
         }
+        // Toggle: hide if same item is already displayed
+        if (itemHintOverlay.isVisible() && activeHintItemId != null && activeHintItemId == item.id()) {
+            hideItemHint();
+            return;
+        }
+        activeHintItemId = item.id();
         itemHintOverlay.setText(item.name() + ":\n" + item.hint());
         itemHintOverlay.setVisible(true);
         itemHintOverlay.setManaged(true);
-        // Bring to front to ensure visibility
         itemHintOverlay.toFront();
+    }
+
+    private void hideItemHint() {
+        activeHintItemId = null;
+        if (itemHintOverlay != null) {
+            itemHintOverlay.setVisible(false);
+            itemHintOverlay.setManaged(false);
+        }
     }
 }
