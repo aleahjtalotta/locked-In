@@ -15,8 +15,8 @@
             <Image url="@images/WelcomeScreen.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nameField" layoutX="309.0" layoutY="136.0" promptText="Name" />
-      <TextField fx:id="emailField" layoutX="309.0" layoutY="187.0" promptText="Email" />
+      <TextField fx:id="nameField" layoutX="309.0" layoutY="132.0" prefHeight="28.0" prefWidth="230.0" promptText="Name" />
+      <TextField fx:id="emailField" layoutX="309.0" layoutY="183.0" prefHeight="28.0" prefWidth="230.0" promptText="Email" />
       <Button layoutX="272.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleLogin" text="Login">
          <font>
             <Font name="Courier New" size="13.0" />
