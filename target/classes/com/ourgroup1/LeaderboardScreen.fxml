@@ -26,7 +26,7 @@
             <Font name="Courier New Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="leaderboardLabel" layoutX="216.0" layoutY="159.0" prefHeight="103.0" prefWidth="205.0" text="1st: &#10;&#10;2nd: &#10;&#10;3rd: " textFill="WHITE">
+      <Label fx:id="leaderboardLabel" layoutX="251.0" layoutY="159.0" prefHeight="130.0" prefWidth="240.0" alignment="TOP_LEFT" textAlignment="LEFT" text="1st: &#10;&#10;2nd: &#10;&#10;3rd: " textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
