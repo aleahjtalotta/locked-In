@@ -1,10 +1,17 @@
 package com.lockedin.ui;
 
+import com.classes.DataLoader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class WelcomeBackController {
+
+    private static final Path DATA_DIR = Paths.get("JSON");
 
     @FXML
     private Label puzzlesLabel;
@@ -42,9 +49,15 @@ public class WelcomeBackController {
         int puzzlesSolved = player.getSolvedPuzzleIds().size();
         setText(puzzlesLabel, "Puzzles: " + puzzlesSolved);
 
-        var avg = player.getStatistics().getAverageCompletionTime();
-        setText(timeLeftLabel, "Time Left: " + formatDuration(avg));
+        Duration timeRemaining = loadSavedTimeRemaining().orElse(null);
+        setText(timeLeftLabel, "Time Left: " + formatDuration(timeRemaining));
         setText(inventoryItemsLabel, buildInventoryText());
+    }
+
+    private Optional<Duration> loadSavedTimeRemaining() {
+        DataLoader loader = new DataLoader(DATA_DIR);
+        return loader.loadGame()
+                .map(system -> system.getTimer().getRemaining());
     }
 
     private void setText(Label label, String value) {
@@ -53,7 +66,7 @@ public class WelcomeBackController {
         }
     }
 
-    private String formatDuration(java.time.Duration duration) {
+    private String formatDuration(Duration duration) {
         if (duration == null) {
             return "--:--:--";
         }
