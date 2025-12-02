@@ -123,6 +123,26 @@ public final class CountdownTimerManager {
         });
     }
 
+    /**
+     * Returns the current remaining countdown duration without mutating the timer.
+     *
+     * @return remaining duration; defaults to the configured total when the timer has not started
+     */
+    public static Duration getRemainingDuration() {
+        synchronized (LOCK) {
+            ensureTimerLoaded();
+            if (timer == null) {
+                return DEFAULT_DURATION;
+            }
+            Duration remaining = timer.getRemaining();
+            if (!initialized && remaining.isZero()) {
+                Duration total = timer.getTotalTime();
+                return total.isZero() ? DEFAULT_DURATION : total;
+            }
+            return remaining;
+        }
+    }
+
     private static void ensureTimerLoaded() {
         if (timer != null) {
             return;

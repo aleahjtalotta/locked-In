@@ -76,6 +76,7 @@ public abstract class BasePuzzleController implements SceneBindable {
             puzzleSolved = true;
             disableAnswerInput();
             showFeedback("Correct!");
+            CompletionRecorder.recordTimeIfComplete();
         }
         SceneNavigator.switchTo(event, nextScreenSupplier.get());
     }
