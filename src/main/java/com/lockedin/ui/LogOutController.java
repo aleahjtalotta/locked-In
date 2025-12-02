@@ -62,18 +62,18 @@ public class LogOutController implements SceneBindable {
     private void populateStats() {
         Optional<com.classes.Player> activeOpt = SessionContext.getActivePlayer();
         if (activeOpt.isEmpty()) {
-            setText(playerValueLabel, "Unknown");
-            setText(timeValueLabel, "--:--:--");
-            setText(pointsValueLabel, "0");
-            setText(puzzlesValueLabel, "0");
+            setText(playerValueLabel, "Player: Unknown");
+            setText(timeValueLabel, "Time: --:--:--");
+            setText(pointsValueLabel, "Points: 0");
+            setText(puzzlesValueLabel, "Puzzles: 0");
             return;
         }
         com.classes.Player player = activeOpt.get();
-        setText(playerValueLabel, player.getName());
-        setText(pointsValueLabel, String.valueOf(player.getCurrentScore()));
-        setText(puzzlesValueLabel, String.valueOf(player.getSolvedPuzzleIds().size()));
+        setText(playerValueLabel, "Player: " + player.getName());
+        setText(pointsValueLabel, "Points: " + player.getCurrentScore());
+        setText(puzzlesValueLabel, "Puzzles: " + player.getSolvedPuzzleIds().size());
         Duration avg = player.getStatistics().getAverageCompletionTime();
-        setText(timeValueLabel, formatDuration(avg));
+        setText(timeValueLabel, "Time: " + formatDuration(avg));
     }
 
     private void setText(Label label, String value) {
