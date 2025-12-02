@@ -30,7 +30,7 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="46.0" layoutY="226.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="46.0" layoutY="219.0" prefHeight="18.0" prefWidth="77.0" text="Inventory:" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -72,7 +72,7 @@
          </font>
       </Label>
       <Button fx:id="leaveButton" layoutX="420.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" text="Leave" />
-      <HBox layoutX="10.0" layoutY="244.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
+      <HBox layoutX="10.0" layoutY="237.0" prefHeight="39.0" prefWidth="150.0" style="-fx-border-color: black;">
          <children>
             <StackPane fx:id="stack0" prefHeight="31.0" prefWidth="32.0" style="-fx-border-color: white;">
                <children>
