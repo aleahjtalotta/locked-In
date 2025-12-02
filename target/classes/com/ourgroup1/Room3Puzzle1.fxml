@@ -20,12 +20,12 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54524699" height="416.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="170.0" />
-      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete the puzzle The Spill That Speaks" textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="15.0" layoutY="14.0" prefHeight="78.0" prefWidth="140.0" text="Complete The Spilled Riddle" textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="99.0" prefHeight="98.0" prefWidth="140.0" text="The fallen glass left more than water. The spill is outline reveals the cellars code." textFill="#e4e1b4" wrapText="true">
+      <Label layoutX="13.0" layoutY="83.0" prefHeight="121.0" prefWidth="150.0" text="I can crash with power or drip in peace,in endless forms,I never cease.What am I?&#10;                   " textFill="#e4e1b4" wrapText="true">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -66,7 +66,7 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <Label fx:id="timerLabel" layoutX="520.0" layoutY="40.0" prefHeight="20.0" prefWidth="90.0" style="-fx-alignment: center;" text="15:00" textFill="#e4e1b4" textAlignment="CENTER">
+      <Label fx:id="timerLabel" layoutX="520.0" layoutY="40.0" prefHeight="20.0" prefWidth="90.0" style="-fx-alignment: center;" text="15:00" textAlignment="CENTER" textFill="#e4e1b4">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
