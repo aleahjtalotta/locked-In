@@ -13,6 +13,9 @@ public class WelcomeBackController {
     private Label timeLeftLabel;
 
     @FXML
+    private Label inventoryItemsLabel;
+
+    @FXML
     private void initialize() {
         populateStats();
     }
@@ -32,6 +35,7 @@ public class WelcomeBackController {
         if (activeOpt.isEmpty()) {
             setText(puzzlesLabel, "Puzzles: 0");
             setText(timeLeftLabel, "Time Left: --:--:--");
+            setText(inventoryItemsLabel, "");
             return;
         }
         var player = activeOpt.get();
@@ -40,6 +44,7 @@ public class WelcomeBackController {
 
         var avg = player.getStatistics().getAverageCompletionTime();
         setText(timeLeftLabel, "Time Left: " + formatDuration(avg));
+        setText(inventoryItemsLabel, buildInventoryText());
     }
 
     private void setText(Label label, String value) {
@@ -57,6 +62,21 @@ public class WelcomeBackController {
         long minutes = (seconds % 3600) / 60;
         long secs = seconds % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, secs);
+    }
+
+    private String buildInventoryText() {
+        var items = InventoryManager.getItems();
+        if (items.isEmpty()) {
+            return "None";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < items.size(); i++) {
+            builder.append(items.get(i).name());
+            if (i < items.size() - 1) {
+                builder.append("\n");
+            }
+        }
+        return builder.toString();
     }
 
     private void navigateByProgress(ActionEvent event) {
